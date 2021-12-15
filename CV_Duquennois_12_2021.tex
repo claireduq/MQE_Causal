@@ -1,0 +1,268 @@
+\documentclass[10pt, oneside]{article}
+\usepackage{geometry}
+
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{geometry}
+\usepackage[english]{babel}
+\usepackage{changepage} 
+\usepackage[pdftex]{graphicx}
+\usepackage{multicol}
+\usepackage{ gensymb }
+
+\usepackage{enumitem} 
+\setlist{leftmargin=3mm}
+
+\usepackage{dcolumn}
+
+\makeatletter 
+
+\newlength\tdima
+\newcommand\tabfill[1]{%
+      \setlength\tdima{\linewidth}%
+      \addtolength\tdima{\@totalleftmargin}%
+      \addtolength\tdima{-\dimen\@curtab}%
+      \parbox[t]{\tdima}{#1\ifhmode\strut\fi}}
+
+\newcommand\mytabs{\hspace*{1cm}\=\hspace{1cm}\=\hspace{1cm}\=\hspace{1cm}\=\hspace{1cm}\=\hspace{1cm}\=\hspace{1cm}\=\hspace{1cm}\=\hspace{1cm}\=\hspace{1cm}}
+\newenvironment{mysec}[1][\mytabs]
+  {\begin{tabbing}#1\kill\ignorespaces}
+  {\end{tabbing}}
+ 
+\makeatother
+  
+\usepackage{titlesec}
+
+\newcommand{\lyxrightaddress}[1]{
+\par {\raggedleft \begin{tabular}{l}\ignorespaces
+#1
+\end{tabular}
+\vspace{1.4em}
+\par}
+}
+
+\geometry{letterpaper}
+\geometry{verbose,tmargin=1.3cm,bmargin=1.3cm,lmargin=1.2cm,rmargin=1.2cm}
+% Activate to surpress page number on first page:
+\thispagestyle{empty}
+
+\usepackage{soul}
+\usepackage{times}
+
+\usepackage{ifthen,xcolor}
+\newlength{\tabcont}
+\newcommand{\tab}[1]{%
+\settowidth{\tabcont}{#1}%
+\ifthenelse{\lengthtest{\tabcont < .25\linewidth}}%
+{\makebox[.25\linewidth][l]{#1}\ignorespaces}%
+}%
+
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, urlcolor=black}
+ 
+\urlstyle{same}
+
+\usepackage{titlesec}
+\titleformat{\subsection}
+  {\large\scshape\bfseries}
+  {\thesubsection}{1em}{}
+
+\setlength{\columnsep}{0pt}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pagenumbering{gobble}
+\includegraphics[width=0.2\textwidth]{"logopitt".png} 
+
+\textsc{University of Pittsburgh} \hfill \textsc{Department of Economics}\\
+\begin{center}
+{\large \bfseries Claire Duquennois} \\
+\end{center} 
+
+%%% CONTACT INFORMATION
+\begin{minipage}[t]{0.1\linewidth}
+\textbf{Contact \\ Information}
+\end{minipage}\hspace{0.05\linewidth}
+\begin{minipage}[t]{0.8\linewidth}
+4700 Wesley W. Posvar Hall, 230 South Bouquet Street, Pittsburgh, PA  15260\\
+\href{mailto: ced87@pitt.edu}{ced87@pitt.edu} \\
+\href{https://sites.google.com/view/claireduquennois/}{\color{blue}{https://sites.google.com/view/claireduquennois/} }\\
++1 (720) 206-9212
+\end{minipage}\vspace{5mm}
+
+%%% Academic Positions
+\begin{minipage}[t]{0.1\linewidth}
+\textbf{Academic\\ Positions}
+\end{minipage}\hspace{0.05\linewidth}
+\begin{minipage}[t]{0.8\linewidth}
+\begin{mysec} 
+\textbf{University of Pittsburgh} \>\>\>\>\>\>Assistant Professor of Economics \`2020-Ongoing\\
+\textbf{University of Colorado, Denver} \>\>\>\>\>\>Economics Instructor\`2009-2015\\
+\end{mysec}
+\end{minipage}\vspace{5mm}
+
+
+%%% PRIOR EDUCATION
+\begin{minipage}[t]{0.1\linewidth}
+\textbf{Education}
+\end{minipage}\hspace{0.05\linewidth}
+\begin{minipage}[t]{0.8\linewidth}
+\begin{mysec} 
+\textbf{University of California, Berkeley} \>\>\>\>\>\> Ph.D., Agricultural and Resource Economics \`2020\\
+\textbf{University of California, Berkeley} \>\>\>\>\> \>M.Sc. Agricultural and Resource Economics \`2017\\
+\textbf{London School of Economics} \>\>\>\>\> \>M.Sc. Urbanization and Development \`2009\\
+\textbf{University of Colorado Boulder} \>\>\>\>\>\> B.A. Economics and International Relations \`2007
+\end{mysec}
+\end{minipage}\vspace{5mm}
+
+%%% RESEARCH PAPERS
+\begin{minipage}[t]{0.1\linewidth}
+\textbf{Publications}
+\end{minipage}\hspace{0.05\linewidth}
+\begin{minipage}[t]{0.8\linewidth}
+\textbf{``Climate Change, Agricultural Production and Civil Conflict: Evidence from the Philippines.''}(with Benjamin Crost, Joseph H. Felter and Daniel I. Rees) \emph{Journal of Environmental Economics and Management,} 2018, 88, pp 379-395. \href{https://drive.google.com/file/d/1FMTwp1c-NKbPWGjVgq1cbnVxIuw-78YC/view}{\color{blue}{Available here}}. \\
+Using unique data on conflict-related incidents in the Philippines, we exploit seasonal variation in the relationship between rainfall and agricultural production to learn about the mechanism through which rainfall affects civil conflict. We find that an increase in dry-season rainfall leads to an increase in agricultural production and dampens conflict intensity. By contrast, an increase in wet-season rainfall is harmful to crops and produces more conflict. Consistent with the hypothesis that rebel groups gain strength after a bad harvest, we find that negative rainfall shocks lead to an increase in conflict incidents initiated by insurgents but not by government forces. These results suggest that the predicted shift towards wetter wet seasons and drier dry seasons will lead to more civil conflict even if annual rainfall totals remain stable. We conclude that policies aimed at mitigating the effect of climate change on agriculture could have the added benefit of reducing civil conflict.\\~\\
+\end{minipage}\vspace{4mm}
+
+
+
+%%% RESEARCH PAPERS
+\begin{minipage}[t]{0.1\linewidth}
+\textbf{Working\\Papers}
+\end{minipage}\hspace{0.05\linewidth}
+\begin{minipage}[t]{0.8\linewidth}
+\textbf{``Fictional Money, Real Costs: Impacts of Financial Salience on Disadvantaged Students''}\\ (\emph{Forthcoming, American Economic Review}) \href{https://drive.google.com/file/d/1dvB266Xkkb-ZdliLq6WqttJVpAycQvTz/view}. \\
+Disadvantaged students perform differentially worse when randomly given a financially salient mathematics exam. For students with socio-economic indicators below the national median, a 10 percentage point increase in the share of monetary themed questions depresses exam performance by 0.026 standard deviations, about 6\% of their performance gap. Using question-level data, I confirm the role of financial salience by comparing performance on monetary and highly similar non-monetary questions. Leveraging the randomized ordering of questions, I identify an effect on subsequent questions, providing evidence that the attention capture effects of poverty affect policy relevant outcomes outside of experimental settings. \\~\\
+
+
+
+\textbf{``Labor Calendars and Rural Poverty: A case study for Malawi.''}(with Alain de Janvry and Elisabeth Sadoulet). (\emph{Revise and Resubmit, Food Policy})\\
+The persistence of rural poverty in Sub-Saharan Africa is a major challenge to meet the Sustainable Development Goal on poverty eradication. Using data for Malawi, we investigate the contribution of seasonality to this phenomenon by showing that labor calendars for rural households offer similar employment opportunities as for urban households at peak planting time, but much lower opportunities throughout the rest of the year. Due to a high level of urban unemployment, structural transformation is not the current solution to rural poverty. By contrast, we explore how elements of both an agricultural and a rural transformation can help fill and smooth-out labor calendars, providing a pathway to rural poverty reduction.\\~\\
+\end{minipage}\vspace{4mm}
+
+
+%%% RESEARCH IN PROGRESS
+\begin{minipage}[t]{0.1\linewidth}
+\textbf{Research in Progress}
+\end{minipage}\hspace{0.05\linewidth}
+\begin{minipage}[t]{0.8\linewidth}
+\textbf{``Migration Opportunities and Human Capital Investments.''} (with Esther Gehrke). \\ 
+\textbf{``Work, Gender Identity Norms and Psychological Well-being.''} (with Megan Lang). \\
+\textbf{``Separation Failures: Market-Level Evidence for Labor Misallocation. ''} (with Supreet Kaur, Jeremy Magruder, Aprajit Mahajan). \\
+\textbf{``Income, Sleep and Cognition."} (with Maulik Jagnani). 
+\end{minipage}\vspace{4mm} 
+
+
+
+%%% TEACHING
+\begin{minipage}[t]{0.1\linewidth}
+\textbf{Teaching}
+\end{minipage}\hspace{0.05\linewidth}
+\begin{minipage}[t]{0.8\linewidth}
+\begin{mysec} 
+\textbf{At the University of Pittsburgh} \\
+\>\textbf{As Lecturer} \\
+\>\>Economics Ph.D, \emph{Topics  in Economics Development}  \`Fall 2021\\
+\>\>Masters in Quantitative Economics, \emph{Economic Inference from Data}  \`Fall 2020 \& 2021\\
+\>\textbf{As Guest Lecturer} \\
+\>\>Undergraduate Economics, \emph{Economics and Diversity Seminar}  \`Spring 2020\\
+\end{mysec}
+\begin{mysec} 
+\textbf{At the University of California Berkeley} \\
+\>\textbf{As Lecturer} \\
+\>\>Dept. ARE, \emph{Professional Preparation: Teaching of Environmental Economics}  \`Fall 2017 \\
+\>\>Dept. ARE, \emph{Intro. to Environmental Economics and Policy}  \` Summer 2016 \& 2017 \\
+\>\textbf{As Graduate Student Instructor} \\
+\>\>Dept. ARE, \emph{Introductory Applied Econometrics}  \` Spring and Fall 2019 \\
+\>\>\> with Jeremy Magruder and Sofia Villas-Boas\\
+\>\>Dept. ARE, \emph{Intro. to Environmental Economics and Policy}  \` Spring 2017, Fall 2016 \& 2017 \\
+\>\>\> with Peter Berck and Gordon Rausser
+\end{mysec}
+\begin{mysec} 
+\textbf{At the University of Colorado Denver- Denver and Beijing Campuses} \\
+\>\textbf{As Lecturer} \\
+\>\>Dept. Economics, \emph{Principles of Microeconomics}  \`2009-2015 \\
+\>\>Dept. Economics, \emph{Principles of Macroeconomics}  \`2010-2015\\
+\>\>Dept. Economics, \emph{Intermediate Microeconomic Theory}  \`2009-2013\\
+\>\>Dept. Economics, \emph{Intermediate Macroeconomic Theory}  \`2010-2014\\
+\>\>Dept. Economics, \emph{Economic Development: Theory and Policy}  \`2010-2015\\
+\>\>Dept. Economics, \emph{Economics of Race and Gender}  \`2012-2013\\
+\>\>Dept. Economics, \emph{Independent Study Supervisor}  
+\end{mysec}
+\end{minipage}\vspace{5mm}
+
+%%% REFEREEING
+\begin{minipage}[t]{0.1\linewidth}
+\textbf{Refereeing}
+\end{minipage}\hspace{0.05\linewidth}
+\begin{minipage}[t]{0.8\linewidth}
+ \emph{Journal of Development Economics, National Science Foundation}
+\end{minipage}\vspace{5mm}
+
+
+
+%%% GRANTS, FELLOWSHIPS, AWARDS
+\begin{minipage}[t]{0.1\linewidth}
+\textbf{Grants, Fellowships, and Awards}
+\end{minipage}\hspace{0.05\linewidth}
+\begin{minipage}[t]{0.8\linewidth}
+\begin{mysec} 
+	2018 \>\>\tabfill{Graduate Division Summer Research Grant} \\
+	2017 \>\>\tabfill{Teaching Effectiveness Award}\\
+	2017 \>\>\tabfill{Outstanding Graduate Student Instructor}
+\end{mysec} 
+\end{minipage}\vspace{5mm}
+
+
+%%% TALKS
+\begin{minipage}[t]{0.1\linewidth}
+\textbf{Talks}
+\end{minipage}\hspace{0.05\linewidth}
+\begin{minipage}[t]{0.8\linewidth}
+\begin{mysec} 
+	2022\>\> \tabfill{Scheduled: FAO Technical Network on Poverty Analysis; IFPRI Malawi  } \\
+	2021\>\> \tabfill{ NBER Children's Conference; MIT Applied Microeconomics; Univ. of Colorado Denver} \\
+	2020\>\> \tabfill{Seattle Univ: Department Seminar; Univ. of Pittsburgh: Department Seminar; Pacific  Development Conference; Psychology and Economics of Poverty Convening (canceled due to COVID-19); Discrimination and Disparities Virtual Seminar } \\
+	2019\>\> \tabfill{Psychology and Economics of Poverty Convening; UC Berkeley: ARE Department Seminar \& Development Lunch Series} \\
+	2018\>\> \tabfill{UC Berkeley: WEB Conference,  Development Lunch Series} \\
+\end{mysec} 
+\end{minipage}\vspace{4mm}
+
+
+%%% ACTIVITIES
+\begin{minipage}[t]{0.1\linewidth}
+\textbf{Activities}
+\end{minipage}\hspace{0.05\linewidth}
+\begin{minipage}[t]{0.8\linewidth}
+\begin{mysec}
+2021-2022 \>\> Undergraduate committee member, Univ. of Pittsburgh\\
+2021 \>\> Hiring committee member, Univ. of Pittsburgh\\
+2020 \>\> Labor and development seminar organizer, Univ. of Pittsburgh\\
+2020 \>\> Labor and development brownbag organizer, Univ. of Pittsburgh\\
+2019 \>\> Ph.D. Admissions committee member, UC Berkeley Agricultural and Resource Economics\\
+
+\end{mysec}
+\end{minipage}\vspace{4mm}
+
+%%% LANGUAGES
+\begin{minipage}[t]{0.1\linewidth}
+\textbf{Languages}
+\end{minipage}\hspace{0.05\linewidth}
+\begin{minipage}[t]{0.8\linewidth}
+English (native), French (native), Mandarin (intermediate).
+\end{minipage}\vspace{5mm}
+
+\end{document}
+
+%%% ANY OTHER ITEMS
+\begin{minipage}[t]{0.1\linewidth}
+\textbf{}
+\end{minipage}\hspace{0.05\linewidth}
+\hspace{0.05\linewidth}
+\begin{minipage}[t]{0.8\linewidth}
+
+
+\end{minipage}
+
