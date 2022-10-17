@@ -1,0 +1,935 @@
+---
+title: "MQE: Economic Inference from Data:  \nModule 4: Randomized Control Trials"
+author: "Claire Duquennois"
+output:
+  beamer_presentation: default
+  pdf_document: default
+  slidy_presentation: default
+---
+
+
+```{r setup, include=FALSE}
+library(MASS)
+library(lfe)
+library(stargazer)
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(fig.width=9, fig.height=5)
+options(width=80)
+knitr::opts_chunk$set(echo = TRUE,out.width = 40, tidy=T, tidy.opts=list(width.cutoff=60))
+
+```
+
+
+```{r wrap-hook, echo=FALSE}
+library(knitr)
+hook_output = knit_hooks$get('output')
+knit_hooks$set(output = function(x, options) {
+  # this hook is used only when the linewidth option is not NULL
+  if (!is.null(n <- options$linewidth)) {
+    x = knitr:::split_lines(x)
+    # any lines wider than n should be wrapped
+    if (any(nchar(x) > n)) x = strwrap(x, width = n)
+    x = paste(x, collapse = '\n')
+  }
+  hook_output(x, options)
+})
+```
+
+
+
+## The Experimental Ideal:
+
+Getting causal effects is HARD! 
+
+
+## The Experimental Ideal:
+
+Getting causal effects is HARD! 
+
+
+So where do we go from here? 
+
+Randomized control trials (RCT's) aka the "Gold standard" of experimental designs
+
+
+
+## Random assignment and the selection problem
+
+The idea: use random assignment to remove selection bias
+
+Suppose a constant treatment effect: $Y_i(1)-Y_i(0)=\tau$. For observation $i$ we have that
+
+
+$$
+\begin{split}
+Y_i &=Y_i(0)+\tau D_i\\
+Y_i &=E[Y_i(0)]+\tau D_i+Y_i(0)-E[Y_i(0)]\\
+Y_i &=\alpha+\tau D_i+\eta_i
+\end{split}
+$$
+
+where $\alpha=E[Y_i(0)]$, $\tau=Y_i(1)-Y_i(0)$, and $\eta_i$ is the random part of $Y_i(0)$ since $\eta_i=Y_i(0)-E[Y_i(0)]$. 
+
+## Random assignment and the selection problem
+
+The expected outcomes for someone with treatment $(D_i=1)$, and without treatment $(D_i=0)$ are given by
+
+
+
+$$
+\begin{split}
+E[Y_i(1)] &=\alpha +\tau +E[\eta_i|D_i=1]\\
+E[Y_i(0)] &=\alpha +E[\eta_i|D_i=0]\\
+\end{split}
+$$
+so that we can break down the difference between these outcomes as
+$$
+E[Y_i(1)]-E[Y_i(0)] = 
+    \underbrace{\tau}_\text{treatment effect} + \underbrace{E[\eta_i|D_i=1]-E[\eta_i|D_i=0]}_\text{selection bias}.
+$$ 
+
+## Random assignment and the selection problem
+
+Selection bias will bias our estimate of $\tau$ if those who select into treatment have a different expected outcome compared to those who do not select into treatment:
+$$
+E[Y_i(0)|D_i=1]\neq E[Y_i(0)|D_i=0].
+$$ 
+
+This is because treatment is not random:  $\{Y_i(1), Y_i(0)\}\not\perp  D_i$. 
+
+## Random assignment and the selection problem
+
+There is no reason to believe that those who select into treatment have the same expected outcome as those who do not, if they were to be treated, that is to say, it is possible (and even likely) that  
+
+$$
+\underbrace{E[Y_i(0)|D_i=0]}_\text{observed}\neq  \underbrace{E[Y_i(0)|D_i=1]}_\text{unobserved}\neq E[Y_i(0)]
+$$
+
+
+## Random assignment and the selection problem
+
+The conditional independence assumption allows us to control for selection bias by conditioning on **observed characteristics**...
+
+...  **unobserved characteristics** that we cannot control for will often also bias our estimates. 
+
+Random assignment solves all of these selection bias problems.
+
+## Random assignment and the selection problem
+
+
+Random assignment makes $D_i$ independent of potential outcomes: 
+
+$$
+\{Y_i(1), Y_i(0)\}\perp  D_i.
+$$
+
+
+With random assignment, we know that in expectation, 
+
+$$
+\underbrace{E[Y_i(0)|D_i=0]}_\text{observed}=  \underbrace{E[Y_i(0)|D_i=1]}_\text{unobserved}= E[Y_i(0)]
+$$
+\begin{center}
+and
+\end{center}
+$$
+\underbrace{E[Y_i(1)|D_i=0]}_\text{unobserved}= \underbrace{E[Y_i(1)|D_i=1]}_\text{observed}= E[Y_i(1)]
+$$
+
+## Random assignment and the selection problem
+
+Thus, the causal **Average Treatment Effect (ATE)**, $\bar{\tau}$, is  
+\footnotesize
+$$
+\begin{aligned}
+\bar{\tau}&=E[Y_i(1)]-E[Y_i(0)]=\underbrace{E[Y_i(1)|D_i=1]}_\text{observed}-\underbrace{E[Y_i(0)|D_i=0]}_\text{observed}\\
+&=E[Y_i|D_i=1]-E[Y_i|D_i=0].
+\end{aligned}
+$$
+\normalsize
+
+and we can easily estimate  $\bar{\tau}$, by taking the difference between the average value of $Y_i$ in the treatment group and the average value of $Y_i$ in the control group. 
+
+## RCT estimation
+
+RCT regressions are about as straightforward as it gets.
+
+As modeled above, you can estimate 
+
+$$
+Y_i=\alpha+\tau D_i+\eta_i
+$$
+
+where $\alpha=E[Y_i(0)]$, $\tau=Y_i(1)-Y_i(0)$, and $\eta_i$ is the random error term.
+
+
+## RCT estimation
+
+The treatment effect will be given by 
+$$
+E[Y_i(1)]-E[Y_i(0)] = 
+    \underbrace{\tau}_\text{treatment effect} + \underbrace{E[\eta_i|D_i=1]-E[\eta_i|D_i=0]}_\text{selection bias}.
+$$
+With proper randomization,
+
+$$
+E[\eta_i|D_i=1]= E[\eta_i|D_i=0]
+$$ 
+so there is no selection bias giving us an unbiased estimate of $\tau$. 
+
+## RCT Simulation
+
+I am a principal of a large school and I want to evaluate how access to small reading groups with a paraprofessional helps improve 4th grade test scores.
+
+I take all the 4th graders and randomly assign 30 percent of them to treatment (participating in the reading groups). The control group continued class as normal. 
+
+## RCT Simulation
+
+I generate a set of simulated data: 
+\tiny
+```{r simrct1, results = "asis", echo=TRUE}
+
+set.seed(1999)
+
+scores5<-as.data.frame(rep(c(1,2,3,4,5,6,7,8,9,10),times=30))
+names(scores5)<-c("class")
+scores5 <- fastDummies::dummy_cols(scores5, select_columns = "class")
+scores5$error<-rnorm(300, mean=0, sd=10)
+
+#treatment indicator
+scores5$treat<-rbinom(300,1,0.3)
+
+#mean reading score
+alpha=75
+
+#treatment effect
+tau=10
+
+#the data generating process: notice the class does affect a student's score
+scores5$read4<-(alpha+tau*scores5$treat+scores5$error
+                +4*scores5$class_1+(-6)*scores5$class_2+8*scores5$class_3
+                +(-4)*scores5$class_4+7*scores5$class_5+(-2)*scores5$class_6
+                +5*scores5$class_7+(-10)*scores5$class_8
+                +8*scores5$class_9+4*scores5$class_10)
+```
+
+## RCT Simulation
+
+\tiny
+```{r simrct1a, results = "asis", echo=TRUE}
+rct1<-felm(read4~treat,scores5)
+stargazer(rct1, type="latex", header=FALSE)
+```
+
+\normalsize
+Because treatment was randomized, even though the class the student is in does affect their score,  we recover an unbiased estimate of the true treatment effect ($\tau=10$).
+
+
+## RCT Key assumption
+
+The key assumption is that \textbf{there is no selection into treatment} so
+$$
+E[\eta_i|D_i=1]= E[\eta_i|D_i=0].
+$$
+ 
+ 
+- we cannot test this assumption directly
+
+- BUT we can  do a **balance test**: we check to see if observable characteristics among treatment and control groups are the same on average.
+
+## RCT Balance tests
+
+- can be presented as a table of the following regressions $X_i=\beta_0+\beta_1D_i+\epsilon_i$ where $X_i$ is a vector of characteristics being tested. 
+ 
+- are often presented as simple t-test tables testing the difference in means between the treatment and control groups.
+ 
+
+
+
+## RCT Balance Tests
+
+Balance test variables should be 
+
+- characteristics at baseline, prior to treatment,
+
+- or characteristics that would be unaffected by treatment.
+
+**Why?**
+
+Select good variables to include in our balance test. 
+
+$\Rightarrow$ TopHat
+
+## RCT Balance Tests
+
+Balance tests are often run on many variables: 
+
+- some may come up with a statistically significant difference by simple random chance 
+
+- if many are significantly different, this is a red flag that the key assumption does not hold 
+
+- If an unbalanced variable is of particular concern you may want to control for it and/or keep it in mind in your interpretation of results  
+
+## RCT Simulation
+
+
+Suppose the principal is concerned that there were some problems with the randomization.
+
+She has access to some additional data. She adds it to her data set and does a balance test. 
+
+
+## RCT Simulation
+\tiny
+```{r simrct2, echo=TRUE}
+
+#simulating covariates
+
+#third grade test scores. Notice I am generateing simulated academic scores 
+#that have a correlation to their "untreated" performance in 4th grade reading
+scores5$read3<-alpha+scores5$error+rnorm(300,3,2)
+scores5$math3<-alpha+scores5$error+rnorm(300,15,2)
+scores5$hist3<-alpha+scores5$error+rnorm(300,5,2)
+scores5$pe3<-rnorm(300,90,2)
+
+#other 4th grade test scores: notice I am generating scores that correlated 
+#with their subject performance in 3rd grade. Also, the treatment is 
+#affecting other 4th grade academic scores
+scores5$hist4<-4*scores5$treat+scores5$hist3+rnorm(300,-2,2)
+scores5$pe4<-scores5$pe3+rnorm(300,0,5)
+scores5$math4<-2*scores5$treat+scores5$math3+rnorm(300,-5,3)
+
+#student characteristics
+scores5$female<-rbinom(300,1,0.5)
+scores5$age<-runif(300,9,10)
+scores5$height<-rnorm(300,1.3,0.2)
+
+scoresmini<-scores5[,c("treat", "read4", "read3", "math3","hist3","pe3","hist4","pe4","math4","female", "age", "height")]
+knitr::kable(head(scoresmini))
+```
+
+## RCT Simulation
+\tiny
+```{r simrct2a, echo=TRUE}
+#as you can see, we have simulated some complex interrelationships between theses variables.
+cor(scoresmini)
+```
+
+## RCT Simulation
+\tiny
+```{r simrct2b, echo=TRUE}
+
+namevec<-names(scores5)
+#selecting variables to test
+namevec<-namevec[!namevec%in%c("class","error", "treat","read4")]
+
+#generating the syntax that will go in the lm function with a loop
+allModelsList <- lapply(paste(namevec,"~treat"), as.formula)
+
+#running all of the balance tests with a loop
+allModelsResults <- lapply(allModelsList, function(x) lm(x, scores5))  
+```
+
+
+
+## RCT Simulation
+\tiny
+```{r simrct2c, echo=TRUE, results="asis"}
+
+stargazer(allModelsResults[[1]],allModelsResults[[2]],allModelsResults[[3]],
+          allModelsResults[[4]], allModelsResults[[5]], type="latex", header=FALSE)
+```
+## RCT Simulation
+\tiny
+```{r simrct2d, echo=TRUE, results="asis"}
+
+stargazer(allModelsResults[[6]],allModelsResults[[7]],allModelsResults[[8]],
+          allModelsResults[[9]], allModelsResults[[10]], type="latex", header=FALSE)
+```
+## RCT Simulation
+\tiny
+```{r simrct2e, echo=TRUE, results="asis"}
+
+stargazer(allModelsResults[[11]],allModelsResults[[12]],allModelsResults[[13]],
+          allModelsResults[[14]], allModelsResults[[15]], type="latex", header=FALSE)
+```
+## RCT Simulation
+\tiny
+```{r simrct2f, echo=TRUE, results="asis"}
+
+stargazer(allModelsResults[[16]],allModelsResults[[17]],allModelsResults[[18]],
+          allModelsResults[[19]], allModelsResults[[20]], type="latex", header=FALSE)
+
+```
+
+
+## RCT Simulation
+
+Our data seems reasonably balanced:
+
+- a few come out as statistically significant: class_6 and class_10 at 10\%, 
+
+- pe_3 at 5\%.
+
+This is the result of random chance as discussed above (we know this for certain since we modeled the data). 
+
+If you had not modeled the data, would you be concerned? 
+
+## RCT Simulation
+
+- pe_3:
+
+  - was determined prior to treatment
+  
+  - is not generally a variable we would expect to correlated with reading scores
+
+  - should reassure you that it is the result of random chance.
+
+- Class_6 and Class_10 would be more concerning:
+
+  - it might signal that some teachers were better able to get their students into the small groups 
+  - but the coefficients are not large, nor are they highly significant 
+  
+  - should reassure you that they are the result of random chance.
+  
+If I change the seed in the simulation (try 5000), some other variables will likely be significant due to random chance. 
+  
+## Controls in RCT specifications
+
+Because the treatment was randomized, estimating
+
+$$
+Y_i=\alpha+\tau D_i+\epsilon
+$$
+
+- gives us an unbiased estimate of $\tau$ 
+
+- controlling for omitted variables is not necessary
+
+That said, it is common to see specifications in RCT projects that include a vector of control variables. **Why?**
+ 
+## Controls in RCT specifications
+
+Because the treatment was randomized, estimating
+
+$$
+Y_i=\alpha+\tau D_i+\epsilon
+$$
+
+- gives us an unbiased estimate of $\tau$ 
+
+- controlling for omitted variables is not necessary
+
+That said, it is common to see specifications in RCT projects that include a vector of control variables. Why?
+
+- verify that estimated coefficient does not change significantly when controls are added 
+
+- adding controls can make our estimates more precise and shrink the standard errors. 
+
+
+## Controls in RCT specifications
+
+\tiny
+```{r controls, echo=TRUE, results="asis"}
+
+rct1<-felm(read4~treat,scores5)
+rct2<-felm(read4~treat+read3+female+pe3+math3+hist3,scores5)
+rct3<-felm(read4~treat+read3+female+pe3+math3+hist3|class,scores5)
+```
+
+## Controls in RCT specifications
+
+\tiny
+```{r controlsa, echo=TRUE, results="asis"}
+stargazer(rct1, rct2, rct3, type="latex", header=FALSE, omit.stat = "all",
+                 add.lines = list(c("Class FE:", "No", "No", "Yes")),
+          no.space=TRUE)
+```
+ 
+## Controls in RCT specifications
+
+ Why does adding control variables add precision? Think about the formula for the variance/standard error of our estimator (see Wooldridge Ch.3):
+ 
+ $$
+ \begin{aligned}
+ Var(\hat{\beta_1})&=\frac{\sigma^2}{SST_x(1-R^2_j)}\\
+ se(\hat{\beta}_1)&=\frac{\hat{\sigma}}{\sqrt{SST_x(1-R^2_j)}}\\
+ \hat{\sigma}^2&=\frac{1}{n-k-1}\sum^n_i\hat{u}^2_i
+ \end{aligned}
+ $$
+ 
+If we include more x's in our regression,
+
+- we can reduce $\hat{u}^2_1$, i.e. the unexplained variation in $Y$ goes down 
+
+- $\Rightarrow se(\hat{\beta_j})$ decreases 
+
+- $\Rightarrow \hat{\beta}$ can be estimated more precisely. 
+
+
+## Heterogeneity
+
+Suppose you are interested in heterogenous effects on Y of treatment D based on characteristic X. Write the estimating equation you should use (you can use B instead of $\beta$)
+
+$\Rightarrow$ Top Hat
+
+
+## Heterogeneity
+
+We can measure heterogeneity of the program effects for individuals with specific characteristics by interacting these characteristics with the treatment variable. 
+
+
+$$
+Y_i=\beta_0+\beta_1 D_i+ \beta_2 x_i +\beta_3 D_i\times x_i+\epsilon,
+$$
+
+Example: 
+
+- $x_i$ could be an indicator variable for being female
+
+- $\beta_3$ gives us the differential effect of the treatment for females relative to non-females. 
+
+## Simulation: 
+
+I start by searching for heterogeneity by gender using our existing simulation data. 
+
+\tiny
+```{r heterogeneity, results="asis", echo=TRUE}
+
+rct1<-felm(read4~treat,scores5)
+rcthet1<-felm(read4~treat+female+female*treat,scores5)
+stargazer(rct1,rcthet1, type="latex", header=FALSE,  omit.stat="ser")
+```
+
+
+## Simulation: 
+I now will simulate a DGP with heterogeneous treatment effects by gender
+
+\tiny
+```{r heterogeneity2, results="asis",echo=TRUE, linewidth=60}
+
+#the second data generating process 
+nf<-20
+scores5$read4het1<-(nf*scores5$treat+(-20)*scores5$female*scores5$treat+
+                    alpha+scores5$error
+                    +4*scores5$class_1+(-6)*scores5$class_2
+                    +8*scores5$class_3+(-4)*scores5$class_4+7*scores5$class_5
+                    +(-2)*scores5$class_6+5*scores5$class_7+(-10)*scores5$class_8
+                    +8*scores5$class_9+4*scores5$class_10)
+
+rct2<-felm(read4het1~treat,scores5)
+rcthet2<-felm(read4het1~treat+female+female*treat,scores5)
+
+#the third data generating process 
+nf2<-30
+scores5$read4het2<-(nf2*scores5$treat+(-40)*scores5$female*scores5$treat+
+                     alpha+scores5$error+4*scores5$class_1+(-6)*scores5$class_2
+                    +8*scores5$class_3+(-4)*scores5$class_4+7*scores5$class_5
+                    +(-2)*scores5$class_6+5*scores5$class_7+(-10)*scores5$class_8
+                    +8*scores5$class_9+4*scores5$class_10)
+
+rct3<-felm(read4het2~treat,scores5)
+rcthet3<-felm(read4het2~treat+female+female*treat,scores5)
+```
+
+## Simulation: 
+
+\tiny
+```{r heterogeneity3, results="asis",echo=TRUE}
+stargazer(rct1,rcthet1,rct2,rcthet2,rct3,rcthet3, type="latex",header=FALSE, omit.stat="ser")
+```
+
+## Simulation: 
+
+DGP 1, 2 and 3 return similar estimates of the ATE (average treatment effect). 
+
+This ATE hides important heterogeneity that is quite different for DGP 1, 2 and 3:
+
+- No heterogeneity in DGP 1
+
+- A positive effect on non-females and no effect on females in DGP 2
+
+- A positive effect on non-females and negative effect on females in DGP 3
+
+
+## Alphabet Soup!:IV's and RCT's from ITT to LATE
+
+In RCT's, it is important to carefully define "Treatment".
+
+Recall the blood pressure medication example: What is the "Treatment"?
+
+- Is the treatment **taking the medication**?
+
+- Is the treatment being **instructed to take the medication**?
+
+With non-compliance, the estimated treatment effect will depend on how we define treatment. 
+
+## Alphabet Soup!:IV's and RCT's from ITT to LATE
+
+If I am interested in estimating the effects of actually taking the medication:
+
+- $\tau=E[Y_i(1)]-E[Y_i(0)]$ will not estimate the treatment effect. 
+
+**Why?**
+
+## Alphabet Soup!:IV's and RCT's from ITT to LATE
+
+If I am interested in estimating the effects of actually taking the medication:
+
+- $\tau=E[Y_i(1)]-E[Y_i(0)]$ will not estimate the treatment effect. 
+
+**Why?**
+
+- $\tau$ is an estimate of the **intent-to-treat (ITT)** 
+
+- it compares the outcomes of those I **intended** to give the medication to, to those I did not intend to give the medication to. 
+
+- This is the estimated effect of being **told** to take the medication. 
+
+
+## Alphabet Soup!:IV's and RCT's from ITT to LATE
+
+
+With non-complieres, the **ITT** estimate $\neq$ **LATE** estimate.
+
+- The ITT: the effect of being in the treated group.
+
+- The LATE:  the effect of the treatment on those who were pushed into treatment by our intervention, ie the compliers. 
+
+We can recover the LATE estimates using an IV estimation where being treated is instrumented  by being in the treatment group (see the IV Module Notes).  
+
+## Alphabet Soup!:IV's and RCT's from ITT to LATE
+
+But what do we care about? The ITT or the LATE? 
+
+## Alphabet Soup!:IV's and RCT's from ITT to LATE
+
+But what do we care about? The ITT or the LATE? 
+
+
+It depends.  
+
+## ITT and LATE: Contraceptive choice
+
+
+:::::: {.columns}
+
+::: {.column width="40%" data-latex="{0.55\textwidth}"}
+
+\small
+
+
+- Which value do you care about if you are the condom manufacturer?
+
+- Which value do you care about if you are a practitioner (doctor, public health advisor ...)?
+
+:::
+
+
+::: {.column width="60%" data-latex="{0.4\textwidth}"}
+
+ ![...]("images\contraceptivefailure.png")
+
+:::
+::::::
+
+## The TOT (Treatment on the Treated)
+
+You may also run into estimates refered to as the TOT (Treatment on the treated). 
+
+The TOT is a weighted average of effects on always-takers and compliers.
+
+If there are no always-takers (ie no controls are treated), the LATE=TOT.
+
+
+
+
+
+
+
+
+
+
+
+
+## RCT Challenges: Spillovers! SUTVA
+
+- Key RCT assumption: random assignment of D
+
+- Implicit RCT assumption: \textit{stable unit treatment value assumption} or \textit{SUTVA}.
+
+**SUTVA: \textit{no spillovers.} Unit $i$'s potential outcomes are unaffected by whether unit $j$ is treated or untreated.** 
+
+SUTVA tends to be violated whenever the treatment, $D_i$ involves spillovers between groups, aka some type of externality.
+
+
+## RCT Challenges: Spillovers! SUTVA
+
+- Treatment: receiving a measles vaccination 
+
+- Outcome: getting the measles
+
+**Does SUTVA hold?** 
+
+## RCT Challenges: Spillovers! SUTVA
+
+- Treatment: receiving a measles vaccination 
+
+- Outcome: getting the measles
+
+**Does SUTVA hold?** 
+
+- $Y_i(D_i)$ depends on all of the $D$'s, not just $D_i$. 
+
+- Example: if all the units are vaccinated, except $i$ then $Y_i(1)-Y_i(0)=0$: no treatment effect. (Since there is no one for $i$ to catch the measles from). 
+
+## RCT Challenges: Spillovers! SUTVA
+
+
+**What would be a potential SUTVA violation concern in our small reading group simulation?**
+
+**What would be a potential SUTVA violation concern in the migration paper?**
+
+
+## RCT Challenges: Attrition Bias
+
+What happens to your estimates if some of the people in your experiment vanish before you can collect their endline outcome data?
+
+- If attrition is completely random, then it is not really a problem. Your sample size will be smaller but it will not bias your results.
+
+But what will happen if attrition is a function of treatment status?
+
+- RCT estimates are likely biased when attrition correlates with treatment status.
+
+
+## Attrition Bias Simulation
+
+To see why, lets return to our simulation of the reading group RCT.
+
+We know that the true treatment effect is $\tau=10$. 
+
+Suppose there are missing scores: some students did not show up on test day.
+
+The students who do not show up are the students who know they will do poorly on the reading exam. 
+
+
+## Attrition Bias Simulation
+\tiny
+```{r missing, , results="asis", echo=TRUE}
+
+scores5$read4miss<-NA
+scores5$read4miss[scores5$read4>75]<-scores5$read4[scores5$read4>75]
+
+rctmiss<-felm(read4miss~treat,scores5)
+
+stargazer(rctmiss,  type="latex", header=FALSE, omit.stat = "all")
+```
+\normalsize
+Treatment:
+
+- shifted the distribution upwards by 10 points
+
+- makes the "observed" left tale longer which biases our estimate downwards 
+
+## Addressing Attrition Bias
+
+Best option:
+
+- Minimize attrition throughout the data collection process.
+
+If you are still faced with attrition:
+
+- check to see if there the attrition is similar across treatment and control groups 
+
+- check if attrition correlates with observables
+
+If you have uneven problematic attrition:
+
+- it is sometimes possible to bound the extent of the bias by making hypothetical assumptions about who is dropping out of control and treatment.
+
+
+## Attrition Bias Simulation
+
+If the principal knows that students who will score below 75 don't take the test:
+
+- she can recover the true treatment effect by excluding the students who became observed because of the treatment from the estimation
+
+Of course it is unlikely that in the real world, a researcher would know the exact model of attrition and how treatment affects attrition (ie the treatment effect in this case).
+
+
+## Attrition Bias Simulation
+\tiny
+```{r missinga, results="asis", echo=TRUE}
+
+scores5$obsnew<-0
+scores5$obsnew[scores5$treat==1 & scores5$read4>75 & scores5$read4<85]<-1
+
+rctmiss2<-felm(read4miss~treat,scores5[scores5$obsnew==0,])
+
+
+stargazer(rctmiss, rctmiss2, type="latex", header=FALSE)
+```
+
+
+
+
+## RCT advantages:
+
+- Randomized Control trials: huge advantages for causal inference. 
+
+- RCTs are relatively easy to explain to policy makers, and even the general public $\Rightarrow$ important advantages when it comes to communicating research results to the wider world.
+
+- RCT have become a widely used tool in economics and the social sciences today.
+
+- The 2019 Nobel Laureat in Economics was give to Abhijit Banerjee, Esther Duflo and Michael Kremer for their role in bringing this experimental approach to economic research (particularly in development economics). 
+
+## RCT limitations:
+
+RCT's can be quite costly to conduct and the logistics of running an RCT are quite demanding.
+
+Many very important social and economic questions where running an RCT would simply not be ethical.
+
+- the effects of juvenile incarceration on human capital and future crime is clearly a question of first order importance but randomization would clearly be unethical.
+
+Conceptual limitations: 
+
+- External validity
+
+- Experimenter demand effects
+
+- General equilibrium effects
+
+## External validity
+
+Would you get the same results in a different context?
+
+- RCT's  are often conducted in a limited geographical area with a relatively small sample size.
+
+Would you get the same results if the program were implemented on a larger scale?
+
+- RCT's are often implemented with a lot more care and resources more then the large scale policy they are testing. This could change the effects. 
+
+
+## Experimenter demand effects
+
+Could subjects be behaving differently then they normally would because of the experimental context they are in? 
+
+- **Hawthorne effects:** the idea that individuals might modify their behavior simply because they are being observed.
+
+- a particular concern, if they would affect the treatment and control differently. 
+
+Are subjects changeing their behavior in order to conform to what they believe the researcher expects of them?
+
+- This is a particularly important question when experiments are incentivized and a subject could perceive that they would receive more rewards for certain types of behaviors. 
+
+## Experimenter demand effects
+
+Generally advisable to:
+
+- Minimize the salience of the evaluation
+
+- Ensure the experimental experience is the same for both the treated and control groups. 
+
+## General equilibrium effects
+
+Many of the policies we are interested in in economics affect variables that are not determined by a single individual's choices (eg prices).
+
+Most RCT's are small: unlikely to affect market level variables such as prices.  
+
+If the intervention were implemented at scale, could changes in market level variables change  estimated effects? 
+
+
+## Fishing for Stars
+
+Other research issues (not exclusive to RCT's): 
+
+- Publication Bias
+
+- P-Hacking
+
+- Cherry-Picking
+
+- The push for research transparency
+
+Note: these points are most relevant for academic research, but highlight the need to understand the incentives behind any data analysis project. 
+
+## Publication Bias
+
+- Common problem in many scientific fields. 
+
+- Papers that report null-results (ie, no statistically significant effect was detected) are much more difficult to publish
+
+- These papers may be left unwritten leading to the "file drawer" problem: 
+
+    - null-results are unobserved $\Rightarrow$ an incomplete picture to the answer to important questions 
+    
+    -  wasted effort as researchers re-do analysis that has already been done but was never publicized.  
+
+## Publication Bias
+
+\centering ![]("images\mervis.png"){width=65%}
+
+
+## P-Hacking
+
+When choosing between different (valid) ways to specify a regression, researchers will often favor the most "publishable" results. 
+
+\centering ![ ]("images\phackingcomic.png"){width=40%}
+
+## P-Hacking
+
+This leads to an excess mass of papers reporting p-values that are right under the "significance" (z=1.96) threshold.
+
+![From Brodeur et al.2016  ]("images\brodeuretal.png"){width=65%}
+
+## P-Hacking
+
+
+![ ]("images\pvalpolsci.png"){width=85%}
+
+## Cherry-Picking
+
+
+ ![]("images\significant_comic1.png")
+
+## Cherry-Picking
+ ![]("images\significant_comic2.png")
+ 
+## Cherry-Picking
+ ![]("images\significant_comic3.png")
+ 
+## Cherry-Picking
+ ![]("images\significant_comic4.png")
+ 
+## Cherry-Picking
+
+When researchers have incurred large costs on a project, there are very strong incentives to find significant effects. 
+
+One way to increase the chance of finding significant effects, is to collect data on a huge number of outcome variables. 
+
+Without insight into the actual research process, it then becomes difficult to tell if the researcher found what their hypothesis predicted or if they simply ran many many regressions. 
+
+
+## Efforts towards research transparency
+
+There is a push to address these issues in economics, particularly in the RCT field.
+
+- **Public Data and Code:** Increasingly a journal requirement
+
+- **Multiple inference adjusted standard errors:**  report adjusted standard errors to compensate for the number of inferences being made, if there are many outcomes. 
+
+- **Pre-analysis plans:** a publicly filed document detailing the the questions, methods, and estimations a researcher plans to implement before they actually receive any data. 
+
+- **Pre-result publication:** Some journals are starting to accept articles based on the pre-analysis plan, before seeing any results.
+
+## Efforts towards research transparency
+
+ ![]("images\PAP.png")
+ 
+
+
+
+
+
+
+
+
