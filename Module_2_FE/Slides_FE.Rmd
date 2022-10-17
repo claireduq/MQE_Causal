@@ -1,0 +1,701 @@
+---
+title: "MQE: Economic Inference from Data:  \nModule 2: Fixed Effects"
+author: "Claire Duquennois"
+date: "6/9/2020"
+output:
+  beamer_presentation: default
+  pdf_document: default
+  slidy_presentation: default
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(fig.width=9, fig.height=5) 
+```
+
+## Module 2: Fixed Effects
+
+- Data Structures
+
+- Fixed Effects
+
+- A simulation
+
+- Fixed effects as demeaned data
+
+- Thinking about variation
+
+- Example: Crime and Unemployment
+
+## Controlling for unobservables
+
+We saw with AGG(2006) that even with many covariates, unobservables are a problem. 
+
+Certain types of data allow us to control for more of these unobservables by using fixed effects.
+
+## Example:
+
+$$
+Income_i=\beta_0+\beta_1 Schooling_i+\epsilon
+$$
+
+$\beta_1$ cannot be interpreted as causal: big OVB problems, even with lots of control variables. Unlikely to have good measures of 'ability', 'enthusiasm', 'grit'...
+
+What if I can control for unchanging individual characteristics?
+
+## Data Structures: Cross-Section
+
+
+|Individual    |Income      |Schooling   |Female    |
+|--------------|------------|------------|----------|
+|1	           |22000       |12          |1         |
+|2	           |57000       |16          |1         |
+|...	         |...         |...         |...       |
+|N	           |15000       |12          |0         |
+
+Each individual is observed once.
+
+## Data Structures: Panel Data
+
+
+|Individual    |Income      |Schooling   |Female  |Year   |
+|--------------|------------|------------|--------|-------|
+|1	           |22000       |12          |1       |2001   |
+|1	           |23000       |12          |1       |2002   |
+|2	           |57000       |16          |1       |2001   |
+|2	           |63000       |17          |1       |2002   |
+|...	         |...         |...         |...     |...    |
+|N	           |15000       |12          |0       |2001   |
+|N	           |13000       |12          |0       |2002   |
+
+Each individual is observed multiple times. 
+
+
+## Data Structures: Panel Data Subscripts
+
+Unique observations must be identified by both the individual and time dimensions... notice the new subscripts: 
+
+$$
+Income_{it}=\beta_0+\beta_1 Schooling_{it}+\epsilon.
+$$
+
+## Data Structures: Panel Data
+
+Panel Data can be
+
+- **balanced**: same number of observations for each unit 
+
+- **unbalanced**: some units are observed more often then others (probably good to look into why)
+
+## Review: Indicator (Dummy) Variables
+
+If I have multiple Female observation and multiple non-female observations I can control for the effect of being female on wages.  
+
+If I have multiple Married observation and multiple non-married observations I can control for the effect of being married on wages.  
+
+
+$$
+Income_{it}=\beta_0+\beta_1 Schooling_{it}+\beta_2Female_i+ \beta_3 Married_{it}+\epsilon.
+$$
+
+## Fixed Effects as Individual Indicator Variables
+
+\tiny
+
+|Indiv|Income |School |Female |Married |Year   |Indiv1   |Indiv2|...    |IndivN|
+|-----|-------|-------|-------|--------|-------|---------|------|-------|------|
+|1	  |22000  |12     |1      |1       |2007   |1        |0     |0      |0     |
+|1    |23000  |12     |1      |1       |2008   |1        |0     |0      |0     |
+|2	  |57000  |16     |1      |0       |2007   |0        |1     |0      |0     |
+|2    |63000  |17     |1      |1       |2008   |0        |1     |0      |0     |
+|...  |...    |...    |...    |...     |...    |...      |...   |...    |...   |
+|N	  |15000  |12     |0      |0       |2007   |0        |0     |0      |1     |
+|N    |13000  |12     |0      |0       |2008   |0        |0     |0      |1     |
+
+
+## Fixed Effects as Individual Indicator Variables
+
+I can estimate:
+\footnotesize
+$$
+Inc_{it}=\beta_0+\beta_1Sch_{it}+\beta_2Fem_i+\beta_3 Mar_{it}+\beta_{a1}Ind1_i+\beta_{a2}Ind2_i+...+\beta_{aN-1}Ind(N-1)_i+\epsilon.
+$$
+\normalsize
+What do the $\beta_{ak}$ coefficients tell me?
+
+\bigskip
+Also: 
+
+- Why do the $IndN$ indicators only have an $i$ subscript?
+
+- What is the implied assumption if $Fem$ only has an $i$ subscript?
+
+- Why are there only (N-1) individual dummies? 
+
+- Will I be able to estimate the $\beta_2$ on $Fem_i$?
+
+- Will I be able to estimate the $\beta_3$ on $Mar_{it}$?
+
+## Fixed Effects as Individual Indicator Variables
+
+
+**What will these individual controls control for?**
+
+
+## Fixed Effects as Individual Indicator Variables
+
+
+**What will these individual controls control for?**
+
+- $\beta_{a1}$ will control for the effect of being individual 1 on income that is not explained by that person's gender or schooling.
+
+- Any **time invariant** characteristic that affects individual 1's income, such as ability, grit, enthusiasm... will be controlled for by adding this individual dummy variable. 
+
+- These controls are known as individual **fixed effects**.
+
+**For notational convenience:** 
+
+$$
+Income_{it}=\beta_0+\beta_1Schooling_{it}+\beta_2Married_{it}+\gamma_i+\epsilon.
+$$
+
+## Fixed Effects 
+
+**With my panel data, what else can I control for?**
+
+
+$$
+Income_{it}=\beta_0+\beta_1Schooling_{it}+\beta_2 Married_{it}+\gamma_i+\lambda_t+\epsilon.
+$$
+
+- What is $\lambda_t$?
+
+- What is this estimation equivalent to?
+
+## Fixed Effects and variation:
+
+If I estimate 
+
+$$
+Income_{it}=\beta_0+\beta_1Schooling_{it}+\beta_2 Married_{it}+\gamma_i+\lambda_t+\epsilon.
+$$
+Where (who?) is my identifying variation coming from for estimating $\beta_1$?
+
+Does this matter? How does it change our interpretation of the estimate?
+
+
+## A Simulation:
+
+You are a principle of a small school composed of four classrooms. You have just implemented a new option available to teachers for students to spend some small group reading time with a para-educator. You would like to know how this reading time is affecting reading scores. 
+
+\bigskip
+**You have data for ten students in each class that tells you:**
+
+- the class the student is in
+
+- whether they participated in small group reading
+
+- their reading score. 
+
+## Generating Simulated Data
+
+
+I will work with a simulated dataset to show how the use of fixed effects can help us recover the true treatment effect. 
+
+I start by loading the dplyr package and "setting the seed": 
+
+\tiny
+```{r simfe, echo = TRUE}
+#install.packages("dplyr")
+#install.packages("lfe")
+#install.packages("stargazer")
+
+library(dplyr)
+library(lfe)
+library(stargazer)
+
+set.seed(1999)
+
+```
+
+## A Simulation: 
+
+I generate a vector of class identifiers and a random error term.
+
+\tiny
+```{r simfe1a, results = "asis", echo = TRUE}
+
+
+
+class<-c(1,2,3,4)
+scores<-as.data.frame(class)
+scores<-rbind(scores,scores,scores,scores,scores,scores,scores,scores,scores,scores)
+scores$error<-rnorm(40, mean=0, sd=5)
+
+#note: if you are not working in markdown you would just write head(scores)
+knitr::kable(head(scores))
+```
+
+
+## A Simulation: 
+
+I simulate some selection into treatment. The probability of getting treated is 
+
+- 0.8 for students in classrooms 3 and 4 
+
+- 0.2 in classrooms 1 and 2. 
+
+\tiny
+```{r simfe2, results = "asis", echo = TRUE}
+scores$treat1<-rbinom(40,1,0.2)
+scores$treat2<-rbinom(40,1,0.8)
+scores$treat[scores$class%in%c(1,2)]<-scores$treat1[scores$class%in%c(1,2)]
+scores$treat[scores$class%in%c(3,4)]<-scores$treat2[scores$class%in%c(3,4)]
+
+knitr::kable(head(scores))
+```
+
+## A Simulation:
+
+I drop unneeded variables and generate a dummy variable for each classroom
+
+\tiny
+```{r simfe3, results = "asis", echo = TRUE}
+
+scores<-scores%>%dplyr::select(class,error,treat)
+scores <- fastDummies::dummy_cols(scores, select_columns = "class")
+
+knitr::kable(head(scores))
+```
+
+## A Simulation:
+
+
+Finally! I simulate the DGP (Data Generating Process):
+
+- The true treatment effect = 15
+
+- students in classrooms 1 and 2 have higher reading scores  
+
+- students in classrooms 3 and 4 have lower reading scores. 
+
+\tiny
+```{r simfe4, results = "asis", echo = TRUE}
+
+scores$score<-80+15*scores$treat+10*scores$class_2+-30*scores$class_3+
+  -35*scores$class_4+scores$error
+
+knitr::kable(head(scores))
+
+```
+
+
+
+## A Simulation:
+
+I estimate three specifications. The first: 
+
+$$
+Score_{ci}=\beta_0+\beta_1 Treat_{ci}+\epsilon
+$$
+\bigskip
+
+```{r simfe5a, results = "asis",echo = TRUE}
+
+nofe<-felm(score~treat,scores)
+
+```
+
+
+## A Simulation:
+
+The second: 
+
+$$
+Score_{ci}=\beta_0+\beta_1Treat_{ci}+\beta_2Class2_c+\beta_3Class3_c+\beta_4Class4_c+\epsilon
+$$
+\bigskip
+
+```{r simfe5b, results = "asis", echo = TRUE}
+
+dummies<-felm(score~treat+class_2+class_3+class_4, scores)
+
+```
+
+
+## A Simulation:
+
+The third: 
+$$
+Score_{ci}=\beta_0+\beta_1Treat_{ci}+\kappa_c+\epsilon
+$$
+where $\kappa_c$ is a classroom fixed effect.
+\bigskip
+
+
+```{r simfe5c, results = "asis",echo = TRUE}
+
+fe<-felm(score~treat|class,scores)
+
+```
+
+## A Simulation:
+
+\tiny
+```{r simfe5d, results = "asis",echo = TRUE}
+
+stargazer(nofe, dummies, fe,header=FALSE, type='latex')
+
+
+```
+
+## A Simulation:
+
+Recall:  $\beta_1=15$ (the true treatment effect) $\Rightarrow$ $\hat{\beta}_1^{nofe}$ is very biased! 
+
+**Why?**
+
+$\Rightarrow$ Top Hat 
+
+## A Simulation:
+
+Recall:  $\beta_1=15$ (the true treatment effect) $\Rightarrow$ $\hat{\beta}_1^{nofe}$ is very biased! 
+
+**Why?**
+
+- The classes are an important omitted variable: $cor(Score,Class3/4)<0$ and $cor(Treat,Class3/4)>0$ creating substantial downward bias. 
+
+We can correct for this in two (equivalent) ways: 
+
+- adding the dummy variables for the class to the regression,
+
+- adding a class fixed effect. 
+
+Either approach returns an identical unbiased estimate such that $E[\hat{\beta}_1]=\beta_1$.
+
+## Fixed Effects as Demeaned Data: 
+
+ Fixed effect estimates are also known as the **within estimator**, because it identifies $\beta$ using within-unit variation.
+ 
+ $\Rightarrow$ we only using the  variation that exists __within the classroom__ to estimate the treatment effect.
+ 
+This is the equivalent of "correcting" our data by demeaning each observation using it's classroom mean, so that the corrected data represents deviations from the classroom mean.
+
+## Fixed Effects as Demeaned Data: 
+
+Our fixed effect estimation is 
+
+$$
+y_{ci}=\beta_1x_{ci}+\kappa_c+\epsilon_{ci}
+$$
+For each class, the average across the students is
+
+$$
+\bar{y}_i=\beta_1\bar{x}_i+\kappa_c+\bar{\epsilon}_i
+$$
+Subtracting this from the fixed effect model gives
+$$
+y_{ic}-\bar{y}_i=\beta_1(x_{ic}-\bar{x}_i)+(\epsilon_{ic}-\bar{\epsilon}_i)
+$$
+
+
+## Fixed Effects as Demeaned Data: 
+
+1. Calculate the mean score, and the mean treatment, in each classroom
+
+\tiny
+```{r simfe6a, results = "asis",echo = TRUE}
+
+#getting the mean score in each classroom
+cl_mean<-scores %>%
+    group_by(class) %>%
+    dplyr::summarize(Classmean = mean(score, na.rm=TRUE), treatmean=mean(treat, na.rm=TRUE))
+
+knitr::kable(head(cl_mean))
+```
+
+## Fixed Effects as Demeaned Data: 
+
+2. Merging the means into full data
+
+\tiny
+```{r simfe6b, results = "asis",echo = TRUE}
+
+scores<-left_join(scores, cl_mean, by = "class")
+
+knitr::kable(head(scores))
+
+```
+
+
+## Fixed Effects as Demeaned Data: 
+
+3. Calculating the demeaned score
+
+\tiny
+```{r simfe6c, results = "asis",echo = TRUE}
+
+scores$demeansc<-scores$score-scores$Classmean
+scores$demeantrt<-scores$treat-scores$treatmean
+
+knitr::kable(head(scores[,c("class","treat","score","Classmean","treatmean","demeansc","demeantrt")]))
+
+```
+
+
+## Fixed Effects as Demeaned Data: 
+
+4. Running the basic regression on the demeaned scores
+
+\tiny
+```{r simfe6d, results = "asis",echo = TRUE}
+
+regdemean<-felm(demeansc~demeantrt, scores)
+stargazer( fe, regdemean,header=FALSE, type='latex', omit.stat=c("all" ))
+
+```
+
+Careful:  the standard errors on the demeaned regression are incorrect because the cases are not independent of each other.
+
+## Variation
+
+What would happen if none of the students in classes 1 and 2 went to the small reading group and all of the students in class 3 and 4 did?
+
+## Variation
+
+Creating a new treatment variable to reflect this: 
+
+\tiny
+```{r simfenovar, results = "asis",echo = TRUE}
+
+scores$treat2[scores$class%in%c(1,2)]<-0
+scores$treat2[scores$class%in%c(3,4)]<-1
+
+scores$score2<-80+15*scores$treat2+10*scores$class_2+ -30*scores$class_3+ -35*scores$class_4+scores$error
+
+nofe2<-felm(score2~treat2,scores)
+dummies2<-felm(score2~treat2+class_2+class_3+class_4, scores)
+#fe2<-felm(score2~treat2|class,scores)
+```
+
+## Variation
+
+\tiny
+```{r simfenovar2, results = "asis",echo = TRUE}
+
+stargazer(nofe2, dummies2, header=FALSE,  type='latex')
+```
+
+
+
+## Example: Crime and Unemployment
+
+You are interested in the relationship between unemployment and crime. 
+
+You have data on the crime and unemployment rates for 46 cities for 1982 and 1987. 
+
+I start by using the data from the 1987 cross section and run the following simple regression of the crime rate on unemployment,
+
+$$
+crimerate_i=\beta_0+\beta_1unemployment_i+\epsilon
+$$
+
+
+## Example: Crime and Unemployment
+
+\tiny
+```{r crime,echo = TRUE}
+#install.packages("wooldridge")
+library(wooldridge)
+
+#note: this dataset comes from the wooldridge textbook. Conveniently there is an R package that 
+#includes all the wooldridge datasets. 
+
+crime<-data('crime2')
+crime<-crime2
+
+```
+
+
+## Example: Crime and Unemployment
+
+\tiny
+```{r crime2,echo = TRUE}
+
+regcrime<-felm(crmrte~unem, crime[crime$year=="87",])
+summary(regcrime)
+
+```
+
+
+## Example: Crime and Unemployment
+
+Weird. 
+
+The culprit? Probably omitted variables. 
+
+Reflex: lets add controls for more observable city characteristics: the area of the city, if the city is in the west, police officers per square mile, expenditure on law enforcement, per capita income... 
+
+\small
+$$
+crmrte_i=\beta_0+\beta_1unemp_i+\beta_2area_i+\beta_3west_i+\beta_4offarea_i+\beta_5lawexp_i+\beta_6pcinc_i+\epsilon
+$$
+
+## Example: Crime and Unemployment
+
+\tiny
+```{r crime2a,echo = TRUE}
+
+regcrime2<-felm(crmrte~unem+area+west+offarea+lawexpc+pcinc, crime[crime$year=="87",])
+summary(regcrime2)
+
+```
+
+
+## Example: Crime and Unemployment
+
+Even weirder. 
+
+So many potential omitted variables... 
+
+What if we can **capture all unobserved, time invariant factors** about a city that might affect crime rates?
+
+Use data for 1987 and 1982, and add city **fixed effects,**($\alpha_i$).
+
+\small
+$$
+\begin{aligned}
+crmrte_{it}=&\beta_0+\beta_1unemp_{it}\\
+&+\beta_2area_i+\beta_3west_i+\beta_4offarea_{it}+\beta_5lawexp_{it}+\beta_6pcinc_{it}\\
+&+\alpha_i+\epsilon
+\end{aligned}
+$$
+
+
+## Example: Crime and Unemployment
+
+\tiny
+```{r crime3, echo = TRUE}
+#note: the data does not have a unique city identifier. I am assuming the area of the city is 
+#1)time-invariant and 
+#2) uniquely identifies the 46 cities. 
+#The line of code below generates a unique identifier
+
+crime <- transform(crime,city=as.numeric(factor(area)))
+
+#I check that my assumptions were correct by seeing if I have 2 observations for 46 cities.
+table(crime$city)
+```
+
+## Example: Crime and Unemployment
+
+\tiny
+```{r crime3a,echo = TRUE}
+regcrime3<-felm(crmrte~unem+area+west+offarea+lawexpc+pcinc|city, crime)
+summary(regcrime3)
+
+```
+
+
+## Example: Crime and Unemployment
+
+Interpret the coefficient on unemployment.
+
+Why were we not able to estimate a coefficient for $area_i$ and $west_i$?
+
+$\Rightarrow$ Top Hat 
+
+## Example: Crime and Unemployment
+
+\center ![]("images\Xindep.jpg"){width=75%}
+
+
+## Example: Crime and Unemployment
+
+Suppose I am concerned about how national factors could be affecting all cities simultaneously. 
+
+Add a year fixed effect, ($\lambda_t$).
+
+$$
+\begin{aligned}
+crmrte_{it}=&\beta_0+\beta_1unemp_{it}\\
+&+\beta_2area_i+\beta_3west_i+\beta_4offarea_{it}+\beta_5lawexp_{it}+\beta_6pcinc_{it}\\
+&+\alpha_i+\lambda_t+\epsilon
+\end{aligned}
+$$
+
+## Example: Crime and Unemployment
+
+\tiny
+```{r crime4,echo = TRUE}
+
+regcrime4<-felm(crmrte~unem+area+west+offarea+lawexpc+pcinc|city+year, crime)
+summary(regcrime4)
+
+```
+
+## Example: Crime and Unemployment
+
+Is this estimate causal? 
+
+$\Rightarrow$ Top Hat 
+
+
+## Example: Crime and Unemployment
+
+Is this estimate causal? 
+
+What we have controlled for?
+
+- The city fixed effects:  controls for any time invariant factors that always affect the crime rates in a city in a similar way. Such as...
+
+- The time fixed effects: controls for any patterns that are common to all cities in a given year. Such as...
+
+- In addition to this we are also controlling for some observable time varying variables: officers in an area, law enforcement expenditures per capita and income per capita.
+
+So are these estimates causal? 
+
+What kind of omitted variables should we still be concerned about? $\Rightarrow$ Top Hat 
+
+## Example: Crime and Unemployment
+
+Any variable that changes within a city across years and that is correlated with both unemployment and crime rates could still be biasing our results.
+
+This could be things like school funding, decriminalization of marijuana, housing costs... to name just a few.
+
+## Example: Crime and Unemployment Variation
+
+
+Suppose I get ambitious and want to control for all these factors as well. 
+
+I decide I am going to generate a city-by-year fixed effect, ($\gamma_{it}$),  to control for these time variant omitted variables. I estimate,  
+
+
+
+$$
+\begin{aligned}
+crmrte_{it}=&\beta_0+\beta_1unemp_{it}\\
+&+\beta_2area_i+\beta_3west_i+\beta_4offarea_{it}+\beta_5lawexp_{it}+\beta_6pcinc_{it}\\
+&+\gamma_{it}+\epsilon
+\end{aligned}
+$$
+
+
+## Example: Crime and Unemployment Variation
+
+\tiny
+```{r crime5,echo = TRUE}
+
+crime$city_year<-paste(crime$city, crime$year, sep="_")
+
+#Note: the following regression will not run!
+#regcrime5<-felm(crmrte~unem+area+west+offarea+lawexpc+pcinc|city_year, crime)
+#summary(regcrime5)
+
+```
+\normalsize
+
+Why?!?
+
+What kind of data would I need to be able to estimate this? 

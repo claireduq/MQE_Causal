@@ -1,0 +1,362 @@
+---
+title: "Lecture Notes: Causal Inference Fall 2020"
+author: "Claire Duquennois"
+date: "7/28/2020"
+output:
+  pdf_document:
+    toc: true
+    number_sections: true
+---
+
+```{r setup,include=FALSE}
+
+library(stargazer)
+library(lfe)
+# Set so that long lines in R will be wrapped:
+knitr::opts_chunk$set(tidy.opts=list(width.cutoff=80), tidy=TRUE)
+```
+
+
+
+\section{Panel Data and Fixed Effects}
+
+Our ability to control for important omitted variables increases substantially when we can better control for unobserved confounders. There are a number of strategies econometricians use to help control for unobservable confounds. These strategies require data that has a time or a cohort dimension in order to control for unobserved but fixed omitted variables, aka **fixed effects**.
+
+Returning to our earlier example, suppose I am interested in the relationship between income and schooling. We saw that estimating the estimated coefficients from the following specification, 
+
+\begin{equation}
+\begin{split}
+Income_i=\beta_0+\beta_1 Schooling_i+\epsilon
+\end{split}
+\end{equation}
+
+could not be interpreted as causal estimates because of selection and omitted variable bias. We also saw that even if I add lots of controls for the type of demographic characteristics that are often included in datasets, there would still likely remain important omitted variables. Most datasets do not have measures of `ability','enthusiasm', or 'grit' that could be important determinants of both a person's income and their schooling level. But what if I can control for all the unobservable characteristics of an individual, as long as they do not change over time?
+
+\subsection{Data Structures}
+
+Suppose I observe each individual multiple times and I track their schooling and their income. Instead of looking like this:
+
+|Individual    |Income      |Schooling   |Female    |
+|--------------|------------|------------|----------|
+|1	           |22000       |12          |1         |
+|2	           |57000       |16          |1         |
+|...	         |...         |...         |...       |
+|N	           |15000       |12          |0         |
+
+
+my data now looks like this: 
+
+|Individual    |Income      |Schooling   |Female  |Year   |
+|--------------|------------|------------|--------|-------|
+|1	           |22000       |12          |1       |2001   |
+|1	           |23000       |12          |1       |2002   |
+|2	           |57000       |16          |1       |2001   |
+|2	           |63000       |17          |1       |2002   |
+|...	         |...         |...         |...     |...    |
+|N	           |15000       |12          |0       |2001   |
+|N	           |13000       |12          |0       |2002   |
+
+Unique observations must be identified by both the individual and time dimensions, thus the equation above requires the addition of time subscripts, to uniquely identify an observation. 
+
+\begin{equation}
+\begin{split}
+Income_{it}=\beta_0+\beta_1 Schooling_{it}+\epsilon.
+\end{split}
+\end{equation}
+
+We are now working with __panel data__, which  consists of repeated observations of the same unit at multiple points in time. Panel data can be balanced, if you observe every unit the same number of times, or unbalanced, if some units are observed more often than others.^[In the event that you are working with unbalanced data, attention should be given to why some units are observed more frequently then others as there may be a selection process occurring.]
+
+\subsection{Fixed Effects}
+
+Recall that we know we can control for the effect of being female on wages by adding an controlling for the female indicator in the regression as follows. I was able to do this because I had multiple Female observation and multiple non-female observations. 
+
+\begin{equation}
+\begin{split}
+Income_{it}=\beta_0+\beta_1 Schooling_{it}+\beta_2Female_i+\epsilon.
+\end{split}
+\end{equation}
+
+Now that I observe the same individual multiple times, I can do something similar by adding individual controls. I can create dummy variables set to 1 for observations about a particular individual, and 0 otherwise, and add these controls to my regression:
+
+|Indiv|Income |School |Female |Married |Year   |Indiv1   |Indiv2|...    |IndivN|
+|-----|-------|-------|-------|--------|-------|---------|------|-------|------|
+|1	  |22000  |12     |1      |1       |2007   |1        |0     |0      |0     |
+|1    |23000  |12     |1      |1       |2008   |1        |0     |0      |0     |
+|2	  |57000  |16     |1      |0       |2007   |0        |1     |0      |0     |
+|2    |63000  |17     |1      |1       |2008   |0        |1     |0      |0     |
+|...  |...    |...    |...    |...     |...    |...      |...   |...    |...   |
+|N	  |15000  |12     |0      |0       |2007   |0        |0     |0      |1     |
+|N    |13000  |12     |0      |0       |2008   |0        |0     |0      |1     |
+
+\begin{equation}
+\begin{split}
+Inc_{it}=\beta_0+\beta_1Sch_{it}+\beta_2Female_i+\beta_3 Married_{it}+\beta_{a1}Indiv1_i+\beta_{a2}Indiv2_i+...+\beta_{aN-1}Indiv(N-1)_i+\epsilon.
+\end{split}
+\end{equation}
+
+Notes: 
+\begin{itemize}
+\item These dummy variables only have an i subscript as the value of this dummy indicator only varies across individuals, and not across time. (Question: What is the implied assumption if Female only has an i subscript?). 
+\item Notice that only $(N-1)$ individual dummies are added. Why? Just as with any other variable, we must have an omitted category to avoid the problem of multicollineariy. 
+\end{itemize}
+
+What will these individual controls control for? $\beta_{a1}$ will control for the effect of being individual 1 on income that is not explained by that person's gender or schooling.Thus any **time invariant** characteristic that affects individual 1's income, such as ability, grit, enthusiasm... will be controlled for by adding this individual dummy variable. In fact, because there is no time variation in $Female_i$ in our data, we will not be able to estimate the $\beta_2$ coefficient since the effect of $Female_i$ will be baked into each individual's control: when we hold the individual we are looking at constant, there is no variation in $Female_i$ with which to estimate $\beta_2$. 
+
+These individual dummy variables are known as individual **fixed effects**. For notational convenience, rather than listing them all we instead add a greek letter with the correct subscript to our regression (say $\gamma_i$) as follows
+
+\begin{equation}
+\begin{split}
+Income_{it}=\beta_0+\beta_1Schooling_{it}+\beta_2Married_{it}+\gamma_i+\epsilon.
+\end{split}
+\end{equation}
+
+Notice that given the data I can add an additional control that may be important. Suppose I am concerned that incomes in my data were severely affected by the financial crisis in 2008. Just as above, I can control for any common effect a particular year had on all the individuals by adding year fixed effects ($\lambda_t$) as specified below,
+
+\begin{equation}
+\begin{split}
+Income_{it}=\beta_0+\beta_1Schooling_{it}+\beta_2Married_{it}+\gamma_i+\lambda_t+\epsilon.
+\end{split}
+\end{equation}
+
+Finally, as with all econometric specifications, it is important to think about where our identifying variation is coming from. For individuals who's schooling does not change between the years in my data, the effect of their schooling will be baked into their individual fixed effect: there is not enough variation to disentangle the two. This means that the $\beta_1$ coefficient on schooling is identified off of "switchers", ie observations that experience a change in their schooling. This is important because it may change how generalizable we think the results are and how we want to interpret this coefficient. If all of the switchers are in their 20's, when people are more likely to experience a change in schooling, it is not clear whether our estimate would apply well to older populations for example.  
+
+\subsection{A Simulation}
+
+Suppose you are a principle of a small school composed of four classrooms. You have just implemented a new option available to teachers for students to spend some small group reading time with a para-educator. You would like to know how this reading time is affecting reading scores.  You have data for ten students in each class that tells you the class the student is in, whether they participated in small group reading and their reading score. 
+
+Below I construct a simulated dataset to show how the use of fixed effects can help us recover the true treatment effect. 
+
+I start by generating a vector of class identifiers and a random error term.
+
+
+```{r simfe, results = "asis"}
+library(dplyr)
+
+set.seed(1999)
+
+class<-c(1,2,3,4)
+scores<-as.data.frame(class)
+scores<-rbind(scores,scores,scores,scores,scores,scores,scores,scores,scores,scores)
+scores$error<-rnorm(40, mean=0, sd=5)
+```
+
+Next I simulate some selection into treatment. I generate a treatment vector where the probability of getting treated is higher for students in classrooms 3 and 4 then it is in classrooms 1 and 2. 
+
+```{r simfe2, results = "asis"}
+scores$treat1<-rbinom(40,1,0.2)
+scores$treat2<-rbinom(40,1,0.8)
+scores$treat[scores$class%in%c(1,2)]<-scores$treat1[scores$class%in%c(1,2)]
+scores$treat[scores$class%in%c(3,4)]<-scores$treat2[scores$class%in%c(3,4)]
+```
+
+I then generate a dummy variable for each classroom
+
+```{r simfe3, results = "asis"}
+
+scores<-scores%>%dplyr::select(class,error,treat)
+scores <- fastDummies::dummy_cols(scores, select_columns = "class")
+```
+
+Finally, I generate the simulated outcomes. The true treatment effect is set to 15. Notice that I am simulating a situation in which students in classrooms 1 and 2 have much higher reading scores then those in classrooms 3 and 4. 
+
+```{r simfe4, results = "asis"}
+
+scores$score<-80+15*scores$treat+10*scores$class_2+-30*scores$class_3+
+  -35*scores$class_4+scores$error
+```
+
+I estimate the following three specifications: 
+
+$$
+\begin{aligned}
+Score_{ci}&=\beta_0+\beta_1 Treat_{ci}+\epsilon\\
+Score_{ci}&=\beta_0+\beta_1 Treat_{ci}+\beta_2Class2_c+\beta_3Class3_c+\beta_4Class4_c+\epsilon\\
+Score_{ci}&=\beta_0+\beta_1 Treat_{ci}+\kappa_c+\epsilon
+\end{aligned}
+$$
+where $\kappa_c$ is a classroom fixed effect.
+
+
+```{r simfe5, results = "asis"}
+
+nofe<-felm(score~treat,scores)
+dummies<-felm(score~treat+class_2+class_3+class_4, scores)
+fe<-felm(score~treat|class,scores)
+
+stargazer(nofe, dummies, fe, type='latex')
+
+```
+
+First, notice that the coefficient that does not control for the classroom the student is in is very biased. So much so that $\hat{\beta}_1$ is negative despite the fact that the true treatment effect, $\beta_1=15$. This is because the classes are an important omitted variable. we have that $cor(Score,Class3/4)<0$ and $cor(Treat,Class3/4)>0$ creating substantial downward bias. 
+
+We can correct for this in two (equivalent) ways: adding the dummy variables for the class to the regression, or adding a class fixed effect. Either approach returns an identical unbiased estimate such that $E[\hat{\beta}_1]=\beta_1$.
+
+\subsection{Fixed effects as demeaned data}
+
+To build intuition about how fixed effects work, it might be helpful to think about fixed effect as the **within estimator**, because it identifies $\beta$ using within-unit variation. In the example of our classroom reading scores, when estimating using the classroom fixed effects, we only using the  variation that exists __within the classroom__ to estimate the treatment effect. This is the equivalent of "correcting" our data by demeaning each observation using it's classroom mean, so that the corrected data represents deviations from the classroom mean. Our fixed effect estimation is 
+
+$$
+y_{ci}=\beta_1x_{ci}+\kappa_c+\epsilon_{ci}
+$$
+For each class, the average across the students is
+
+$$
+\bar{y}_i=\beta_1\bar{x}_i+\kappa_c+\bar{\epsilon}_i
+$$
+Subtracting this from the fixed effect model gives
+$$
+y_{ic}-\bar{y}_i=\beta_1(x_{ic}-\bar{x}_i)+(\epsilon_{ic}-\bar{\epsilon}_i)
+$$
+
+I do this with the following code. I first calculate the mean score, and the mean treatment, in each classroom. I then subtract these from each student's score and treatment indicator. Finally, I estimate my original model on the demeaned scores. 
+
+```{r simfe6, results = "asis"}
+
+#calculateing the mean score in each classroom
+cl_mean<-scores %>%
+    group_by(class) %>%
+    dplyr::summarize(Classmean = mean(score, na.rm=TRUE), treatmean=mean(treat, na.rm=TRUE))
+
+#merging the means into full data
+scores<-left_join(scores, cl_mean, by = "class")
+
+#calculating the demeaned score
+scores$demeansc<-scores$score-scores$Classmean
+scores$demeantrt<-scores$treat-scores$treatmean
+
+#running the basic regression on the demaned scores
+
+regdemean<-felm(demeansc~demeantrt, scores)
+
+stargazer(nofe, dummies, fe, regdemean, type='latex')
+
+
+```
+
+Notice that we get the same coefficient using the demeaned regression as with the fixed effects regression.^[Note however that the standard errors on the demeaned regression are incorrect because the estimation does not take into account the fact that the
+cases are not independent of each other.]
+
+
+\subsection{Lets talk about variation}
+
+What would happen if none of the students in classes 1 and 2 went to the small reading group and all of the students in class 3 and 4 did?
+
+Below I modify my simulated data to reflect this.
+
+
+```{r simfenovar, results = "asis"}
+
+scores$treat2[scores$class%in%c(1,2)]<-0
+scores$treat2[scores$class%in%c(3,4)]<-1
+
+scores$score2<-80+15*scores$treat2+10*scores$class_2+ -30*scores$class_3+ -35*scores$class_4+scores$error
+
+nofe2<-felm(score2~treat2,scores)
+dummies2<-felm(score2~treat2+class_2+class_3+class_4, scores)
+#fe2<-felm(score2~treat2|class,scores)
+
+stargazer(nofe2, dummies2,  type='latex')
+```
+Clearly we have a problem. All of the treatment estimates are biased and the fixed effects regression refused to run entirely. This is because we simply do not have the variation to estimate the true effect. Because there is no variation in treatment within the classroom, it is not possible to estimate both the effect of the classroom and the effect of treatment since they confound each other. 
+
+_____________________________
+
+\subsection{Example: Crime and Unemployment}
+
+Suppose you are interested in thinking about the relationship between unemployment and crime. You have data on the crime and unemployment rates for 46 cities for 1982 and 1987. I start by using the data from the 1987 cross section and run the following simple regression of the crime rate on unemployment,
+
+$$
+crimerate_i=\beta_0+\beta_1unemployment_i+\epsilon
+$$
+
+
+```{r crime}
+#install.packages("wooldridge")
+library(wooldridge)
+library(lfe)
+#note: this dataset comes from the wooldridge textbook. Conveniently there is an R package that 
+#includes all the wooldridge datasets. 
+
+crime<-data('crime2')
+crime<-crime2
+
+regcrime<-felm(crmrte~unem, crime[crime$year=="87",])
+summary(regcrime)
+
+```
+
+
+Interpreting this coefficient on unemployment suggests that a higher unemployment level is associated with less crime. This seems backwards. The culprit? Probably omitted variables. The first solution that comes to mind is to control for more observable city characteristics that we can see in our data such as the area of the city, if the city is in the west, police officers per square mile, expenditure on law enforcement, per capita income... I estimate the following,
+
+
+$$
+crmrte_i=\beta_0+\beta_1unemp_i+\beta_2area_i+\beta_3west_i+\beta_4offarea_i+\beta_5lawexp_i+\beta_6pcinc_i+\epsilon
+$$
+
+```{r crime2}
+
+
+regcrime2<-felm(crmrte~unem+area+west+offarea+lawexpc+pcinc, crime[crime$year=="87",])
+summary(regcrime2)
+
+```
+
+We still get this puzzling result. We could continue to add more controls but there are so many variables about a city that could be correlated with both unemployment and crime that it seems unlikely we could observe them all. But what if we can **capture all unobserved, time invariant factors** about a city that might affect crime rates? If I use the data for 1987 and 1982, I can add city **fixed effects,**($\alpha_i$) to the regression I estimated above,
+
+$$
+crmrte_{it}=\beta_0+\beta_1unemp_{it}+\beta_2area_i+\beta_3west_i+\beta_4offarea_{it}+\beta_5lawexp_{it}+\beta_6pcinc_{it}+\alpha_i+\epsilon
+$$
+
+```{r crime3}
+#note: the data does not have a unique city identifier. I am assuming the area of the city is #1)time-invariant and 
+#2) uniquely identifies the 46 cities. 
+#The line of code below generates a unique identifier
+crime <- transform(crime,city=as.numeric(factor(area)))
+#I check that my assumptions were correct by seeing if I have 2 observations for 46 cities.
+table(crime$city)
+
+regcrime3<-felm(crmrte~unem+area+west+offarea+lawexpc+pcinc|city, crime)
+summary(regcrime3)
+
+```
+
+Now we get a coefficient on unemployment that makes a lot more sense. Notice that we were not able to estimate a coefficient for $area_i$ and $west_i$. This is because of the multicollinearity problem. These city characteristics are time-invariant. If we include city fixed effects, these factors will already be controlled for. When we control for the city fixed effect, there is no longer any remaining variation with which to estimate the impact of $area_i$ or $west_i$. 
+
+Suppose I am concerned about how national factors could be affecting all cities simultaneously. I can add a year fixed effect, ($\lambda_t$) to control for these
+
+$$
+crmrte_{it}=\beta_0+\beta_1unemp_{it}+\beta_2area_i+\beta_3west_i+\beta_4offarea_{it}+\beta_5lawexp_{it}+\beta_6pcinc_{it}+\alpha_i+\lambda_t+\epsilon
+$$
+
+```{r crime4}
+
+regcrime4<-felm(crmrte~unem+area+west+offarea+lawexpc+pcinc|city+year, crime)
+summary(regcrime4)
+
+```
+
+So can I interpret the coefficient on this last regression as causal? We need to think carefully about what we have controlled for. The city fixed effects control for any time invariant factors that always affect the crime rates in a city in a similar way. This would be things like geography, street layouts, weather... The time fixed effects controls for any patterns that are common to all cities in a given year. This would be things like national policies such as the war on drugs, national interest rates... In addition to this we are also controlling for some observable time varying variables: officers in an area, law enforcement expenditures per capita and income per capita. So are these estimates causal? What kind of omitted variables should we still be concerned about? Any variable that changes within a city across years and that is correlated with both unemployment and crime rates could still be biasing our results. This could be things like school funding, decriminalization of marijuana, housing costs... to name just a few.
+
+Suppose I get ambitious and want to control for all these factors as well. I decide I am going to generate a city-by-year fixed effect, ($\gamma_{it}$),  to control for these time variant omitted variables. I estimate,  
+
+
+
+$$
+crmrte_{it}=\beta_0+\beta_1unemp_{it}+\beta_2area_i+\beta_3west_i+\beta_4offarea_{it}+\beta_5lawexp_{it}+\beta_6pcinc_{it}+\gamma_{it}+\epsilon
+$$
+
+```{r crime5}
+
+crime$city_year<-paste(crime$city, crime$year, sep="_")
+
+#Note: the following regression will not run!
+#regcrime5<-felm(crmrte~unem+area+west+offarea+lawexpc+pcinc|city_year, crime)
+#summary(regcrime5)
+
+```
+
+
+What happened?!? Because the variation in my outcome variable is at the city-by-year level, including a city-by-year fixed effect absorb all of the identifying variation, making it impossible to estimate the effect of any of the other variables in my model. Thus I cannot include this type of fixed effect with this data set. If I had data on neighborhood crime rates and neighborhood unemployment I could. 
+
+______________________
+
