@@ -1,0 +1,989 @@
+---
+title: "MQE: Economic Inference from Data:  \nModule 1: Omitted Variable Bias"
+author: "Claire Duquennois"
+date: "6/9/2020"
+output:
+  beamer_presentation: default
+  pdf_document: default
+  slidy_presentation: default
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(fig.width=9, fig.height=5) 
+library("lfe")
+library("stargazer")
+
+```
+## Module 1: Regressions,causality and bias
+
+- Regression and causality
+
+- No Causation Without Manipulation
+
+- The Rubin Causal Model
+
+- The Conditional independence assumption
+
+- Omitted variable bias
+
+- The kitchen sink approach
+
+- How far does this get us? AGG(2006)
+
+
+## Regression and Causality
+
+As long as certain trivial conditions are satisfied, you can always run a linear regression. This is fine as long as you interpret the results appropriately. We may be interested in the relationship between $x$ and $y$ for the purposes of:
+
+- Description-What is the relationship between $x$ and $y$?
+
+- Prediction-Can we use $x$ to create a good forecast of $y$?
+
+- Causation-What happens to $y$ if we manipulate $x$?
+
+Causation... this is where things get tricky...
+
+## But First: What Regressions can do!
+
+In the social sciences, we tend to focus on relationships that hold "on average," or "in expectation."  
+
+The *Conditional Expectation Function*: Given a particular value of $x$, where is the distribution of $y$ centered?
+
+$$
+E[y_i|x_i]=h(x_i)
+$$
+with the CEF residual defied as
+
+$$
+\begin{aligned}
+\epsilon_i = &y_i-h(x_i) \text{ where}\\ 
+& E[\epsilon_i|x_i]=0
+\end{aligned}
+$$
+which holds by definition. 
+
+## Linear Regression
+
+If the CEF is linear, regressing $y_i$ on $x_i$ estimates the CEF. 
+
+If the CEF is not linear, we still often use linear regression because:
+
+- Computationally tractable
+- Well understood and desirable properties
+- Provide the best linear approximation of the CEF even when it is non-linear (just don't try to extrapolate far beyond the support of $x_i$).
+
+## Linear Regression
+
+\center ![]("images\linearprojectioncomic.png"){width=75%}
+
+
+
+## Estimating the CEF
+
+Let 
+
+$$
+y_i=\beta_0+\beta_1x_i+\epsilon
+$$
+
+- Run a linear regression of $y_i$ on $x_i$ 
+
+- Get estimates $\hat{\beta}_0$ and $\hat{\beta}_1$ of the true population $\beta_0$ and $\beta_1$
+
+- Calculate $\hat{y}_i=\hat{\beta}_0+\hat{\beta}_1x_i$, the predicted value for $y_i$ given $x_i$, such that 
+$$
+\hat{y}_i=E[y_i|x_i], \text{ the CEF.}
+$$
+If you are interested in description or prediction, this is fine and we can end the class here!
+
+## Application: Regression for Prediction
+
+Who might be interested in using regressions for prediction?
+
+Suppose you are a bank interested in predicting customer's ability to repay student loans. You have a subset of CPS data on earnings and the number of years spent in education. 
+
+You estimate the following on working age adults (22+):
+
+$$
+Income_i=\beta_0+\beta_1 Schooling_i+\epsilon_i
+$$
+
+## Application: Lets do some coding!
+
+\center ![]("images\code_quality.png"){width=75%}
+
+## Application: Regression for Prediction
+
+\tiny
+```{r chunk1, echo = TRUE}
+
+mydata<-read.csv("../../data/data_M1_OVB/cps_clean.csv")
+
+reg1<-lm(inctot~edu,mydata[mydata$age>22,])
+summary(reg1)
+
+```
+
+**Interpret your results.**
+
+
+## Application: Regression for Prediction
+
+\tiny
+```{r chunk1aa, echo = TRUE}
+
+summary(reg1)
+
+```
+\normalsize
+So an extra year of education **predicts** earnings that are 8,054 USD higher (since $\hat{\beta}_1=8054$). 
+
+## Application: Regression for Prediction
+
+\center ![]("images\scatterintuitioncomic.png"){width=75%}
+
+
+## Application: Regression for Prediction
+\tiny
+```{r chunk1a, echo = TRUE}
+
+plot(mydata[mydata$age>22 & mydata$inctot<300000,]$edu, 
+     mydata[mydata$age>22 & mydata$inctot<300000,]$inctot)
+```
+
+## Application: Regression for Prediction
+
+Using these estimate we can predict the difference in annual income between a high school and college grad as
+
+$$\begin{aligned}
+\widehat{Income}_{col}-\widehat{Income}_{hs} & =(\hat{\beta_0}+\hat{\beta_1}*16)-(\hat{\beta_0}+\hat{\beta_1}*12)\\
+& =\hat{\beta_1}*4\\
+& = 8,054*4=\$32,216.
+\end{aligned}$$
+
+So we would **predict** annual returns of $32,216.
+
+## Application: Regression for Prediction
+
+Alternatively, we could create an indicator variable set to 1 for individuals with college educations and estimate it on the subset of individuals who have at least 12 years of schooling:
+
+\begin{equation}
+\begin{split}
+Income_i=\beta_0+\beta_1 CollGrad_i+\epsilon_i
+\end{split}
+\end{equation}
+
+## Application: Regression for Prediction
+
+\tiny
+```{r chunk2, echo=TRUE}
+
+mydata$collgrad<-0
+mydata$collgrad[mydata$edu>=16]<-1
+
+reg2<-lm(inctot~collgrad,mydata[mydata$edu>=12 & mydata$age>22,])
+summary(reg2)
+
+```
+
+\normalsize
+Interpret your results. 
+
+## Application: Regression for Prediction
+
+\tiny
+```{r chunk2aa, echo=TRUE}
+
+mydata$collgrad<-0
+mydata$collgrad[mydata$edu>=16]<-1
+
+reg2<-lm(inctot~collgrad,mydata[mydata$edu>=12 & mydata$age>22,])
+summary(reg2)
+
+```
+
+\normalsize
+$\hat{\beta}_1=44,842$, so having a four year college degree \textbf{predicts} earnings that are \$44,842 higher.
+
+
+## Application: Regression for Prediction
+
+The key point: we are not saying that the college degree **caused** higher earnings, but it does **predict** higher earnings. For many applications, prediction is enough. 
+
+To get causation, we need to do a lot more work. 
+
+\center ![]("images\corcauscomic.png"){width=75%}
+
+
+## "No Causation Without Manipulation"
+
+**What if we are interested in causal effects?** 
+
+It was easy to estimate the relationship between income and schooling. As illustrated in the application, I estimated
+
+$$
+Income_i=\beta_0+\beta_i Schooling_i+\epsilon 
+$$
+and was able to recover the conditional expectation function
+
+$$
+E[Income_i|Schooling_i]=\hat{Income}_i=\hat{\beta}_0+\hat{\beta}_1Schooling_i 
+$$
+BUT this only tells us how income and schooling co-vary. This **DOES NOT** tell us what would happen to income if there was an **"exogenous"** change in schooling. 
+
+
+## What is the difference? 
+
+Here, schooling is **"endogenously"** determined. 
+
+**Who is most likely to select into schooling?**
+
+## What is the difference? 
+
+Here, schooling is **"endogenously"** determined. For example:
+
+- those who expect to benefit the most select into schooling.
+
+- those with the highest family incomes select into schooling. 
+
+A regression coefficient estimated using data on **endogenous** schooling choices will not  correspond to the effects of an **exogenous** change in schooling. 
+
+To estimate the **causal** effect, we will need to identify some type of **manipulation** that created an **exogenous** change in schooling.  
+
+## A note on interpretation
+
+It in NOT the case that the endogenous estimate is \textit{wrong} and the exogenous estimate is \textit{right}. They are simply measuring different things and should be interpreted accordingly. 
+
+Regarding our estimates using the endogenous CPS data:
+
+**CORRECT:**
+
+*"We can expect the earnings of a person with one additional year of schooling to be $ $\hat{\beta}_1$ higher."*
+
+**INCORRECT:**
+
+*"One additional year of schooling CAUSES earnings to increase by $ $\hat{\beta}_1$."*
+
+
+## The Rubin Causal Model
+
+**_Two roads diverged in a yellow wood,_**  
+**_And sorry I could not travel both_**  
+**_--Robert Frost_**
+
+To understand causal inference, it is helpful to think about how a unit has different potential outcomes depending on it's treatment status. 
+
+## The Rubin Causal Model
+
+
+Let $D_i$ be a binary treatment variable that could affect outcome $Y_i$. Each unit faces two potential outcomes:
+
+$$
+\begin{split}
+Y_i& = \begin{cases}
+      Y_i(1) & \text{ if } D_i=1 \text{ (\textit{the treatment condition})}\\
+      Y_i(0) & \text{ if } D_i=0 \text{ (\textit{the control condition})}
+    \end{cases}  \\
+\end{split}
+$$
+The problem: Unobserved **counterfactuals**. We will never observe both $Y_i(1)$ and $Y_i(0)$. 
+
+
+## Example: Does going to college cause higher earnings?
+
+
+Let the treatment, $D_i$ be going to college. Each high school graduate faces two potential outcomes:
+
+$$
+\begin{split}
+\text{\textit{potential outcomes}}= \begin{cases}
+      earn_{i,col} & \text{ if \textit{i} goes to college} \text{ (\textit{treatment})}\\
+      earn_{i,no col} & \text{ if \textit{i} no college} \text{ (\textit{control})}
+    \end{cases}  
+\end{split}
+$$
+
+We can conceive of both  $earn_{i,col}$ and $earn_{i,no col}$ (but will only ever observe one or the other).
+
+The treatment is potentially manipulable: we can imagine a policy or intervention that could make either of these values observable. 
+
+## "No Causation without Manipulation" (2)
+
+Can you conceptualize both $Y_i(1)$ and $Y_i(0)$ for the same unit?
+
+**\underline{If no:}** $D$ does not correspond to a potentially manipulable treatment.
+
+- We need to further define the problem. 
+
+**Example: Does being a woman \underline{cause} lower earnings?**
+
+
+## "No Causation without Manipulation" (2)
+
+Can you conceptualize both $Y_i(1)$ and $Y_i(0)$ for the same unit?
+
+**\underline{If no:}** $D$ does not correspond to a potentially manipulable treatment.
+
+- We need to further define the problem. 
+
+**Example: Does being a woman \underline{cause} lower earnings?**
+
+It is not possible for me to imagine some intervention that would reveal what my earnings outcome would have been if I was a man. 
+
+We know that being a woman **_predicts_** lower earnings, but the causal question as posed is ill defined.
+
+## Causal Effects
+
+Define the causal effect of treatment $D=1$ on outcome $Y$ for unit $i$ as
+
+$$
+Y_i(1)-Y_i(0)=\tau_i
+$$
+Note: the treatment effect is relative and specific to observation $i$.
+
+But how can we identify $\tau_i$ if we never observe both $Y_i(1)$ and $Y_i(0)$ for a given unit?
+
+
+## The Fundamental Problem of Causal Inference
+
+It is impossible to observe the value of $Y_i(1)$ and $Y_i(0)$ in the same unit $i$ and, therefore, it is impossible to observe $\tau_i$, the effect for unit $i$ of the treatment on it's outcome, $Y_i$. (Holland 1986)
+
+\centering
+__So, are we doomed?__
+
+## The Fundamental Problem of Causal Inference
+
+It is impossible to observe the value of $Y_i(1)$ and $Y_i(0)$ in the same unit $i$ and, therefore, it is impossible to observe $\tau_i$, the effect for unit $i$ of the treatment on it's outcome, $Y_i$. (Holland 1986)
+
+\centering
+__So, are we doomed?__
+
+\raggedright
+
+No! Though we can't identify $\tau_i$ at the unit level, we can identify the *Average Causal Treatment Effect* (ATE) 
+
+
+
+$$
+\bar{\tau}=E[Y_i(1)-Y_i(0)]=E[Y_i(1)]-E[Y_i(0)]
+$$
+
+with the right research design, we can recover $\bar{\tau}$.
+
+## Conditional Expectations 
+
+
+\center ![]("images\ciacomic.png"){width=50%}
+
+$$
+\begin{aligned}
+E[death_i]=?\\
+E[death_i|knows\text{ }E[death]_i]=?\\
+\end{aligned}
+$$
+
+## Conditional Expectations 
+
+
+\center ![]("images\ciacomic.png"){width=50%}
+
+$$
+\begin{aligned}
+E[death]=\frac{1}{7,000,000}\\
+E[death|knows\text{ }E[death]]=\frac{1}{6}\\
+\end{aligned}
+$$
+
+## The Conditional Independence Assumption
+
+
+Suppose a constant treatment effect such that $\tau=Y_i(1)-Y_i(0)$. Since
+
+$$
+\begin{aligned}
+Y_i&=Y_i(0)+(Y_i(1)-Y_i(0))D_i\\
+&=Y_i(0)+\tau D_i\\
+&=E[Y_i(0)]+\tau D_i+Y_i(0)-E[Y_i(0)]\\
+&=\alpha+\tau D_i+\eta_i
+\end{aligned}
+$$
+where $\alpha=E[Y_i(0)]$, $\tau=Y_i(1)-Y_i(0)$ and $\eta_i$ is the random part of $Y_i(0)$ since $\eta_i=Y_i(0)-E[Y_i(0)]$. 
+
+
+## The Conditional Independence Assumption
+
+The expected outcomes of someone with and someone without treatment is then given by 
+
+$$
+\begin{aligned}
+E[Y_i(1)]&=\alpha+\tau+E[\eta_i|D_i=1]\\
+E[Y_i(0)]&=\alpha+E[\eta_i|D_i=0]
+\end{aligned}
+$$
+
+so that the difference between these outcomes can be broken down into 
+
+$$
+ E[Y_i(1)]-E[Y_i(0)] = 
+    \underbrace{\tau}_\text{treatment effect} + \underbrace{E[\eta_i|D_i=1]-E[\eta_i|D_i=0]}_\text{?}
+$$
+
+What is the second term?  $\Rightarrow$ Top Hat
+
+## The Conditional Independence Assumption
+
+The expected outcomes of someone with and someone without treatment is then given by 
+
+$$
+\begin{aligned}
+E[Y_i(1)]&=\alpha+\tau+E[\eta_i|D_i=1]\\
+E[Y_i(0)]&=\alpha+E[\eta_i|D_i=0]
+\end{aligned}
+$$
+
+so that the difference between these outcomes can be broken down into 
+
+$$
+ E[Y_i(1)]-E[Y_i(0)] = 
+    \underbrace{\tau}_\text{treatment effect} + \underbrace{E[\eta_i|D_i=1]-E[\eta_i|D_i=0]}_\text{selection bias}
+$$
+
+
+
+## The Conditional Independence Assumption
+
+So if I run $Y_i=\alpha+\tau D_i+\eta_i$, the estimated $\tilde{\tau}\neq \tau$ if there is selection bias such that $E[\eta_i|D_i=1]\neq E[\eta_i|D_i=0]$. 
+
+This will occur if absent treatment, those who would select into treatment have a different expected outcome compared to those who would not select into treatment
+$$
+E[Y_i(0)|D_i=1]\neq E[Y_i(0)|D_i=0],
+$$ 
+because treatment is not random. Formally,
+
+$$
+\{Y_i(1), Y_i(0)\} \not\perp  D_i.
+$$
+
+## Example
+
+I naively use my observational CPS data and estimate 
+$$
+\begin{split}
+earnings_i=\tilde{\alpha}+\tilde{\tau} college_i+\epsilon_i.
+\end{split}
+$$
+If I want to estimate $\tau$, the **causal** effect of a college degree on earnings, this estimate, $\tilde{\tau}$ will be biased: $E[\tilde{\tau}]\neq \tau$. 
+
+Why? 
+
+
+
+## Example
+
+I naively use my observational CPS data and estimate 
+$$
+\begin{split}
+earnings_i=\tilde{\alpha}+\tilde{\tau} college_i+\epsilon_i.
+\end{split}
+$$
+If I want to estimate $\tau$, the **causal** effect of a college degree on earnings, this estimate, $\tilde{\tau}$ will be biased: $E[\tilde{\tau}]\neq \tau$. 
+
+Why? 
+
+\underline{Selection bias:} If people who receive college degrees would have had higher earnings even without the degree,
+
+$$
+E[\eta_i|D_i=1]>E[\eta_i|D_i=0].
+$$
+
+## The Conditional Independence Assumption
+
+**The Conditional Independence Assumption**: conditional on observed characteristics, $X_i$, selection bias disappears and 
+$$
+\{Y_i(1), Y_i(0)\} \perp  D_i|X_i.
+$$
+
+If CIA holds, once I control for $X_i$, treatment is as good as randomly assigned. If this is the case, our comparisons have a causal interpretation and 
+
+$$
+E[Y_i(1)|X_i]-E[Y_i(0)|X_i]=E[Y_i(1)-Y_i(0)|X_i].
+$$
+
+
+## CIA in Regressions
+
+If I estimate $Y_i=\alpha+\tau D_i +\eta_i$, $E[\tilde{\tau}]\neq \tau$ due to selection bias. **Now suppose CIA holds given a vector of observed covariates, $X'_i$.**
+
+- I can decompose $\eta_i$:  $\eta_i=X'_i\gamma+\nu_i$ with: $E[\eta_i|X_i]=X'_i\gamma$
+
+- If the CIA assumption holds, then 
+$$
+E[Y_i(D)|X_i]=\alpha+\tau D_i+X'_i \gamma
+$$
+and 
+$$
+Y_i(D)=\alpha+\tau D_i+X'_i \gamma+\nu_i
+$$
+where the $\nu_i$ residuals are uncorrelated with $D_i$ and $X'_i$.
+
+- Thus
+$$
+E[\hat{\tau}]=\tau
+$$
+and we can interpret $\hat{\tau}$ as the causal effect of interest.
+
+
+## Example: 
+
+If I estimate $Earnings_i=\tilde{\alpha}+\tilde{\tau}college_i+\epsilon_i$ we saw that  $E[\tilde{\tau}]\neq\tau$ due to selection bias. 
+
+**Suppose CIA holds if I condition on a student's household income.**
+(ie. if I control for student household income, which students complete college is as good as randomly assigned) .
+
+Then
+$$
+earnings_i=\hat{\alpha}+\hat{\tau}college_i+\hat{\gamma}hhinc_i+\epsilon_i
+$$
+ and $E[\hat{\tau}]=\tau$: a college degree causes earnings to increase by $\hat{\tau}$ USD. 
+ 
+ **WARNING: This is a big assumption, that often does not hold.** 
+
+
+
+## Omitted Variable Bias
+
+Suppose the true model is given by 
+$$
+Y_i=\beta_0+\beta_1 x_{1i}+\beta_2 x_{2i}+\nu_i
+$$
+but I failed to include $x_{2i}$ and instead estimated 
+$$
+Y_i=\tilde{\beta}_0+\tilde{\beta}_1 x_{1i}+\epsilon_i.
+$$
+If there is a relationship between $x_{1i}$ and $x_{2i}$ such that 
+$$
+x_{2i}=\rho_1+\rho_2 x_{1i}+\varepsilon_i
+$$
+we can substitute this into the first equation and by rearranging,
+$$
+Y_i=\underbrace{(\beta_0+\beta_2\rho_1)}_{\tilde{\beta}_0}+\underbrace{(\beta_1+\beta_2 \rho_2)}_{\tilde{\beta}_1} x_{1i}+\underbrace{(\beta_2 \varepsilon_i+\nu_i)}_{\epsilon_i},
+$$
+show that 
+$$
+\tilde{\beta_1}=\underbrace{\beta_1}_\text{treatment effect}+\underbrace{\beta_2 \rho_2}_\text{bias}.
+$$
+
+## Omitted variable bias
+
+$$
+\tilde{\beta_1}-\beta_1=\underbrace{\beta_2 \rho_2}_\text{bias}
+$$
+
+We can thus sign the bias by signing $\beta_2$, the covariance between $x_{2i}$ and $Y_i$, and signing $\rho_2$, the covariance between $x_{2i}$ and $x_{1i}$. 
+
+|--------------------| $Cov(x,x_{ov})>0$ | $Cov(x,x_{ov})<0$|
+| ------------------ | ----------------- | ---------------- |
+|  $Cov(y,x_{ov})>0$ | Upward Bias       | Downward Bias    |
+| $Cov(y,x_{ov})<0$  | Downward Bias     | Upward Bias      |
+
+
+
+## Example: Using CPS data
+
+I am interested in how health relates to income. Using my CPS sample of working age adults I estimate
+$$
+Income_i=\beta_0+\beta_1Health_i+\epsilon, 
+$$
+where heath is a respondents subjective assessment of their health with 1 being very healthy and 5 being very unhealthy. 
+
+## Example: Using CPS data
+
+\tiny
+```{r chinkhealth1, echo=TRUE}
+reghealth<-lm(inctot~health,mydata)
+summary(reghealth)
+```
+\normalsize
+Interpret. 
+
+## Example: Using CPS data
+
+How might the omission of age be biasing these estimates?
+
+$\Rightarrow$ Top Hat
+
+
+
+## Example: Using CPS data
+
+How might the omission of age be biasing these estimates?
+
+- $cov(health_i,age_i)>0$ 
+
+- $cov(income_i,age_i)>0$
+
+- $\Rightarrow$ upward bias. 
+
+
+## Example: Using CPS data
+
+\tiny
+```{r chunk4, echo=TRUE}
+
+reghealth2<-lm(inctot~health+age ,mydata)
+summary(reghealth2)
+
+```
+\normalsize
+
+## Example: Using CPS data
+
+How might the omission of schooling be biasing these estimates?
+
+$\Rightarrow$ Top Hat
+
+
+## Example: Using CPS data
+
+How might the omission of schooling be biasing these estimates?
+
+- $cov(health_i,schooling_i)<0$ 
+
+- $cov(income_i,schooling_i)>0$ 
+
+- $\Rightarrow$ downward bias. 
+
+## Example: Using CPS data
+
+\tiny
+```{r chunk5, echo=TRUE}
+
+reghealth3<-lm(inctot~health+age+edu ,mydata)
+summary(reghealth3)
+
+```
+\normalsize
+
+
+## Example: Presenting results
+
+\tiny
+```{r chunk6, echo=TRUE,  results = "asis"}
+
+stargazer(reghealth,reghealth2, reghealth3, type="latex", header=FALSE, 
+          title="Income and health", omit.stat=c("f", "ser"))
+
+
+```
+\normalsize
+Check out jakeruss.com/cheatsheets/stargazer/
+
+## Example: Using CPS data
+
+So is our estimate of $\beta_1$ in column 3 the causal effect of health on income? 
+
+Does the CIA hold?
+
+Conditional on age and schooling, is subjective health as good as randomly assigned?
+
+
+
+## Building intuition: A simulation
+
+Suppose the data generating process (DGP) is as follows: my outcome variable, $Y$ depends on two variables, $V_1$ and $V_2$ such that 
+
+$$
+Y_i=\beta_0+\beta_1 V_{1i}+\beta_2 V_{2i}+\epsilon_i
+$$
+
+where $V_1$ and $V_2$ are correlated with $Cor(V_1,V_2)=0.5$. 
+
+
+\tiny
+```{r sim1, echo=TRUE}
+library(MASS)
+library(ggplot2)
+
+set.seed(1999)
+out <- as.data.frame(mvrnorm(1000, mu = c(0,0), 
+                     Sigma = matrix(c(1,0.5,0.5,1), ncol = 2), 
+                     empirical = TRUE))
+cor(out)
+
+```
+\normalsize
+
+##  Building intuition: A simulation
+
+
+
+```{r sim1a, echo=TRUE }
+
+plot(out)
+
+```
+
+##  Building intuition: A simulation
+
+I add an error term for each observation and then simulate the true DGP with $\beta_1=5$ and $\beta_2=7$.
+
+\tiny
+```{r sim2, echo=TRUE}
+out$error<-rnorm(1000, mean=0, sd=1)
+
+B1<-5
+B2<-7
+
+out$Y<-out$V1*B1+out$V2*B2+out$error
+```
+\normalsize
+I can now estimate the correct model and an under-specified model: 
+
+
+\tiny
+```{r sim2a, echo=TRUE}
+sim1<-lm(Y~V1+V2, data=out)
+
+sim2<-lm(Y~V1, data=out)
+
+```
+\normalsize
+
+##  Building intuition: A simulation
+
+\tiny
+```{r sim2b, echo=TRUE, results = "asis"}
+
+stargazer(sim1,sim2, type="latex", header=FALSE, 
+          title="Omitted Variable Bias Simulation", omit.stat=c("f", "ser"))
+```
+\normalsize
+
+$\tilde{\beta}_1$ is upward biased since  $Cor(V_1,V_2)>0$ and $Cor(Y,V_2)>0$.
+
+##  Building intuition: A simulation
+
+What is adding the $V_2$ control doing? How does it change the $V_1$ coefficient? 
+
+- Adding $V_2$ in the regression removes the variation in the outcome variable that is explained by that control variable.
+
+- The estimates can now be based on the variation due to the explanatory variable you are actually interested in.
+
+To see this, I generate $adjY$ that "corrects" $Y$ by removing the variation in $Y$ that is explained by $V_2$. (I can do this since I know the true $\beta_2$.)
+
+
+```{r sim 6, echo=TRUE}
+
+out$adjY<-out$Y-B2*out$V2
+```
+
+
+##  Building intuition: A simulation
+
+\tiny
+```{r sim6a, echo=TRUE, results = "asis"}
+sim3<-lm(adjY~V1, data=out)
+
+stargazer(sim1,sim2,sim3, type="latex", header=FALSE, 
+          title="Omitted Variable Bias Simulation 2", omit.stat=c("f", "ser"))
+```
+\normalsize
+
+##  Building intuition: A simulation
+
+\tiny
+```{r key 4, echo=TRUE, results = "asis"}
+plotted<-ggplot(out, aes(V1, y = value, color = variable)) + 
+    geom_point(aes(y = Y, col = "Y")) + 
+    geom_point(aes(y = adjY, col = "adjY"))+
+    geom_smooth(method='lm', aes(y = Y, col = "Y"))+
+    geom_smooth(method='lm', aes(y = adjY, col = "adjY"))
+
+plotted
+
+```
+
+\normalsize
+
+
+## The kitchen sink 
+
+Adding more controls is not always better.
+
+- Irrelevant variables
+
+- Bad controls
+
+Moreover, without a carefully thought out research design, omitted variable bias will still be a problem. 
+
+
+
+## Caveat: Including irrelevant variables
+
+Suppose I estimate 
+$$
+\tilde y=\tilde \beta_0 + \tilde \beta_1x_1 + \tilde\beta_2x_2
+$$
+even though the true model is actually 
+
+$$
+E[y|x_1]=\beta_0+\beta_1x_1
+$$ 
+
+- Including $x_2$ will not bias our estimation: $E[\tilde{\beta_1}]= \beta_1$.
+
+- The variance of our estimator will be less precise: $Var(\tilde{\beta_1})\geq Var(\hat{\beta_1})$.
+
+## Caveat: Including irrelevant variables
+
+
+\center ![]("images\curvefittingcomic.png"){width=45%}
+
+
+## Caveat: Bad Controls
+
+Some control variables could themselves be outcomes of the treatment you are evaluating.
+
+Good controls are variables that were fixed at the time treatment was determined.
+
+## Bad Controls: Example
+
+You are interested in smoking's effect on birth-weight. You estimate
+$$
+Brthwgt_i=\beta_0+\beta_1cigday_i+\epsilon
+$$
+but are concerned there may be important omitted variables. 
+
+You data includes information on the following: the mother's age, the mother's education level, the number of previous pregnancies, 
+the number of prenatal doctor visits, mother's weight gain during pregnancy, and alcohol use during pregnancy. 
+
+Which of these control variables should you consider adding to your specification? 
+
+$\Rightarrow$ Top Hat
+
+
+## How far do controls get us?
+
+The key (untestable) assumption is that you have controlled for everything that matters.
+
+You are assuming that treatment assignment is "as good as randomly assigned"- after you have conditioned on the controls.
+
+You are assuming that if there is any systematic selection into "treatment", it only depends on the observable variables you are controlling for. 
+
+**These are VERY STRONG assumptions (that often do not hold).**
+
+## There is no Santa Claus: Arseneaux, Gerber and Green (2006)
+
+\center ![]("images\santa.jpg"){width=45%}
+
+## There is no Santa Claus: Arseneaux, Gerber and Green (2006)
+
+Evaluate a "Get out the Vote" mobilization:
+
+- Who gets called ($Call_i$) is random
+
+- Who answers the call ($Contact_i$) is not
+
+Will the following approach give us an unbiased estimate of the causal effect of being contacted on voting?
+$$
+Vote_i=\alpha+\tau Contact_i+\epsilon_i
+$$
+
+## There is no Santa Claus: AGG (2006)
+
+\tiny
+```{r repagg1, echo=TRUE}
+library(haven)
+library(here)
+library(lfe)
+library(dplyr)
+```
+
+
+## There is no Santa Claus: AGG (2006)
+Replicating results of columns 1 of p.49 and p.50:
+\tiny
+```{r repagg1aa, echo=TRUE, results = "asis"}
+agg_data<-read_dta("../../data/data_M1_OVB/IA_MI_merge040504.dta")
+nrow(agg_data)
+
+##scalling the vote02 variable to remove excess 0's from tables
+agg_data$vote02<-100*as.numeric(agg_data$vote02)
+
+#note: basic controls are included since the randomization happened at the state level
+#and to distinguish between competitive and un-competitive races in each state.
+regols1<-felm(vote02~contact+state+comp_mi+comp_ia,agg_data)
+
+#Getting an unbiased estimate using insturumental variables approach
+regexp1<-felm(vote02~state+comp_mi+comp_ia|0|(contact~treat_real+state+comp_mi+comp_ia),agg_data)
+
+ 
+```
+
+
+## There is no Santa Claus: AGG (2006)
+Replicating results of columns 1 of p.49 and p.50:
+\tiny
+```{r repagg1a, echo=TRUE, results = "asis"}
+stargazer(regols1,regexp1, type='latex', se = list(regols1$rse,regexp1$rse),
+          header=FALSE,  title="AGG replication 1",omit.stat=c("f", "ser"), single.row = TRUE)
+```
+
+
+## There is no Santa Claus: AGG (2006)
+
+Our OLS estimator it not doing so good: $\tilde{\tau}>\tau$.
+
+Why? 
+
+
+## There is no Santa Claus: AGG (2006)
+
+Our OLS estimator it not doing so good: $\tilde{\tau}>\tau$.
+
+Why? 
+
+- the people that are contacted are the type of person who is more likely to vote already
+
+- $cor(Vote,Type)>0$ and $cor(Contact,Type)>0$ biasing our estimates upward. 
+
+Can OLS do better? AGG have lots of controls in their data. 
+
+
+## There is no Santa Claus: AGG (2006)
+Replicating results of columns 2 of p.49 and p.50:
+\tiny 
+```{r repagg2, echo=TRUE, results = "asis"}
+
+regols2<-felm(vote02~contact+state+comp_mi+comp_ia+persons+age+
+                female2+newreg+vote00+vote98+fem_miss|county+st_hse+st_sen,agg_data)
+
+regexp2<-felm(vote02~state+comp_mi+comp_ia+persons+age+
+                female2+newreg+vote00+vote98+fem_miss|county+st_hse+st_sen|
+(contact~treat_real+state+comp_mi+comp_ia+persons+age
+ +female2+newreg+vote00+vote98+fem_miss),agg_data)
+
+```
+
+## There is no Santa Clause: AGG (2006)
+
+
+\center ![]("images\codecomic2.png"){width=50%}
+
+
+## There is no Santa Claus: AGG (2006)
+Replicating results of columns 2 of p.49 and p.50:
+\tiny
+```{r repagg2a, echo=TRUE, results = "asis"}
+stargazer(regols2,regexp2, type='latex', se = list(regols2$rse,regexp2$rse),
+          header=FALSE,  title="AGG replication 2",omit.stat=c("f", "ser"), single.row = TRUE)
+```
+
+## There is no Santa Claus: AGG (2006)
+
+Our OLS estimates are still biased. Even with all these controls, $\tilde{\tau}>\tau$.
+
+Unless you had a variable that told you if the person is the type to answer and talk to an unknown caller about voting, the kitchen sink approach will not solve the OVB problem.
+
