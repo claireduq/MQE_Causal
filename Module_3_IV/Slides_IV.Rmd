@@ -1,0 +1,978 @@
+---
+title: "MQE: Economic Inference from Data:  \nModule 3: Instrumental Variables"
+author: "Claire Duquennois"
+date: "6/9/2020"
+output:
+  beamer_presentation: default
+  pdf_document: default
+  slidy_presentation: default
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(fig.width=9, fig.height=5) 
+```
+
+## You can't always get what you want
+
+Even with fixed effects, certain types of unobservables can still bias our estimates. 
+
+For OVB to not be a problem, we want a treatment variable $x_i$ where we know that there does not exist some omitted variable $x_{ov}$ such that
+
+- $cor(x_i,x_{ov})\neq 0$ and $cor(y_i, x_{ov})\neq 0$.
+
+This is a tall order...
+
+## You can't always get what you want
+
+ But if you try \underline{sometimes},
+ 
+ 
+
+## You can't always get what you want
+
+ But if you try \underline{sometimes},
+ 
+ you just \underline{might} find, 
+ 
+
+
+## You can't always get what you want
+
+ But if you try \underline{sometimes},
+ 
+ you just \underline{might} find, 
+ 
+ you get what you need: a good instrumental variable.
+ 
+ 
+ 
+## An instrument for what? 
+
+I am interested in the relationship between $y$ and $x_1$.
+
+The true data generating process looks like this:
+
+$$
+y_i=\beta_0+\beta_1x_1+\beta_2x_2+\epsilon
+$$
+
+- $x_1$ and $x_2$ are uncorrelated with $\epsilon$ 
+
+- $x_1$ and $x_2$ are correlated with each other such that $Cov(x_1,x_2)\neq 0$
+
+So whats the problem? 
+
+- you don't actually observe $x_2$. 
+
+Uh oh. 
+
+## The problem: 
+
+The naive approach (but you of course know better then to do this...) 
+
+Regress $y$ on just $x_1$:
+
+$$
+y_i=\beta_0+\beta_1x_1+\nu
+$$
+where 
+
+$$
+\nu=\beta_2x_2+\epsilon.
+$$
+
+## Cov Math Rules: 
+
+$Cov(X+Y,Z)=Cov(X,Z)+Cov(Y,Z)$
+
+$Cov(X,X)= Var(X)$
+
+$Cov(cX,Y)=cCov(X,Y)$
+
+## The problem: 
+
+$$
+\begin{aligned}
+\hat{\beta}_{1,OLS}&=\frac{cov(x_1,y)}{var(x_1)}\\
+&=\frac{cov(x_1,\beta_0+\beta_1x_1+\nu)}{var(x_1)}\\
+&=\frac{cov(x_1, \beta_0)+cov(x_1,\beta_1x_1)+cov(x_1,\nu)}{var(x_1)}\\
+&=\frac{\beta_1var(x_1)+cov(x_1,\nu)}{var(x_1)}\\
+&=\beta_1+\frac{cov(x_1,\nu)}{var(x_1)}
+\end{aligned}
+$$
+
+ $cov(x_1,\nu)\neq0$ since $cov(x_1, \nu)=cov(x_1,\beta_2x_2+\epsilon)=\beta_2cov(x_1,x_2)+cov(x_1,\epsilon)$ and $cov(x_1,x_2)\neq0$
+ 
+$\Rightarrow\hat{\beta}_{1,OLS}$ is biased.
+
+
+## All is not lost!
+ 
+
+An **instrumental variable** (IV) is a variable that 
+
+- is correlated with the "good" or "\textit{exogenous}" variation in $x_1$
+
+- is unrelated to the "bad" or "\textit{endogenous}" or "\textit{related-to-$x_2$}" variation in $x_1$. 
+ 
+ 
+## Formally
+
+
+An IV is a variable, $z$ that satisfies two important properties:
+
+- $Cov(z, x_1)\neq 0$ (the first stage).
+- $Cov(z, \nu)= 0$ (since $Cov(z,x_2)=0$) (the exclusion restriction) . 
+
+## The First Stage
+
+$Cov(z, x_1)\neq 0$ 
+
+- $z$ and $x_1$ are correlated
+
+- the IV is useless without a first stage. 
+
+We are trying to get a $\hat{\beta}_1$ such that $E[\hat{\beta}_1]=\beta_1$. If our instrument is totally unrelated to $x_1$, we won't have any hope of using it to get at $\beta_1$.
+
+## The exclusion restriction
+
+$Cov(z, \nu)= 0$ 
+
+- $z$ has to affect $y$ **only** through $x_1$. 
+
+- Since $Cov(z, \nu)=\beta_2Cov(z,x_2)+Cov(z,\epsilon)$
+
+  $\Rightarrow Cov(z,x_2)=0$ and $Cov(z,\epsilon)=0$ 
+  
+  $\Rightarrow$ all of the influence of $z$ on $y$ must be chanelled through $x_1$. 
+  
+## The IV estimator
+$$
+\begin{aligned}
+\hat{\beta}_{1,IV}&=\frac{cov(z,y)}{cov(z,x)}\\
+&=\frac{cov(z,\beta_0+\beta_1x_1+\nu)}{cov(z,x_1)}\\
+&=\beta_1\frac{cov(z,x_1)}{cov(z,x_1)}+\frac{cov(z,\nu)}{cov(z,x_1)}\\
+&=\beta_1+\frac{cov(z,\nu)}{cov(z,x_1)}.
+\end{aligned}
+$$
+ 
+With the exclusion restriction: $cov(z, \nu)= 0\Rightarrow E[\hat{\beta}_{1,IV}]=\beta_1$ 
+
+Woot Woot! We have an unbiased estimator!
+
+## Do the following variables satisfy the properties of a good instrument?
+
+1. You are interested how the length of a prison sentence affects recidivism 5 years later. You instrument with how strict the randomly assigned judge to the case is.
+
+2. You are interested in how college attendance influences wages. You instrument with family home proximity to a college.
+
+3. You are interested in how stress affects blood pressure. You instrument with COVID rates in the local community. 
+
+
+## Some instruments:
+
+\small An (old) survey of instrumental variables: Angrist and Krueger (2001)
+
+\centering![]("images\ivsurvey.png"){width=75%}
+
+
+
+
+
+
+
+## Chasing Unicorns
+
+- $z$'s that satisfy the first condition are easy to find, and we can test that $Cov(z, x_1)\neq 0$
+
+- $z$'s that satisfy the exclusion restriction are rare and we cannot test that  $Cov(z, \nu)= 0$ since we don't observe $\epsilon$. 
+
+## Chasing Unicorns
+
+A good IV is not unlike a unicorn. It is quite powerful/magical as it will allow you to recover a consistent estimate of $\beta_1$ in a situation that was otherwise hopeless.
+
+\centering![]("images\real_unicorn.jpg"){width=75%}
+
+
+
+## Chasing Unicorns
+
+It is also a rare, (some may argue imaginary) beast, that often turns out to be a horse with an optimistic rider (author).
+
+\centering![]("images\unicorn.jpg"){width=45%}
+
+\small
+- be skeptical of instrumental variables regressions
+
+- be wary of trying them yourself
+
+- be prepared to convince people the exclusion restriction is satisfied
+
+
+## A simulation
+
+I generate some simulated data, with properties I fully understand:
+
+The DGP: $Y$ depends on two variables, $X_1$ and $X_2$ such that 
+
+$$
+Y_i=\beta_0+\beta_1 x_{1i}+\beta_2 x_{2i}+\epsilon_i
+$$
+
+- $x_1$ and $x_2$ covary with $Cov(x_1,x_2)=0.75$
+
+- $z$ covaries with $x_1$ such that $Cov(x_1,z)=0.25$
+
+- $z$ does not covary with $x_2$ (so $Cov(x_2,z)=0$). 
+
+## A simulation
+
+\tiny
+```{r simiv1, echo=TRUE}
+library(MASS)
+library(ggplot2)
+library(stargazer)
+
+sigmaMat<-matrix(c(1,0.75,0.25,0.75,1,0,0.25,0,1), nrow=3)
+sigmaMat
+
+
+set.seed(5000)
+ivdat<- as.data.frame(mvrnorm(10000, mu = c(0,0,0), 
+                     Sigma = sigmaMat))
+
+names(ivdat)<-c("x_1","x_2","z")
+cov(ivdat)
+```
+
+## A simulation
+
+\tiny
+```{r simiv1a, echo=TRUE}
+
+ivdat$error<-rnorm(10000, mean=0, sd=1)
+
+#The data generating process
+B1<-10
+B2<-(-20)
+
+ivdat$Y<-ivdat$x_1*B1+ivdat$x_2*B2+ivdat$error
+
+knitr::kable(head(ivdat))
+
+```
+
+
+
+## A simulation:
+\small
+```{r simiv 4,  echo=TRUE}
+simiv1<-lm(Y~x_1+x_2, data=ivdat)
+simiv2<-lm(Y~x_1, data=ivdat)
+```
+\normalsize
+How will our estimate of $\hat{\beta}_1$ in model 2 compare to the true $\beta$? 
+
+$\Rightarrow$ Top Hat
+
+## A simulation:
+
+```{r simiv 4aa,  echo=TRUE}
+cov(ivdat$Y,ivdat$x_2)
+cov(ivdat$x_1,ivdat$x_2)
+
+```
+
+\normalsize
+How will our estimate of $\hat{\beta}_1$ in model 2 compare to the true $\beta$? 
+
+- $Cov(Y, x_2)<0$
+
+- $Cov(x_1,x_2)>0$
+
+- $\hat{\beta}_1$ is downward biased
+
+
+
+## A simulation:
+\tiny
+```{r simiv 4a, results = "asis", echo=TRUE}
+stargazer(simiv1, simiv2, header=FALSE, type='latex', omit.stat = "all", single.row = TRUE)
+```
+
+\small
+- With the correctly specified model $E[\hat{\beta}_1]=\beta_1$.
+
+- If I do not observe $x_2$, the naive approach is biased.
+
+## A simulation:
+
+
+Suppose there exists a variable $z$ that satisfies the two conditions outlined above: 
+
+- $Cov(z, x_1)\neq 0$ (the first stage).
+
+- $Cov(z, \nu)= 0$ (the exclusion restriction). 
+
+Our simulated data includes $z$, a variable with these properties 
+\tiny
+
+
+## A simulation:
+
+I instrument my endogenous variable, $x_1$, with my instrument $z$:
+
+\tiny
+```{r simiv 6, results = "asis", echo=TRUE}
+library(lfe)
+
+simiv3<-felm(Y~1|0|(x_1~z),ivdat)
+
+```
+
+
+## A simulation:
+
+
+:::::: {.columns}
+
+::: {.column width="30%" data-latex="{0.55\textwidth}"}
+
+![]("images\dab_uni.jpg")
+
+\small
+- I get an unbiased estimate of  $\beta_1$!
+
+- Careful: $R^2$ values get real funky (negative!?!)-- don't use.
+
+:::
+
+
+::: {.column width="70%" data-latex="{0.4\textwidth}"}
+
+\tiny
+```{r simiv 6a, results = "asis", echo=TRUE}
+stargazer(simiv1, simiv2, simiv3, header=FALSE, 
+          type='latex', omit.stat = c("n", "f","ser"))
+```
+
+:::
+::::::
+
+## 2SLS:
+
+How does $\beta_{IV}$ use the instrumental variable to retrieve an unbiased estimate?
+
+To build intuition, let's look at the two-stage least squares (2SLS) estimator $\beta_{2SLS}$.
+
+When we are working with only one instrument and one endogenous regressor, $\beta_{IV}=\beta_{2SLS}$.
+
+## 2SLS:
+
+
+2SLS proceeds in two (least squares regression) stages:
+
+- the "first stage," a regression of our endogenous variable on our instrument
+$$
+x_1=\gamma_0+\gamma_1z+u.
+$$
+
+- using the estimated $\hat{\gamma}$ coefficients we generate predicted values, $\hat{x}_1$:
+$$
+\hat{x}_1=\hat{\gamma}_0+\hat{\gamma}_1z
+$$
+
+- the "second stage" where we regress our outcome on the predicted values of the endogenous variable
+$$
+y=\beta_0+\beta_1\hat{x}_1+\epsilon
+$$
+
+## The first stage:
+
+\tiny
+```{r sim2sls 1,  echo=TRUE}
+
+sim2slsfs<-felm(x_1~z,ivdat)
+summary(sim2slsfs)
+```
+
+
+
+## The second stage:
+```{r sim2sls 2, echo=TRUE}
+
+hatgamma0<-sim2slsfs$coefficients[1]
+hatgamma1<-sim2slsfs$coefficients[2]
+ivdat$hatx_1<-hatgamma0+hatgamma1*ivdat$z
+
+sim2slsss<-felm(Y~hatx_1,ivdat)
+```
+
+
+
+## The second stage:
+
+
+
+:::::: {.columns}
+
+::: {.column width="30%" data-latex="{0.55\textwidth}"}
+
+
+\small
+- Math Magic! $\hat{\beta}_{1,2SLS}$ consistently estimates $\beta_1$ and $\hat{\beta}_{1,2SLS}=\hat{\beta}_{1,IV}$!
+
+
+:::
+
+
+::: {.column width="70%" data-latex="{0.4\textwidth}"}
+
+\tiny
+```{r sim2sls 2b, results = "asis", echo=TRUE}
+stargazer(simiv1, simiv3,sim2slsss, header=FALSE,  type='latex',
+          omit.stat = "all", no.space=TRUE)
+```
+
+:::
+::::::
+\footnotesize
+
+- Note: The standard errors reported from the second stage of 2SLS will not be correct (because they are based on $\hat{x}_1$ rather than $x_1$).(There are ways to correct this but the math and coding are a bit complicated.)
+
+
+## The Reduced Form (and more cool IV intuition)
+
+The **reduced form** regresses the outcome directly on the exogenous instrument (and any other exogenous variables if you have them):
+
+$$
+y_i=\pi_0+\pi_1z_i+\eta
+$$
+\tiny
+```{r sim2sls 4, echo=TRUE, results = "asis"}
+sim2slsrf<-felm(Y~z,ivdat)
+stargazer(simiv3, sim2slsfs,  sim2slsrf,  type='latex', header=FALSE, omit.stat = "all")
+```
+
+
+## The Reduced Form (and more cool IV intuition)
+
+
+
+We can recover $\hat{\beta}_1$ by taking the $\hat{\pi}_1$from the reduced form and dividing it by $\hat{\gamma}_1$ from the first stage:
+
+$$
+\hat{\beta}_1=\frac{\hat{\pi}_1}{\hat{\gamma}_1}=\frac{2.442}{0.249}=9.807
+$$
+
+- Math Magic!
+
+- Why does this work?
+
+
+
+## The Reduced Form (and more cool IV intuition)
+
+
+
+We can recover $\hat{\beta}_1$ by taking the $\hat{\pi}_1$from the reduced form and dividing it by $\hat{\gamma}_1$ from the first stage:
+
+$$
+\hat{\beta}_1=\frac{\hat{\pi}_1}{\hat{\gamma}_1}=\frac{2.442}{0.249}=9.807
+$$
+
+- Math Magic!
+
+- Why does this work? We are taking the effect of $z$ on $y$ and scaling it by the effect of $z$ on $x_1$ (since $z$ affects $y$ via $x_1$).
+
+
+
+## We saw the good. Now for the bad and ugly.
+
+:::::: {.columns}
+
+::: {.column width="50%" data-latex="{0.55\textwidth}"}
+
+- The Forbidden Regression
+
+- Weak Instruments
+:::
+
+
+::: {.column width="50%" data-latex="{0.4\textwidth}"}
+
+\centering![]("images\download.jpg")
+
+:::
+::::::
+
+
+
+## The Bad: The Forbidden Regression
+
+Be weary of the **forbidden regression**!
+
+People sometimes try to run a logit, probit, or some other non-linear regression as the first stage of a 2SLS procedure. This is a bad idea. Don't do it.  
+
+## The Ugly: Weak Instruments
+
+
+Recall that 
+$$
+\hat{\beta}_{IV}=\beta+\frac{cov(z,\nu)}{cov(z,x_1)}.
+$$
+
+ A weak instrument is an instrument with a weak first stage:  $Cov(z, x_1)$,  is small.
+ 
+ Why is this a problem? 
+ 
+## The Ugly: Weak Instruments
+
+**A weak instrument will amplify any endogeneity that exists in your model.** 
+
+For $E[\hat{\beta}_{IV}]=\beta_1$, we need $cov(z,\nu)=0$ (the exclusion restriction) to hold.
+
+Suppose this assumption is violated in a small way, meaning that $cov(z,\nu)\neq 0$ but that it was a very small value. 
+
+If $cov(z,x_1)$ is also small, the violation of the exclusion restriction will get amplified leading to potentially severe bias in our estimator. 
+
+## The Ugly: Simulation
+
+I generate a simulated dataset with:
+
+- a week first stage $cov(z,x_1)=0.03$
+
+- a small violation of the exclusion restriction, $cov(z,x_2)=0.01$
+
+\tiny
+```{r simivweak1, echo=TRUE }
+sigmaMat<-matrix(c(1,0.75,0.03,0.75,1,0.01,0.03,0.01,1), nrow=3)
+sigmaMat
+
+set.seed(5000)
+ivdatwk<- as.data.frame(mvrnorm(10000, mu = c(0,0,0), 
+                     Sigma = sigmaMat))
+
+names(ivdatwk)<-c("x_1","x_2","z")
+cov(ivdatwk)
+ivdatwk$error<-rnorm(10000, mean=0, sd=1)
+ivdatwk$nu=(-20)*ivdatwk$x_2+ivdatwk$error
+```
+
+## The Ugly: Simulation
+\tiny
+```{r simivweak2, results = "asis", echo=TRUE}
+
+#The data generating process
+B1<-10
+B2<-(-20)
+ivdatwk$Y<-ivdatwk$x_1*B1+ivdatwk$x_2*B2+ivdatwk$error
+
+simivweakfs<-lm(x_1~z,ivdatwk)
+simivweak<-felm(Y~1|0|(x_1~z),ivdatwk)
+stargazer(simivweakfs,simivweak,  type='latex', omit.stat = c("n", "adj.rsq", "rsq", "ser"), 
+          header=FALSE)
+```
+
+## The Ugly: Simulation
+\small
+```{r simivweak2a, results = "asis", echo=TRUE}
+cov(ivdatwk$z,ivdatwk$x_1)
+cov(ivdatwk$z,ivdatwk$nu)
+```
+
+\normalsize
+We can see that $cov(z,x_1)= 0.02473$ and $cov(z,\nu)=-0.25756$ so
+
+$$
+\hat{\beta}_{1,IV}=10+\frac{-0.25756}{0.02473}=-0.415\neq\beta_1=10.
+$$
+\centering![]("images\deaduni.jpg")
+
+## The Ugly: Weak Instruments
+
+This is a major problem because: 
+
+- It is rare that an instrument would be perfectly independent of all confounding factors, and 
+
+- it is impossible to test the exclusion restriction.
+
+$\Rightarrow$ be very cautious about results when there is a weak first stage. 
+
+What constitutes a "weak" instrument? 
+
+The standard benchmark is a first stage F-test that is less than 10 (ie you want the F-stat to be large). 
+
+## Dealing with Multiples
+
+See the lecture notes for example of how to deal with more complicated specifications:
+
+- Control variables
+
+- Multiple Instruments
+
+- Multiple endogenous variables and multiple instruments
+
+
+## Unicorns and Work-horses
+\centering![]("images\real_sib_unicorn.jpg")
+The real Siberian unicorn, \textit{Elasmotherium sibiricum}, 29,000 BC. 
+
+## Unicorns and Work-horses
+
+IV estimations show up in two different types of situations:
+
+- IV projects:
+
+  - the validity of the instrumental variable is central to the identification strategy 
+
+  - can be very interesting because they are often looking at an important but highly endogenous variable 
+
+  - the validity of the causal claims,  depends **\underline{heavily}** on the validity of the instrument. 
+
+- Cameo appearances in other projects:
+
+  - in randomized control trials (RCT)
+
+  - in regression discontinuity (RD) projects 
+
+  - the random assignment of treatment is used as an instrument to estimate treatment effects
+
+
+## "Work Horse" IV intuition and medical trials (RCT)
+
+
+Medical trials are a fantastic example of an application of instrumental variables:
+
+- socially important (perhaps the most important application of IV to date)
+
+- very clean experimental design
+
+And this is a good segway to the RCT module. 
+
+## Medical trials (RCT)
+
+The model for a medical trial:
+$$
+Y_i=\alpha+\tau D_i+\epsilon_i.
+$$
+
+- $Y_i$ represents a medical outcome (continuous or discreet). 
+
+- $D_i$ is generally a dummy variable (1 if treated and 0 if not). 
+
+- The error term, $\epsilon_i$ represents all other factors that affect the health outcome
+
+## Medical trials (RCT)
+
+This regression model corresponds to the potential outcome model with constant treatment effects:
+
+$$
+\begin{aligned}
+Y_i(D_i)&=D_iY(1)+(1-D_i)Y(0)\\
+Y_i(0)&=\alpha+\epsilon_i\\
+Y_i(1)&=Y_i(0)+\tau.
+\end{aligned}
+$$
+
+Our goal:
+
+- estimate the effect that the treatment (say a physical therapy regimen of stretching excercises) has on our outcome (say knee pain)
+
+- our hope is that $\tau$ is negative and large in magnitude. 
+
+
+## Medical trials (RCT)
+
+Options: Non-Experimental estimates:
+
+- Promote the stretching excercises to the general population.
+  
+- Collect some data
+  
+- Regress knee pain on whether or not you did the stretching excercises 
+  
+- **What is the problem with this approach?** 
+
+## Medical trials (RCT)
+
+Options: Non-Experimental estimates:
+
+
+- Promote the stretching excercises to the general population.
+  
+- Collect some data
+  
+- Regress knee pain on whether or not you did the stretching excercises 
+  
+- **What is the problem with this approach?** 
+  
+  - people who do the stretching excercises are the ones who have high knee pain to begin with! 
+  
+  - We will likely get a positive estimate of $\tau$ (even with controls).
+    
+
+## Medical trials (RCT)
+
+Options: A Medical Trial:
+
+- randomly assign some patients to the treatment group and others to the control group.
+  
+- Treatment group is given instruction on the stretching excercises and told to do them daily
+  
+- Control group are not.   
+
+
+## Medical trials (RCT)
+
+
+Back in the old days: the **intention to treat** (or ITT) estimate:
+
+- Calculate  $\bar{Y}_{i,treat}-\bar{Y}_{i,control}$
+  
+- This is the equivalent to estimating $Y_i=\alpha+\tau D_i+\epsilon_i$ where $D_i=1$ if in the treatment group and 0 if in the control group
+
+- **intention to treat** because you compare the group that you intended to treat and the group that you do not intend to treat. 
+
+**What is the problem with this?**
+
+
+## Medical trials (RCT)
+
+**Non-compliance**:
+
+- some (selected) people in the treatment group would fail to do the stretching excercises 
+
+- some (selected) people in the control group would obtain learn about the stretching excercises from another source (even though they were not supposed to)
+
+Non-compliance can bias the estimate of $\tau$.
+
+**How can this bias be corrected?**
+
+## The "Work Horse" IV: 
+
+This is actually a simple IV problem:
+
+- The instrument, $Z_i$ is the intention to treat:
+
+  - $Z_i=1$ if you are assigned to the treatment group (we intend to treat you)
+  
+  - $Z_i=0$ if you are assigned to the control group (we do not intend to treat you)
+  
+**Does $Z_i$ satisfies the two properties of a good instrument?**
+
+
+
+
+## The "Work Horse" IV: 
+
+**Does $Z_i$ satisfies the two properties of a good instrument?**
+
+- $Z_i$ is randomly assigned so by construction will be uncorrelated with $\epsilon_i$ so $cov(Z_i,\epsilon_i)=0$ (the exclusion restriction). 
+
+- $Z_i$ is correlated with $D_i$, because you are going to be more likely to do the stretches if you are in the treatment group so $cov(Z_i,D_i)\neq0$ (the first stage).
+
+
+$\Rightarrow Z_i$ is a valid instrument for $D_i$ and the IV estimator gives us a consistent estimate of $\tau$, the effect of the stretching excercises on knee pain. 
+
+## The "Work Horse" IV: Intuition
+
+**How does this fix the non-compliance problem?**
+
+Example:
+
+- Assume the non-compliance problem only exists for the people in the treatment group. 
+
+- Only half the people in the treatment group do the stretching excercises (ie half of the treatment group fails to comply and does not do the stretching excercises while the other half do the excercises as they were told to)
+
+**What will the IV look like?**
+
+## The "Work Horse" IV: Intuition
+
+The first stage will regress whether you did the excercises on whether you were in the treatment group $D_i$ on $Z_i$:
+$$
+D_i=\gamma_0+\gamma_1Z_i+u_i
+$$
+Zero people in the control group did the stretches while half in the treatment group did the stretches:
+
+$\Rightarrow E[\hat{\gamma}_0]=0$ and $E[\hat{\gamma}_1]=0.5$. 
+
+## The "Work Horse" IV: Intuition
+
+
+The IV estimate is the reduced form scaled by the first stage: 
+
+The reduced form is a regression of $Y_i$ (your knee pain) on $Z_i$(whether you were assigned to the treatment or control group): 
+$$
+Y_i=\pi_0+\pi_1Z_i+v_i
+$$
+
+Therefore our IV estimate,
+
+$$
+\hat{\tau}_{IV}=\frac{\hat{\pi}_1}{\hat{\gamma}_1}=\frac{\hat{\pi}_1}{0.5}.
+$$ 
+
+
+**How is this fixing the non-complier problem?**
+
+
+## The "Work Horse" IV: Intuition
+
+**How is this fixing the non-complier problem?**
+
+The reduced form is estimating the effect that being assigned to the treatment group has on knee pain. 
+
+But this is not what we are interested in. 
+
+
+We want to know the effect of doing the stretching excercises. 
+
+
+## The "Work Horse" IV: Intuition
+
+**How is this fixing the non-complier problem?**
+
+If there were perfect compliance: 
+
+- the reduced form estimate would be the effect of doing the stretching excercises
+
+  - the first stage would give us $\hat{\gamma}_1=1$ 
+
+  - the IV estimate would be $\hat{\tau}_{IV}=\frac{\hat{\pi}_1}{1}=\hat{\pi}_1$.
+  
+If compliance isn't perfect: 
+
+- the reduced form estimates the effect of increasing the probability you do the stretching excercises 
+
+  - This means that the reduced form is not estimating the full effect of the stretching excercises
+
+## The "Work Horse" IV: Intuition: Example
+
+- 10 people in the treatment group. 5 do the excercises and 5 do not. 
+
+  - The (expected) mean knee pain for the treatment group:
+$$
+ E[Y_i|TreatGroup_i]=\frac{5\alpha+5(\alpha+\tau)}{10}=\alpha+\frac{\tau}{2}
+$$
+
+- 10 people in the control group, no one does the stretching excercises. 
+
+  - The (expected) mean knee pain for the control group:
+$$
+ E[Y_i|ContGroup_i]=\alpha
+$$
+
+
+## The "Work Horse" IV: Intuition: Example
+
+- 10 people in the treatment group. 5 take do the stretches and 5 do not. 
+
+  - The (expected) mean knee pain for the treatment group:
+$$
+ E[Y_i|TreatGroup_i]=\frac{5\alpha+5(\alpha+\tau)}{10}=\alpha+\frac{\tau}{2}
+$$
+
+- 10 people in the control group, no one does the stretches. 
+
+  - The (expected) mean knee pain for the control group:
+$$
+ E[Y_i|ContGroup_i]=\alpha
+$$
+
+So the reduced form coefficient(=the difference of means):
+$$
+\hat{\pi}_1=\alpha+\frac{\tau}{2}-\alpha = \frac{\tau}{2}
+$$
+
+ is half the effect of taking the excercises (since only half the treated group did them). 
+ 
+## The "Work Horse" IV: Intuition: Example
+
+Thus,  
+$$
+E[\tau_{IV}]=\frac{\pi_1}{\gamma_1}=\frac{0.5\tau}{0.5}=\tau.
+$$
+
+The IV estimate gives us a consistent estimate because it is scaling the reduced form by the first stage.
+
+We re-scale the reduced form because:
+
+- being in the treatment group only increases your probability of doing the ecercises by 50 percentage points not by a full 100 percentage points.
+
+- the reduced form only represents half of the effect of doing the stretching excercises
+
+## The "Work Horse" IV: Intuition:
+
+Note:
+
+- the IV is different from simply taking the mean of $Y_i$ for those in the treatment group who did the stretches and subtracting the mean of $Y_i$ for those in the control group who did not. 
+
+- This would be affected by the same selection issues as a simple OLS regression of $Y_i$ on $D_i$.
+
+
+
+## The "Work Horse" IV: In practice
+
+ Recall Arseneaux, Gerber and Green (2006): 
+ 
+ 
+Evaluate a "Get out the Vote" mobilization:
+
+- Who gets called ($Call_i$) is random
+
+- Who answers the call ($Contact_i$) is not
+
+In the paper they generate:
+
+- estimates that controlled for observable characteristics 
+
+- "experimental" estimates in order to gauge bias from unobservables
+
+The "experimental" estimates use an instrumental variable.
+
+## The "Work Horse" IV: In practice
+
+They are interested in estimating how getting contacted by the "Get out the Vote" mobilization affect the likelihood of actually voting:
+
+$$
+Votes_i=\beta_0+\beta_1Contacted_i+\beta_jX_j+\epsilon_i.
+$$
+
+But who gets contacted is not random (not everyone will pick up the phone!)
+
+They instrument $Contacted_i$, with being randomly assigned to receive a call from the campaign. Thus the first stage is
+
+$$
+Contacted_i=\gamma_0+\gamma_1Called_i+\gamma_jX_j+u_i
+$$
+
+## The "Work Horse" IV: In practice
+Replicating results of columns 1 of p.49 and p.50:
+\tiny
+```{r repaggiv, results = "asis", echo=TRUE}
+
+library(haven)
+
+agg_data<-read_dta("../../data/data_M3_IV/IA_MI_merge040504.dta")
+
+#scalling the vote02 variable to remove excess 0's from tables
+agg_data$vote02<-100*as.numeric(agg_data$vote02)
+
+regols1<-felm(vote02~contact+state+comp_mi+comp_ia,agg_data)
+regiv1<-felm(vote02~state+comp_mi+comp_ia|0|(contact~treat_real+state+comp_mi+comp_ia),agg_data)
+```
+
+## The "Work Horse" IV: In practice
+Replicating results of columns 1 of p.49 and p.50:
+\tiny
+```{r repaggiva, results = "asis", echo=TRUE}
+
+stargazer(regols1,regiv1,type='latex', se = list( regols1$rse, regiv1$rse), header=FALSE,
+          omit.stat = "all")
+
+```
+
+
