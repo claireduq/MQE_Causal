@@ -1,0 +1,1500 @@
+---
+title: "Lecture Notes: Causal Inference Fall 2020"
+author: "Claire Duquennois"
+date: "7/28/2020"
+header-includes:
+   - \usepackage{bbm}
+output:
+  pdf_document:
+    toc: true
+    number_sections: true
+---
+
+```{r setup,include=FALSE}
+library(lfe)
+library(ggplot2)
+library(dplyr)
+library(stargazer)
+library(robustbase)
+library(wooldridge)
+# Set so that long lines in R will be wrapped:
+knitr::opts_chunk$set(tidy.opts=list(width.cutoff=80), tidy=TRUE)
+```
+
+
+
+
+
+# The Hodgepodge
+
+
+
+## Regression Interpretation and Variable Transformations
+
+Being able to generate regression results is one thing. Equally important is being able to interpret them correctly. When interpreting regression results, there are typically 3 elements you want to touch upon (the three S'):
+
+1) **Sign**- is the coefficient you are discussing positive or negative? Does the sign of the coefficient match your priors or is it surprising?
+
+2) **Size**- What is the magnitude of the coefficient? Is the effect of $x$ on $y$ economically meaningful or not? While it is not incorrect to say the that a one unit increase in $x$ leads to a $\beta$ unit change in $y$, in order to be able to make your interpretation informative to your audience, you will generally want to be more precise:
+
+    - specify the units of measurement
+    
+    - interpret the coefficients appropriately: if the regression used a logged variable, a binairy dependent variable, a standardized variable...
+    
+    - it may be useful to scale the values into more intuitive units of measurement. 
+    
+    - If the regression features a polynomial discuss the difference in the magnitude of the marginal effects at different key values. 
+    
+    - If the regression features interaction terms, interpret the implications for different types of observations
+    
+    - it is often informative to compare the coefficient to the mean and standard deviation of the dependent variable to give your audience a point of reference with which to gauge magnitudes
+    
+  
+
+3) **Significance**- Is the estimate statistically significant? Can we reject that the true coefficient is equal to zero? With what confidence level?
+
+
+
+
+### Scaling
+
+Sometimes you may find that the units of measurement used for some of the variables in the data you are working with are not very intuitive. 
+
+Suppose I am interested in the following regression: 
+
+$$
+sleep=\beta_0+\beta_1totwork+\beta_2educ+u
+$$
+Using the `sleep75` data that is part of the `wooldrige` package, I run the estimation and get the following
+```{r scal, echo=TRUE}
+
+regsleep1<-lm(sleep~totwrk+educ, sleep75)
+
+summary(regsleep1)
+```
+
+What do these coefficients mean? To answer this I need to know the units of measurement for each of the variables. $educ$ is measured in years of education, which is fairly intuitive but $sleep$ and $totwrk$ are measured in minutes per week. Thus, **one additional year of education is associated with 13.5 fewer minutes of sleep per week**. This is probably not the most intuitive interpretation for most audiences. Hours per week would probably be a more natural way to report this.
+
+#### Scaling the dependent variable\
+
+\bigskip
+
+One way to do this is to simply make the adjustment in our interpretation. $13.5$ min per week is equivalent to $\frac{13.5}{60}=0.23\approx 1/4$ hour per week. So we could just rewrite all of our interpretations in terms of hours by dividing the old coefficients by 60:
+
+$$
+\frac{\hat{\beta}_0}{60};\frac{\hat{\beta}_1}{60};\frac{\hat{\beta}_2}{60}. 
+$$
+Alternatively, it is often just easier to run the regression after having scaled our $sleep$ variable in terms of hours (i.e. dividing the dependent variable by 60 and re-running the regression) as follows:
+
+```{r scal2, echo=TRUE}
+sleep75$sleephrs<-sleep75$sleep/60
+
+regsleep2<-lm(sleephrs~totwrk+educ, sleep75)
+
+summary(regsleep2)
+```
+
+In general, if we re-scale the dependent variable $y$ by a constant $c$, then the equation we estimate becomes
+
+$$
+\begin{aligned}
+\tilde{y}&=\tilde{\beta}_0+\tilde{\beta}_1x_1+...+\tilde{\beta}_kx_k+u\\
+cy&=c\beta_0+c\beta_1x_1+c\beta_2x2+...+c\beta_kx_k+u.
+\end{aligned}
+$$
+In the example above, $c=\frac{1}{60}$, so the new $\hat{\beta}$'s will be divided by 60 too. Nothing else about the regression changes ($R^2$, t-stats, p-values). 
+
+
+#### Scaling the independent variable\
+
+\bigskip
+Things are slightly different is we are scaling an independent variable. Our estimates above say that a 1 minute increase in total work  per week predicts a decrease in sleep of 0.0025 hours per week. This is clearly equivalent to saying that a one hour increase in total work predicts a 60*(0.0025)=0.15 hour decrease in sleep per week (i.e. we can multiply our $\hat{\beta}$ estimate by 60). 
+
+As above, it often makes sense to scale the variable in R prior to running the regression:
+```{r scal3, echo=TRUE}
+sleep75$totwrkhrs<-sleep75$totwrk/60
+
+regsleep3<-lm(sleephrs~totwrkhrs+educ, sleep75)
+
+summary(regsleep3)
+```
+
+When scaling an independent variable, the other coefficients will be unchanged, but the coefficient on the scaled variable will adjust accordingly.
+
+In general, if we scale $x$ by $c$, the equation becomes:
+
+$$
+\begin{aligned}
+y&= \beta_0+\tilde{\beta}_1\tilde{x}_1+...+\beta_kx_k+u\\
+&= \beta_0+\frac{\tilde{\beta}_1}{c}(c\tilde{x}_1)+...+\beta_kx_k+u.
+\end{aligned}
+$$
+
+### Standardizing
+
+Standardizing variables eliminates the units in order to be able to compare the magnitude of estimates across independent variables. This can make interpretation easier if you have variables with weird arbitrary units that are unfamiliar to people.  We can solve this issue by standardizing the variables.
+
+Suppose we have a regression with two variables, $x_1$ and $x_2$:
+
+$$
+y=\hat{\beta}_0+\hat{\beta}_1 x_1 +\hat{\beta}_2
+x_2+\hat{u}
+$$
+
+We know that our regression must go through the point of averages: if we plugged in $\bar{x}_1$ and $\bar{x}_2$, we would predict $\bar{y}$:
+
+$$
+\bar{y}=\hat{\beta}_0+\hat{\beta}_1\bar{x}_1 +\hat{\beta}_2\bar{x}_2
+$$
+
+
+We can subtract the second equation from the first to get:
+
+$$
+\begin{aligned}
+\hat{y}-\bar{y}&=(\hat{\beta}_0+\hat{\beta}_1 x_1 +\hat{\beta}_2
+x_2+\hat{u})-(\hat{\beta}_0+\hat{\beta}_1\bar{x}_1 +\hat{\beta}_2\bar{x}_2)\\
+&=\hat{\beta}_1( x_1-\bar{x}_1) +\hat{\beta}_2(
+x_2-\bar{x}_2)+\hat{u}
+\end{aligned}
+$$
+With a little bit of additional algebra, dividing both sides of this equation by the standard deviation of $y$, $\sigma_y$ and multiplying each independent variable by $1=\frac{\sigma_x}{\sigma_x}$. we can get the entire regression into standard units: 
+
+$$
+(\frac{y-\bar{y}}{\hat{\sigma}_y})=\frac{\hat{\sigma}_{x_1}}{\hat{\sigma}_y}\hat{\beta}_1(\frac{x_1-\bar{x}_1}{\hat{\sigma}_{x_1}})+\frac{\hat{\sigma}_{x_2}}{\hat{\sigma}_y}\hat{\beta}_2(\frac{x_2-\bar{x}_2}{\hat{\sigma}_{x_2}})+\frac{\hat{u}}{\hat{\sigma}_y}
+$$
+Now we can say that controlling for $x_2$ a one standard deviation increase in $x_1$ leads to a $\frac{\hat{\sigma}_{x_1}}{\hat{\sigma}_y}\hat{\beta}_1$ standard deviation increase in the predicted $y$. We call this new term the standardized coefficient or "beta" coefficient.   
+
+We use the bwght2 dataset to look at how parent ages correlate with birth weights. (Note: birth weights here will be measured in grams). I estimate four different regressions of the type 
+
+
+$$
+birthweight_i=\beta_0+\beta_1 motherage_i+\beta_2 fatherage_i+\epsilon_i
+$$
+
+scaling either the dependent and/or independent variables.
+
+
+```{r scaling, echo=TRUE, results="asis"}
+
+
+reg1<-lm(bwght~mage+fage, bwght2)
+reg2<-lm(scale(bwght)~scale(mage)+scale(fage), bwght2)
+reg3<-lm(scale(bwght)~mage+fage, bwght2)
+reg4<-lm(bwght~scale(mage)+scale(fage), bwght2)
+
+meandep1<-round(mean(bwght2$bwght),2)
+meandep2<-round(mean(scale(bwght2$bwght)),2)
+sddep1<-round(sd(bwght2$bwght),2)
+sddep2<-round(sd(scale(bwght2$bwght)),2)
+
+stargazer(reg1,reg2, reg3, reg4, type = "latex" , header=FALSE,
+          add.lines=list(c("Mean",meandep1,meandep2, meandep2, meandep1 ),
+                         c("SD",sddep1,sddep2, sddep2, sddep1 )))
+
+
+```
+
+Interpreting column 1:
+
+- Having a mother that is **a year** older at birth predicts a birthweight that is 3.992 **grams** less (not statistically significant).
+
+- Having a father that is **a year** older at birth predicts a birthweight that is 9.313 **grams** more (highly statistically significant).
+
+Interpreting column 2:
+
+- Having a mother whose age is **one standard deviation higher** at birth predicts a birthweight that is 0.033 **standard deviations** lower (not statistically significant).
+
+- Having a father whose age is **one standard deviation higher** at birth predicts a birthweight that is 0.092 **standard deviations** higher (highly statistically significant).
+
+Interpreting column 3:
+
+- Having a mother that is **a year** older at birth predicts a birthweight that is 0.007 **standard deviations** lower (not statistically significant).
+
+- Having a father that is **a year** older at birth predict a birthweight that is 0.016 **standard deviations** higher (highly statistically significant).
+
+Interpreting column 4:
+
+- Having a mother whose age is **one standard deviation higher** at birth predicts a birthweight that is 19.044 **grams** lower (not statistically significant).
+
+- Having a father whose age is **one standard deviation higher** at birth predicts a birthweight that is 53.205 **grams** higher (highly statistically significant).
+
+
+
+Notes:
+
+- You can also standardize $y$, $x_1$ and $x_2$ directly in the data set and then run your regression on the standardized variables though this involves more coding.
+
+- You do not need to standardize all the variables. You could just standardize $x_1$ and adjust your interpretation accordingly ( you will need an intercept in this case).
+
+
+### Logs
+
+Choosing an appropriate functional form is a critical choice in economic modeling. Using log's to transform a variable can greatly improve the fit of your model by making the underlying relationship between the dependent and independent variables linear. Of course, when you do this, you need to then adjust your interpretation accordingly.
+
+#### Linear functions and unit-unit changes\
+
+\bigskip
+
+If we assume a linear functional form, the model is: 
+$$
+y=\beta_0+\beta_1x.
+$$ 
+
+**Interpretation**: First take the derivative of the expression to get: $\frac{dy}{dx}=\beta_1$. Now we can rewrite as:
+$$
+\frac{\Delta y}{\Delta x}=\frac{dy}{dx}=\beta_1.
+$$
+Rearranging we see that 
+$$
+\Delta y= \beta_1 \Delta x.
+$$
+Suppose $\Delta x=1$, so that $x$ changes by 1 **unit**. Plugging into the above expression we see that $y$ will change by $\beta_1$ **units**.
+
+
+#### Logarithmic functions and percent-unit changes\
+
+
+If we assume a logarithmic functional form, the model is: 
+$$
+y=\beta_0+\beta_1 log(x).
+$$
+
+**Interpretation:** First take the derivative of our model. Recall: if $w=log(v)$ then $\frac{dw}{dv}=\frac{1}{v}$. Thus for our model: $\frac{dy}{dx}=\frac{\beta_1}{x}$ which, for small changes in $x$ can be approximately rewritten as:
+
+$$
+\frac{\Delta y}{\Delta x}\approx \frac{dy}{dx}=\frac{\beta_1}{x}.
+$$
+Rearranging we see that 
+$$
+\Delta y= \beta_1 \frac{ \Delta x}{x}.
+$$
+Suppose we know that $x$ changes by 10 percent, so that the proportional change in $x$ is 0.1 $\Rightarrow \frac{\Delta x}{x}=0.1$. Plugging into the expression above we see that $y$ will change by $\beta_1*0.1$ **units**. 
+
+#### Exponential functions and Unit-Percent changes\
+
+
+If we assume an exponential functional form, the model is: $y=e^{\beta_0+\beta_1x}$ or 
+$$
+log(y)=\beta_0+\beta_1x.
+$$ 
+
+**Interpretation:** Once again, we take a derivative of our model with respect to $x$ and find $\frac{dlog(y)}{dx}=\beta_1$. For small changes we can rewrite this as 
+
+$$
+\frac{\Delta log(y)}{\Delta x}\approx \frac{dlog(y)}{dx}=\beta_1.
+$$
+Using the fact that $\Delta log(y)=\frac{\Delta y}{y}$:
+$$
+\frac{\frac{\Delta y}{y}}{\Delta x}\approx \frac{dlog(y)}{dx}=\beta_1,
+$$
+we can rearrange and see that 
+$$
+\frac{\Delta y}{y}=\beta_1\Delta x \Rightarrow \underbrace{\frac{\Delta y}{y}\times100}_{\text{percent change}}=(\beta_1 \Delta x)\times100
+$$
+
+Suppose $x$ changes by 1  **unit**. Plugging this into the expression derived above, we see that the proportional change in $y$ is $\beta_1$ and the percent change in $y$ is $100\times\beta_1$ percent. 
+
+#### Log-Log functions and Percent-Percent changes (eg elasticities)\ 
+
+
+If we assume a log-log functional form, the model is 
+$$
+log(y)=\beta_0+\beta_1log(x).
+$$
+
+**Interpretation:** As usual, start by taking the derivative of our model, $\frac{dlog(y)}{dx}=\beta_1\frac{1}{x}$. Re-writing it in terms of small changes we get:
+
+$$
+\begin{aligned}
+\frac{\Delta log(y)}{\Delta x}\approx \frac{dlog(y)}{dx}&=\beta_1(\frac{1}{x})\\
+\Rightarrow \Delta log(y)&=\beta_1 (\frac{\Delta x}{x})\\
+\Rightarrow \frac{\Delta y}{y}&=\beta_1  (\frac{\Delta x}{x})\\
+\Rightarrow \frac{\Delta y}{y}\times100&=\beta_1  (\frac{\Delta x}{x})\times 100
+\end{aligned}
+$$
+Suppose we know that $x$ changes by 1 **percent**. Plug the value into this expression and we see that $y$ will change by $\beta_1$ **percent**. 
+
+
+#### Summary:\
+
+
+|Model      |DepVar| IndepVar |How does $\Delta y$ relate to $\Delta x$? |Interpretation       |
+|-----------|------|----------|------------------------------------|---------------------|
+|Linear     | y    |x         |$\Delta y=\beta_1\Delta x$                | $\Delta y=\beta_1 \Delta x$ |
+|Logarithmic| y |log(x) |$\Delta y=\beta_1\frac{\Delta x}{x}$| $\Delta y=\beta_1 \frac{\% \Delta x}{100}$ |
+|Exponential| log(y) |x |$\frac{\Delta y}{y}=\beta_1\Delta x$| $\% \Delta y=\beta_1 \Delta x \times 100$ |
+|Log-log    | log(y) |log(x)|$\frac{\Delta y}{y}=\beta_1\frac{\Delta x}{x}$| $\% \Delta y=\beta_1 \%\Delta x$ |
+
+
+#### Practice:\
+
+**Example 1:** You have data on gas consumption and prices, you estimate the following model
+
+$$
+log(gas)=12-0.21price
+$$
+**How does gas consumption change when price increases by 1 dollar?**
+$$
+\frac{\Delta y}{y}=\beta_1\Delta x \Rightarrow \frac{\Delta y}{y}=(-0.21)\times 1= -0.21\Rightarrow \%\Delta y=-21\%
+$$
+
+**Example 2:**
+You have data on corn and beef prices, you estimate the following model
+
+$$
+log(P_{beef})=0.83+0.491log(P_{corn})
+$$
+**How does $P_{beef}$ change is $P_{corn}$ rises by 2\%?**
+
+$$
+\frac{\Delta y}{y}=\beta_1\frac{\Delta x}{x}=0.49\times0.02= 0.00982\Rightarrow +0.982\%
+$$
+
+**Example 3:** You have data on CEO salaries (in hundred thousand dollars) and annual firm sales (millions of dollars). You estimate:
+
+$$
+salary=2.23+1.1log(sales)
+$$
+**How does salary change if annual sales increase by 10\%?**
+$$
+\Delta y=\beta_1\frac{\Delta x}{x}=1.1\times0.1=0.11
+$$
+If sales increase by 10\%, CEO salaries are predicted to increase by 0.11 (hundred thousand)= 11,000 dollars.
+
+### Quadratics
+
+When interpreting a variable that includes a quadratic (or higher order) polynomial, it is important to recognize that the marginal effect of the variable is not linear, and include this in your interpretation.
+
+Suppose we are interested in the relationship between age and sleep. You estimate the following model using the `sleep75` data from the `wooldridge` package:
+
+$$
+sleep=\beta_0+\beta_1 age+\beta_2 age^2+u
+$$
+This model allows for the marginal effect of age on sleep to change, along a quadratic functional form. To see this, take the derivative of sleep with respect to age:
+
+$$
+\frac{dsleep}{dage}=\beta_1+2*\beta_2*age.
+$$
+We see that the predicted effect of age on sleep will depend on an observation's age.  When interpreting, the marginal effect in this case, it is often informative to specify the age at which you are interpreting at, and give a sense of the marginal effects at different key points of the age distribution. 
+
+Retrieving the coefficients, we get:
+
+```{r quad, echo=TRUE}
+sleep75$age2<-sleep75$age*sleep75$age
+regquad<-lm(sleep~age+age2, sleep75)
+
+summary(regquad)
+```
+
+thus 
+$$
+\frac{dsleep}{dage}=-21.5+0.6*age.
+$$
+If you are currently 22 years old, our model predicts that a year from now you will be getting 8.3 fewer minutes per week of sleep than you are currently getting.
+
+If you are currently 60, our model predicts that a year from now you will be getting 14.5 more minutes per week of sleep than you are currently getting.
+
+In fact, age is predicted to decrease sleep until a person is 35.8 years old at which point an additional year is associated with an increase in sleep (where $\frac{dsleep}{dage}=0$).
+
+It is common to interpret non-constant marginal effects at the mean or median value of the explanatory variable, or at any value that would be of particular interest to your audience. 
+
+
+
+
+### Interactions with continuous variables
+
+
+When interpreting interactions with continuous variables, it is important to recognize that the marginal effect of the variable are not linear, and, (as with interpretations of quadratics) include this in your interpretation.
+
+
+Suppose we are interested in the relationship between age, education and sleep. You estimate the following model using the `sleep75` data from the `wooldridge` package:
+
+$$
+sleep=\beta_0+\beta_1 age+\beta_2 educ+\beta_3 age \times educ+u
+$$
+This model allows for the marginal effect of age and education on sleep to be a function of one another. To see this, take the derivative of sleep with respect to age:
+
+$$
+\frac{dsleep}{dage}=\beta_1+\beta_3*educ.
+$$
+How age predicts sleeps depends on an observation's education level. 
+
+Similarly, take the derivative of sleep with respect to education:
+
+$$
+\frac{dsleep}{deduc}=\beta_2+\beta_3*age.
+$$
+
+How education predicts sleeps depends on an observation's age. 
+
+
+Retrieving the coefficients, we get:
+```{r inter, echo=TRUE}
+reginter<-lm(sleep~age+educ+age*educ, sleep75)
+
+summary(reginter)
+```
+
+thus
+$$
+\frac{dsleep}{dage}=12.26-1.466*educ
+$$
+and
+$$
+\frac{dsleep}{deduc}=49.97-1.466*age.
+$$
+
+If you are interested in predicting the effect of an additional year of education on sleep, you will need to specify the age of the observation in question: we get a prediction of 17.7 minutes per week more sleep if you are 22 years old but 38 minutes per week less sleep if you are 60.
+
+In fact, more education is associated with more sleep until 34 years of age (where $\frac{dsleep}{deduc}=0$), at which point it becomes associated with less sleep.
+
+It is common to interpret non-constant marginal effects at the mean or median value of the explanatory variable, or at any value that would be of particular interest to your audience. Graphing them is also an option. 
+
+
+## Binary Dependent variables
+
+Most of the models we have seen have had continuous dependent variables: the $y$ variable was some quantitative amount that took on a range of possible values (a test score, a weight,...). Sometimes though $y$ can be a dummy variable, taking on either the value 1 or 0. What changes when we have a binary variable on the left hand side?
+
+### Linear Probability Models
+
+A linear probability model is simply a linear regression with a binary variable as the dependent variable $y$:
+
+$$
+y=\beta_0+\beta_1x_1+...+\beta_kx_k+u
+$$
+
+
+- It no longer makes sense to interpret $\beta_j$ as the unit change in $y$ given a one-unit increase in $x_j$ holding all other factors fixed. Indeed, $y$ either changes from $0\rightarrow 1$, from $1 \rightarrow 0$ or doesn't change. 
+
+- The $\beta_j$'s still have a useful interpretation though: each $\beta_j$ measures the change in the probability of success when $x_j$ changes by one unit holding all other factors constant.
+
+$$
+Pr(y=1|x)=\beta_0+\beta_1x_1+...+\beta_kx_k
+$$
+
+#### Example:\
+
+Let $inlf$ ("in the labor force") be a binary variable indicating labor force participation by a married woman in 1975. $inlf=1$ if the woman reports working for a wage outside the home at some point during the year, and zero otherwise. Our independent variables might include:
+
+- husbands earnings ($nwifeinc$, measured in thousands of dollars)
+
+- years of education ($educ$)
+
+- past years of labor market experience ($exper$)
+
+- age ($age$)
+
+- number of children less than six years old ($kidslt6$) 
+
+- number of kids between 6 and 18 years of age ($kidsge6$)
+
+We estimate the following model using the `mroz` data that is part of the `wooldridge` package:
+
+$$
+inlf=\beta_0+\beta_1 nwifeinc+\beta_2educ+\beta_3 exper+\beta_4exper^2+\beta_5age+\beta_6kidslt6+\beta_7kidsge6+u
+$$
+
+
+```{r linprob, echo=TRUE}
+mroz$exper2<-mroz$exper^2
+reg1<-lm(inlf~nwifeinc+educ+exper+exper2+age+kidslt6+kidsge6, mroz)
+summary(reg1)
+
+```
+
+As an example, given that this is a linear probability model, we would interpret the coefficient on $educ$ as: holding all else fixed, an additional year of education increases predicted probability of labor force participation by 0.038, or 3.8 percentage points. 
+
+The graph below depicts the probability of labor force participation and $educ$. The other independent variables, for the purposes of this example, are fixed at the values $nwifeinc=50$, $exper=5$, $age=30$, $kidslt6=1$ and $kidsge6=0$.
+
+![]("images\Picture1.png")
+
+For a woman with these characteristics, the relationship between years of education and the probability of being in the labor force is given by:
+
+$$
+\begin{aligned}
+Pr(inlf=1|educ)&=(0.585+(-0.003)*50+(0.039)*5+(-0.001)*5^2+(-0.016)*30+(-0.262)*1)+0.038*educ\\
+&=-0.146+0.038educ
+\end{aligned}
+$$
+
+#### Linear Probability Model Drawbacks: 
+
+1) Because this is a linear regression, we are trying to fit a line to the data. This means that we can get predicted probabilities that are negative or greater than one. We can see here that the predicted probability of labor force participation for women with education that is below 3.84 years is negative. Similarly, if a woman has 31 years of education it would be greater than one. This isn't too much of a concern here because in the sample few women will fall in those ranges. Nevertheless, the predicted probabilities from our regression aren't bound between 0 and 1.
+
+2) A related problem: a linear probability model implies that the outcome is linearly related to the independent variables. This is not possible with probabilities. In the previous example, an additional child reduces the probability of working by 0.262. Thus our model implies that going from 0 to 4 young children reduces the probability by 0.262*4=1.048, 104.8 percentage points, which is impossible.
+
+3) This model uses the idea that the probability that the dummy is equal to one is actually a function of our $x$'s, which means the variance of the dummy is a function of our $x$'s. Indeed, when $y$ is a binary variable 
+
+$$
+Var(y|x)=p(x)[1-p(x)]
+$$
+where $p(x)$ is a shorthand for the probability of success $p(x)=\beta_0+\beta_1x_1+...+\beta_kx_k$. This means that there must be heteroskedasticity in the linear probability model. Thus you should always use **heteroskedasticity robust standard errors** with linear probability models.
+
+### Logits
+
+How do we address the drawbacks of linear probability models? With **logistic regressions**, which are estimated via maximum likelihood methods rather than OLS. 
+
+Logits differ from the linear probability model in what kind of function is used for the estimated probability. 
+
+In linear probability models, we have
+
+$$
+Pr(y=1|x_1, x_2)=\beta_0+\beta_1x_1+\beta_2x_2.
+$$
+With a logit, we have
+$$
+Pr(y=1|x_1, x_2)=\frac{e^{(\beta_0+\beta_1x_1+\beta_2x_2)}}{1+e^{(\beta_0+\beta_1x_1+\beta_2x_2)}}=\Lambda(\beta_0+\beta_1x_1+\beta_2x_2)
+$$
+
+
+
+
+where $\Lambda$ is commonly used notation to represent the complex logit function.
+
+![]("images\lin_v_log.png"){width=75%}
+
+
+Why would we ever pick a functional form for the probability that looks as complicated as $\Lambda$? Because it is bounded between 0 and 1 (so our predictions make sense), and it has nice statistical properties (which we will not get into). 
+
+One important thing to note about the estimation of logit models is that `R` output will not give you the marginal effect of one more unit of $x_j$ on the probability of $y$ taking the value 1 ( $\frac{\partial Pr(y=1|x)}{\partial x_j}$). Instead it reports the **log-odds** by default, which are not the same as marginal effects!
+
+To get marginal effects, we need to do a couple more steps. This is because these models are **non-linear**, such that the exact marginal effect of $x_j$ on $y$ **changes depending on the other values of x**. Therefore we have a bunch of options for where we calculate the marginal effects at. In `R`, the default is to compute the **average marginal effect** which is the average of the marginal effect for each observation in the sample. In `R` we can also specify any values of our independent variables to evaluate our marginal effects precisely at those values. Note that this is in contrast to the constant marginal effect of $x_j$ on $Pr(y=1|x)$ found in the linear probability model, and is another potential benefit of running a logit model. 
+
+#### Example:\
+
+I return to the previous example, looking at labor force participation using the `mroz` data. 
+
+In `R` we can estimate a logistic regression with the `glm()` function. Running `summary()` will then get us the log-odds.
+
+
+```{r logit, echo=TRUE}
+reglogit1<-glm(inlf~nwifeinc+educ+exper+exper2+age+kidslt6+kidsge6, mroz, family="binomial")
+summary(reglogit1)
+
+
+```
+
+To get the marginal effects, we need to run the estimated `glm()` object through the `margins()` function from the **margins** package. 
+```{r logit2, echo=TRUE}
+library(margins)
+marg_reglogit1<-margins(reglogit1)
+
+summary(marg_reglogit1)
+
+```
+
+Recall that by default this computes the average marginal effect for the sample. To instead compute the marginal effect for a particular type of observation
+
+```{r logit3, echo=TRUE}
+
+DF <- data.frame(age=30, 
+                 nwifeinc=50,
+                 exper=5,
+                 exper2=25,
+                 kidsge6=0,
+                 kidslt6=1,
+                 educ=12,
+                 stringsAsFactors=FALSE)
+              
+marg_specific <- margins(reglogit1, data = DF)
+
+summary(marg_specific)
+```
+
+### Example contrasting a logit to a linear probability model (LPM)
+
+
+In sports betting, the Las Vegas point spread is the predicted scoring differential between two opponents as quoted by a sports book in Las Vegas. We are interested in the probability that the favored team actually wins. 
+
+We can run the following regression: 
+
+$$
+\widehat{favwin}_i=\hat{\beta}_0+\hat{\beta}_1spread_i+\hat{\beta}_2favhome_i+\hat{\beta}_3fav25_i+\hat{\beta}_4und25_i+\hat{u}_i
+$$
+Where $favwin$ is a dummy variable indicating whether the favored team won, $spread$ is the Las Vegas point spread, $favhome$ is a dummy variable indicating whether the favored team is playing at home, $fav25$ and $und25$ indicate whether the favored team and the underdog team are in the top 25 teams respectively. 
+
+I use the `pntsprd` data from the wooldridge package to first estimate the linear probability model: 
+
+```{r logitvlpm, echo=TRUE}
+
+lpm<-felm(favwin~spread+favhome+fav25+und25, data=pntsprd)
+
+summary(lpm, robust=TRUE)
+```
+
+
+Let's compare the LPM model results to those for the equivalent logit:
+
+```{r logitvlpm2, echo=TRUE}
+
+logit<-glm(favwin~spread+favhome+fav25+und25, data=pntsprd, family="binomial")
+marg_logit<-margins(logit)
+summary(marg_logit)
+
+```
+
+You can see that all else constant, a 1 point increase in the Vegas point spread is estimated to increase the predicted probability of winning by 1.78 percentage points using the linear probability model and 2.43 percentage points on average using the logit model. It is generally the case that results using these two different methods will often be quite similar.
+
+To really see the difference between them, we can plot the predicted probabilities (obtained with `$fitted.values` on the `lm()` or `glm()` objects).
+
+
+```{r logitvlpm3, echo=TRUE}
+
+df<- mutate(pntsprd, lpm_prob=lpm$fitted.values,
+            logit_prob=logit$fitted.values)
+
+plot<-df%>%
+  ggplot(aes(x=spread))+
+  geom_point(aes(y=lpm_prob, colour="LPM"), alpha=0.6)+
+  geom_point(aes(y=logit_prob, colour="Logit"), alpha=0.6)+
+  geom_hline(yintercept = 1, alpha=0.7)+
+  geom_hline(yintercept = 0,alpha=0.7)+
+  scale_colour_manual("Model",
+                      breaks=c("LPM", "Logit"),
+                      values=c("blue", "forestgreen"))+
+  lims(y=c(0,1.4))+
+  labs(title="Predicted Win Probabilities, LPM",
+       x="Spread",
+       y="Probability")
+plot
+  
+```
+
+
+We can see straightaway that we estimated probabilities greater than one with the linear probability model (in green) for high point spreads, and that the logit probabilities (blue) never exceed one. Additionally, you can see that the effect of one additional point in the spread has a constant effect for linear probability models, while the slope of the logit probabilities changes depending on the level of the point spread. 
+
+## Non-standard standard errors
+
+A standard error is, of course, an estimate of the uncertainty around an estimated parameter. Formally we have
+
+$$
+se=\sqrt{\widehat{Var(\hat{\beta})}} 
+$$
+in other words, the standard error is the square root of the estimated variance of the estimated parameter.
+
+
+Just like calculating point estimates, it is incredibly important to get your standard errors right. You have to know what you don't know!
+
+
+### Robust standard errors
+
+We are going to use the diamonds data set from `ggplot2` for this exercise so we don't need to load an external data set.
+
+```{r robust, echo=TRUE}
+
+knitr::kable(head(diamonds))
+```
+
+ Lets regress price on carats and depth.
+ 
+```{r robusta, echo=TRUE}
+
+reg1<-felm(price~carat+depth, diamonds)
+
+summary(reg1)
+```
+
+Cool. But of course, we should make sure that our OLS assumptions make sense. One easy way to do this is to plot  the data:
+
+```{r rob, echo=TRUE}
+
+myPlot <- ggplot(data = diamonds, aes(y = price, x = carat)) +
+geom_point(color = "gray50", shape = 21) 
+
+myPlot
+```
+
+There are a bunch of things about this plot that should give you the econometric heebie jeebies. From an OLS perspective, you should be very afraid that these data are definitely not homoskedastic. The higher the carat, the greater the variance in price. This means that our OLS standard errors are likely going to get things wrong. 
+
+Heteroskedasticity is scary- but thankfully all is not lost. All we have to do is tweak our original assumptions a little bit to relax the homoskedasticity assumption and allow for the variance to depend on the value of x_i. 
+
+We know that 
+
+$$
+Var(\hat{\beta_1})=\frac{\sigma^2}{\sum_{i=1}^n(x_i-\bar{x})^2}=\frac{\sum_{i=1}^n(x_i-\bar{x})^2\sigma^2}{(\sum_{i=1}^n(x_i-\bar{x})^2)^2}
+$$
+
+With heteroskedasticity $\sigma^2$ is no longer constant and becomes a function of the particular value of $x_i$ an observation has, so 
+
+$$
+Var(u_i|x_i)=\sigma^2_i
+$$
+Where are we going to find all these $\sigma_i^2$ for each individual observation?
+
+
+Econometricians Eicker, Huber and White figured out a way to do this by basically using the square of the estimated residual of each observation, $\hat{u}_i^2$, as a stand-in for $\sigma^2_i$. With this trick, a valid estimator for $Var(\hat{\beta_1})$, with heteroskedasticity of **any** form (including homoskedasticity), is 
+
+$$
+Var(\hat{\beta_1})=\frac{\sum_{i=1}^n(x_i-\bar{x})^2\hat{u}_i^2}{(\sum_{i=1}^n(x_i-\bar{x})^2)^2}
+$$
+
+We commonly call the resulting standard errors "robust", or "heteroskedasticity-robust".
+
+How can we find these in R? 
+
+ 
+```{r robustaa, echo=TRUE}
+
+reg1<-felm(price~carat+depth, diamonds)
+
+summary(reg1, robust=TRUE)
+```
+
+Or if you want to put them in a stargazer table:
+
+ 
+```{r robustaaa, echo=TRUE, results="asis"}
+
+stargazer(reg1, type = "latex" , se =  list(reg1$rse), header=FALSE)
+```
+
+It is worth noting that robust standard errors are larger than regular standard errors, and thus more conservative (which is the right thing to be... you want to know what you don't know). 
+
+
+### Clustered standard errors
+
+\vspace{15mm}
+
+**Econometricians Haiku**
+
+
+T-stats looks too good\
+Try cluster standard errors\
+significance gone.\
+
+_from Angrist and Pischke 2008_
+\vspace{15mm}
+
+Suppose that every observation belongs to (only) one of G groups. The assumption we make when we cluster is that there is no correlation across groups- but we will allow for arbitrary within-group correlation. A great example: consider individuals within a village. In many cases it's pretty reasonable to think that individuals' error terms are correlated within a village, but that individuals' errors aren't correlated across villages. 
+
+I will spare you the matrix math needed to dive deeper into this. Suffice to say that "cluster-robust" estimates allow for a more complicated set of correlations to exist within observations within a cluster. One thing to be aware of though is that you will need to have a fairly large number of clusters (40+) for the estimate to be credible. 
+
+Clustering in R: 
+
+I use the `NOxEmissions` dataset from the `robustbase` package. This is a dataset of hourly $NO_x$ readings, including $NO_x$ concentration, auto emissions and windspeed. We are going to use the observation date as our cluster variable. This allows for arbitrary dependence between observations in the same day, and zero correlation across days. Is this reasonable? ... Maybe. But we'll go with it for now: 
+ 
+```{r clust, echo=TRUE, results="asis"}
+nox <- as.data.frame(NOxEmissions) %>%
+mutate(ones = 1)
+noClusters <- felm(data = nox, LNOx ~ sqrtWS )
+
+Clusters <- felm(data = nox, LNOx ~ sqrtWS |0|0| julday)
+
+stargazer(noClusters,Clusters, type = "latex" , header=FALSE)
+
+```
+
+In this case, the regular standard errors are smaller than the clustered standard errors. Be aware that this need not necessarily be the case - depending on the correlation between observations within a cluster, clustered standard errors can be smaller than regular standard errors.  
+
+
+### Newey West Standard Errors
+
+For time series data.
+
+### Conley Standard Errors
+
+For spatial data. 
+
+## Confidence intervals for predictions
+
+
+You’ve already had to “predict” a value of the dependent variable, $y$, given certain values of the
+independent variables. But this prediction is just a guess, and we can construct a confidence
+interval to give a range of possible values for this prediction, to demonstrate this uncertainty.
+
+There are two kinds of predictions we can make:
+
+- A confidence interval for the **average** $y$ given $x_1$, $x_2$... $x_k$.
+
+- A confidence interval for a **particular** $y$ given $x_1$, $x_2$... $x_k$.
+
+We will use Wooldridge’s birth weight data to construct both kinds of confidence intervals to
+demonstrate the (subtle) difference between them.
+
+$$
+bweight=\beta_0+\beta_1lfaminc+\beta_2 meduc+\beta_3 parity+u
+$$
+where bwght is birth weight in ounces, lfaminc is the log of family income in $1000s, meduc is the
+education of the mother in years, and parity is the birth order of the child.
+
+Estimating this equation in R, we get the following results:
+
+
+```{r pred, echo=TRUE}
+
+#using the bwght data from the wooldridge package
+reg1<-lm(bwght~lfaminc+motheduc+parity, bwght)
+
+summary(reg1)
+
+```
+
+#### Confidence interval for the average Birthweight\
+
+Recall that our model gives us the expected value:
+
+$$
+E[bweight|lfaminc, meduc, parity]=\beta_0+\beta_1log(faminc)+\beta_2meduc+\beta_3parity
+$$
+
+and our regression gives us an estimate of this:
+
+$$
+\hat{E}[bweight|faminc, meduc, parity]=\hat{y}=\hat{\beta_0}+\hat{\beta_1}log(faminc)+\hat{\beta_2}meduc+\hat{\beta_3}parity
+$$
+
+In words: when we plug in particular values of the independent variables, we obtain a predication for y, which is an estimate for the expected value of y given the particular values for the explanatory variables. 
+
+Say we are interested in a confidence interval for the **average birthweight** for babies with a family income of $14,500 (ln(14.5)=2.674), mothers with 12 years of education, and with 2 older siblings (parity=3). In other words, we are interested in:
+
+
+$$
+\begin{aligned}
+\hat{E}[bweight|faminc=14.5, meduc=12, parity=3]&=105.66+2.13ln(faminc)+0.317meduc+1.53parity\\
+\hat{y}_{faminc=14.5, meduc=12, parity=3} &= 105.66+2.13 (2.674)+0.317(12)+1.53(3)\\
+&= 119.75 ounces
+\end{aligned}
+$$
+How do we find a standard error for our estimate of the expected value of y for these particular values of the explanatory variables? Notice that this standard error is complicated because $\widehat{bweight}$ is a function of our $\hat{\beta}$'s which are all random variables. To avoid this computation, we want to transform our data. Before proceeding with the formal steps, recall that we have the following regression in mind
+
+$$
+bweight=\beta_0+\beta_1lfaminc+\beta_2 meduc+\beta_3 parity+u
+$$
+Then 
+
+$$
+\hat{\beta_0}=\hat{E}(bweight|lfaminc=0, meduc=0, parity=0)
+$$
+If we modify the regression by subtracting our particular values (specified above) for each of the independent variables, then we get the following regression
+
+$$
+bweight=\beta_0+\beta_1(lfaminc-2.674)+\beta_2(meduc-12)+\beta_3(parity-3)+u
+$$
+Then
+$$
+\hat{\beta_0}=\hat{E}(bweight|lfaminc=2.674, meduc=12, parity=3).
+$$
+
+In other words, the new intercept is the predicted birthweight for babies with family incomes of $14,500 (ln(14.5)=2.674), mothers with 12 years of education and with 2 older siblings. That's perfect! If we run this regression, `R` always outputs a standard error for the intercept coefficient. We can then grab the standard errors from there. 
+
+So step by step we need to:
+
+1) Generate new variables: $\tilde{x}_j=x_j-\alpha_j$
+
+2) Run the regression: $y=\tilde{\beta_0}+\tilde{\beta_1}\tilde{x_1}+...+\tilde{\beta_k}\tilde{x_k}+\tilde{u}$
+
+3) Then $\hat{E}[y|x_1=\alpha_1,...,x_k=\alpha_k]=\tilde{\beta_0}$
+
+4) Plug these values into the formula for confidence intervals and interpret.
+
+Below is the code for steps 1 and 2:
+
+
+```{r pred2, echo=TRUE}
+
+#Step 1: generate new variables
+bwght$lfaminc_0<-bwght$lfaminc-2.674
+bwght$motheduc_0<-bwght$motheduc-12
+bwght$parity_0<-bwght$parity-3
+
+#step 2: run the new regression
+
+reg2<-lm(bwght~lfaminc_0+motheduc_0+parity_0,bwght)
+
+summary(reg2)
+
+```
+
+Using this output, the 95% confidence interval for the average birthweight for babies given a family income of $14,500, a mother with 12 years of education and with 2 older siblings is:
+
+$$
+[119.64-1.96(1.007), 119.64+1.96(1.007)]=[117.6653,121.6158]
+$$
+
+#### Confidence Interval for a particular individual's birthweight\
+
+A confidence interval for the average of observations with specific characteristics is not the same as a confidence interval for a particular individual observation. In forming a confidence interval for a particular unit, we must account for another very important source of variation: the variance in the unobserved error, which measures our ignorance of the unobserved factors that affect $y_i$.
+
+We would like to construct a confidence interval for the birthweight of baby $i=1$. Let $bweight_{i=1}$ denote that particular baby's birthweight with 
+
+$$
+bweight_{i=1}=\beta_0+\beta_1lfaminc_{i=1}+\beta_2meduc_{i=1}+\beta_3parity_{i=1}+u_{i=1}
+$$
+Our best prediction of $bweight_{i=1}$ is $\widehat{bwieght}_{i=1}$ where 
+
+$$
+\widehat{bweight}_{i=1}=\hat{\beta}_0+\hat{\beta}_1lfaminc_{i=1}+\hat{\beta}_2meduc_{i=1}+\hat{\beta}_3parity_{i=1}
+$$
+Now, there is some error, $\hat{u}_{i=1}$ associated with using $\widehat{bweight}_{i=1}$ to predict $bweight_{i=1}$ where 
+
+$$
+\begin{aligned}
+\hat{u}_{i=1}&=bweight_{i=1}-\widehat{bweight}_{i=1}\\
+&=(\beta_0+\beta_1lfaminc_{i=1}+\beta_2meduc_{i=1}+\beta_3parity_{i=1}+u_{i=1})-(\hat{\beta}_0+\hat{\beta}_1lfaminc_{i=1}+\hat{\beta}_2meduc_{i=1}+\hat{\beta}_3parity_{i=1})
+\end{aligned}
+$$
+
+Finding the expected value, we get: 
+\footnotesize
+$$
+\begin{aligned}
+E[\hat{u}_{i=1}]&=E[bweight_{i=1}-\widehat{bweight}_{i=1}]\\
+&=(\beta_0+\beta_1lfaminc_{i=1}+\beta_2meduc_{i=1}+\beta_3parity_{i=1}+E[u_{i=1}])-(E[\hat{\beta}_0]+E[\hat{\beta}_1]lfaminc_{i=1}+E[\hat{\beta}_2]meduc_{i=1}+E[\hat{\beta}_3]parity_{i=1})\\
+&=0
+\end{aligned}
+$$
+\normalsize
+Finding the variance we get
+
+
+$$
+\begin{aligned}
+Var(\hat{u}_{i=1})&=Var(bweight_{i=1}-\widehat{bweight}_{i=1})\\
+&=Var(\beta_0+\beta_1lfaminc_{i=1}+\beta_2meduc_{i=1}+\beta_3parity_{i=1}+u_{i=1}-\widehat{bweight}_{i=1})\\
+&=Var(\widehat{bweight}_{i=1})+Var(u_{i=1})\\
+&=Var(\widehat{bweight}_{i=1})+\sigma^2\\
+\widehat{Var(\hat{u}_{i=1})}&=Var(\widehat{bweight}_{i=1})+\hat{\sigma}^2\\
+&=Var(\widehat{bweight}_{i=1})+\frac{\sum\hat{u}_i^2}{n-k-1}\\
+&=Var(\widehat{bweight}_{i=1})+\frac{SSR}{n-k-1}
+\end{aligned}
+$$
+So you should see that there are two sources of variation in $\hat{u}_{i=1}$. First we have the sampling error in $\widehat{bweight}_{i=1}$ which arises because we have estimated the population parameters $\beta$. Second we have the variance of the error in the population ($u_{i=1}$). 
+
+Now we can compute the $Var(\widehat{bweight}_{i=1})$ exactly the way we did before (by subtracting the specific values we are interested in and re-running the regression and looking at the intercept term's standard errors). Second we can compute $\frac{SSR}{n-k-1}$ from our regression output. The 95% confidence interval for $bweight_{i=1}$ is then 
+
+$$
+\hat{y}\pm1.96*se(\hat{u}_{i=1})
+$$
+
+Steps in computing a confidence interval for a particular $y$ when $x_j=\alpha_j$:
+
+1) Generate new variables: $\tilde{x}_j=x_j-\alpha_j$
+
+2) Run the regression: $y=\tilde{\beta_0}+\tilde{\beta_1}\tilde{x_1}+...+\tilde{\beta_k}\tilde{x_k}+\tilde{u}$
+
+3) Then $\hat{E}[y|x_1=\alpha_1,...,x_k=\alpha_k]=\tilde{\beta_0}$ and the standard error of the estimate is $se(\tilde{\beta_0})$
+
+4) Get an estimate for the variance of $\hat{u}=\hat{\sigma}^2$ from the R output
+
+5) compute the standard error: $\sqrt{se(\tilde{\beta_0})^2+\hat{\sigma}^2}$
+
+4) Plug these values into the formula for confidence intervals and interpret.
+
+Below is the code:
+
+
+
+```{r pred3, echo=TRUE}
+
+#Step 1: generate new variables
+bwght$lfaminc_0<-bwght$lfaminc-2.674
+bwght$motheduc_0<-bwght$motheduc-12
+bwght$parity_0<-bwght$parity-3
+
+#step 2: run the new regression
+
+reg2<-lm(bwght~lfaminc_0+motheduc_0+parity_0,bwght)
+
+summary(reg2)
+
+#step 4: get the estimate of the variance
+
+summary(lm(bwght~lfaminc_0+motheduc_0+parity_0,bwght))$sigma^2
+
+```
+
+
+
+The confidence interval for a particular baby's birthweight with a family income of $14,500 (ln(14.5=2.674)), a mother with 12 years of education and with 2 older siblings we have:
+
+$$
+\begin{aligned}
+SE&=\sqrt{se(\tilde{\beta_0})^2+\hat{\sigma}^2}=\sqrt{(1.007^2)+408.59}=20.239\\
+CI&=[119.64-1.96*(20.239); 119.64+1.96*(20.239)]\\
+&=[79.972;159.308]
+\end{aligned}
+$$
+
+
+
+
+## Spatial Data in R
+
+Increasingly, applied econometricians are embedding spatial data into our analyses. A whole host of research questions and designs become possible if you are able to take advantage of, and work with, the huge volume of spatial data that is rapidly becoming available. That said, working with spatial data takes a few new tricks. We'll first go through a variety of spatial data types, then show off the long-promised (and dramatically over-used) nighttime lights dataset. Coooooool.
+
+First off, we often make a big deal out of spatial data - but it's just data like anything else. Anybody who tries to tell you that spatial data is _completely different_(!) from anything you've seen before is trying to sell you a textbook. The main difference between spatial datasets and any other type of dataset is that spatial data usually come in 2 (or even 3) dimensions. For practical purposes, this usually means that a spatial dataset has latitude and longitude variables in some form or another.
+
+To deal with spatial data, we'll need a bunch of new packages: `GISTools`, `rgdal`, `rgeos`, `maptools`, `raster` (all spatial utilities), and `broom` (this will let us turn spatial data into a format that ggplot2 can handle). We'll also get a new package that will let us more easily deal with dates (because why not): `lubridate`, and a final one which gives us access to a bunch of new color palettes: `RColorBrewer`. The number of packages we're installing here should make you uncomfortable. While you certainly can do spatial data analysis in `R`, it's definitely a challenge compared with some other (proprietary) options out there (Matlab and ArcGIS, for example). The benefits are that you'll have a completely integrated work flow, all in one program; and that once you've wrangled your spatial data to turn it into something useful, `R` is great for everything else. The big problem with doing spatial data in `R` is that there's no unified spatial toolkit, meaning that different data types and formats and functions don't necessarily get along very well. I've tried to make this as headache-free as possible, but just be aware that (in my opinion) spatial data work is not necessarily R's comparative advantage.
+
+```{r spatial, echo=FALSE}
+#install.packages("GISTools")
+#install.packages("rgdal")
+#install.packages("rgeos")
+#install.packages("raster")
+#install.packages("maptools")
+#install.packages("broom")
+#install.packages("lubridate")
+#install.packages("RColorBrewer")
+#install.packages("vctrs")
+#install.packages("tibble")
+
+
+
+```
+
+Note that the order in which you load these packages is important. I've set things up such that they'll work; (consider yourself warned). 
+
+```{r spatial2, echo=TRUE,message=FALSE, warning=FALSE}
+library(raster)
+#library(vctrs)
+#library(tibble)
+library(GISTools)
+#library(readr)
+library(dplyr)
+library(lubridate)
+#library(xtable)
+library(ggplot2)
+library(rgeos)
+library(rgdal)
+library(maptools)
+library(broom)
+
+
+
+```
+
+
+### What the frack?
+
+Now we can get to the actual spatial stuff. We're going to use some georeferenced data to think about unconventional oil and gas drilling in Pennsylvania. We'll start with a spatial data file from the US Census Bureau with the shape of each county in the state. In keeping with the ultra-creative naming conventions we've seen all semester, this data comes in the _shapefile_ format. This is the main format used by ArcGIS, so you'll see a lot of spatial data that comes packaged this way. Bringing it into R is easy:
+
+```{r spatial3, echo=TRUE}
+
+counties <- shapefile("data/PA_counties.shp")
+
+counties
+```
+
+What's in this object? This particular file contains polygons - outlines of shapes. We can make sure that
+it's read correctly into R by checking its class:
+```{r spatial4, echo=TRUE}
+
+class(counties)
+```
+
+Perfect. This is `R`'s version of a polygon shapefile. What's actually in this dataset? We can figure this out by looking at its slots. Just like calling `names()` on an object can tell us something about its contents, `slotNames()` can do this too, for more complex objects:
+
+```{r spatial5, echo=TRUE}
+slotNames(counties)
+```
+
+This is cool! Our shapefile contains a bunch of interesting pieces. Let's walk through them quickly. Most importantly, we've got polygons. This is the spatial component of our spatial dataset. Each polygon is essentially a long two-variable dataframe with longitudes (x) and latitudes (y). Think of the polygon piece of a shapefile like a giant connect-the-dots.
+
+Our shapefile also contains data. The dataset attached to a shapefile is just like a regular dataframe, with the additional cool feature that each row is actually associated with one of the polygons in our shapefile. Let's take a look at the data that comes with the Pennsylvania county shapefile (we'll rename our names to all be lower case as well, while we're at it):
+
+```{r spatial6, echo=TRUE}
+head(counties@data, 5)
+names(counties@data) <- tolower(names(counties@data))
+```
+
+This dataset is relatively uninteresting - it just contains a bunch of identifying information about each county (but not much else in terms of demographics or other things we might be interested in). We'll have to bring something else in ourselves (we'll get there).
+
+Also contained in our shapefile: the `bbox` and `plotOrder`. They're largely irrelevant for our purposes - they tell the base plotting commands how to display the data. We've also got a _projection_: `proj4string`. This tells `R` both how to display and how to "think about" our shapefile. Remember that the world is round. We're trying to represent it with a data object on our (flat) computer screens. The projection defines what dimensions to stretch to make this representation happen. What does it look like? Let's look! Just like we can grab a named object with the $ operator, we can grab a named slot with the @ operator.
+
+
+```{r spatial7, echo=TRUE}
+counties@proj4string
+
+```
+
+This tells us that we're using latitude and longitude to identify our data, and that we're using the North American Datum 83 (a common choice for looking at the US). Since we're dealing with a relatively small geographic area, this won't affect us too much - but you should be aware of what projection you're using. In particular, if you're going to combine multiple geographic datasets, it's important that they all use the same projection.
+
+### Ooh, pretty!
+
+Okay, now that we've had a quick introduction to our data, let's plot our shapefile. Since a polygon is just a big collection of longitude and latitude values, we can just plot it like anything else in `ggplot2`. The first thing we have to do is to convert our polygon into a dataframe that `ggplot2` can handle, using `broom`'s `tidy()` function. In the mean time, we'll merge, or `join()`, the additional data that came with the shapefile, into this new dataframe.
+
+We are going to do this process several times, so we'll write a function to take care of it for us:
+
+
+```{r spatial8, echo=TRUE}
+
+mapToDF <- function(shapefile) {
+# first assign an identifier to the main dataset
+shapefile@data$id <- rownames(shapefile@data)
+# now "tidy" our data to convert it into a dataframe that
+#is usable by ggplot2
+mapDF <- tidy(shapefile) %>%
+# and this data onto the information attached to the shapefile
+left_join(., shapefile@data, by = "id") %>%
+as.data.frame()
+return(mapDF)
+}
+paCounties <- mapToDF(counties)
+head(paCounties)
+```
+
+Now that we've got this dataset, it's easy to plot using `ggplot2`. I will start by defining a `ggplot` theme for my maps:
+
+```{r spatial9, echo=TRUE}
+
+myMapThemeStuff <- theme(panel.background = element_rect(fill = NA),
+    panel.border = element_blank(),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.ticks = element_line(color = "gray5"),
+    axis.text = element_text(color = "black", size = 10),
+    axis.title = element_text(color = "black", size = 12),
+    legend.key = element_blank()
+)
+```
+
+Okay, here we go.
+
+```{r spatial10, echo=TRUE}
+
+paMap <- ggplot(data = paCounties, aes(x = long, y = lat, group = id)) +
+    geom_polygon(color = "black", fill = "white") +
+    myMapThemeStuff + 
+    ggtitle("Pennsylvania's counties") +
+    xlab("Longitude") + 
+    ylab("Latitude")
+
+paMap
+
+```
+
+Woohoo! A map! We must've done a lot of work. Just a map by itself isn't very interesting, though. Let's bring in another dataset, containing the locations of every unconventional well drilled in Pennsylvania between 2002 and 2013 (courtesy of FracTracker Alliance). We'll do this with a familiar command:
+
+
+```{r spatial11, echo=TRUE}
+
+wells <- read.csv("data/PA_wells.csv") %>%as.data.frame()
+
+names(wells) <- tolower(names(wells))
+head(wells)
+```
+
+Notice that this dataset includes a latitude and a longitude variable - this means it's spatial. Before we plot it, though, we need to make sure that it'll use the same projection as our our county polygon. It's currently a dataframe - let's turn it into a SpatialPointsDataFrame (like the polygon, except for points). In doing so, we'll attach a projection.
+
+```{r spatial12, echo=TRUE}
+
+#the coordinates() function sets spatial coordinates to define a spatial object
+coordinates(wells) <-~longitude + latitude
+class(wells)
+```
+
+
+```{r spatial13, echo=TRUE}
+#the proj4string() function retreives the projection attributes of the wells object
+proj4string(wells)
+```
+
+No! Boo. We have to assign it ourselves. The bad news is that I'm not sure exactly what the original projection was (it wasn't labeled on the download website). We'll guess that it's WGS84 (a common global projection), and then re-project it to match our county data's NAD83 (I do this to show you how to modify a projection...teachable moment).
+
+```{r spatial14, echo=TRUE}
+
+# assign a projection (WGS84)... check out https://rspatial.org/raster/spatial/6-crs.html 
+# for more info on coordinate reference systems
+proj4string(wells) <- CRS("+proj=longlat +datum=WGS84")
+# re-project this to match the county data
+wells <- spTransform(wells, CRS(proj4string(counties)))
+#check
+proj4string(wells)
+
+```
+
+Now that the projection is good, we'll convert our dataset back to a dataframe format so that ggplot2 can handle it.
+
+```{r spatial15, echo=TRUE}
+
+wellsDF <- as.data.frame(wells)
+```
+
+Now we'll plot both the counties and the wells on our map:
+
+```{r spatial16, echo=TRUE}
+
+paMap <- ggplot() +
+    geom_polygon(data = paCounties, aes(x = long, y = lat, group = id),
+                 color = "black", fill = "white") +
+    geom_point(data = wellsDF, aes(x = longitude, y = latitude),
+               shape = 21, color = "gray50") +
+    myMapThemeStuff + 
+    ggtitle("Unconventional Drilling in Pennsylvania") +
+    xlab("Longitude") + 
+    ylab("Latitude")
+paMap
+```
+
+If we want, we can also plot different colors by year of well drilling. To do this, we'll first convert the spud date (drill date) variable to date format, extract the year, and convert this into a factor. In order to make this not impossible to look at, let's actually make pairs of years:
+
+```{r spatial17, echo=TRUE}
+
+wellsDF <- mutate(wellsDF, date = mdy(spud_date), year = year(date)) %>%
+                  mutate(year = 2*(floor(year / 2)))
+
+wellsDF <- mutate(wellsDF, year = as.factor(year))
+```
+
+This is also a great excuse to bring in a great R packages: `RColorBrewer`. If you're interested in seeing all of the available color palettes from this great package, just type `display.brewer.all()` into your consol.
+
+```{r spatial18, echo=TRUE}
+
+paMap <- ggplot() +
+    geom_polygon(data = paCounties, aes(x = long, y = lat, group = id),color = "black", fill = "white") +
+    geom_point(data = wellsDF, aes(x = longitude, y = latitude, color = year),shape = 21) +
+    scale_color_brewer(palette="Blues") +
+    myMapThemeStuff + 
+    ggtitle("Unconventional Drilling in Pennsylvania") +
+    xlab("Longitude") + 
+    ylab("Latitude") +
+    labs(color = "Year")
+paMap
+```
+
+
+### Playing around
+
+Whoa. Lots of more recent wells! One other thing that's immediately obvious from this figure is that conventional drilling isn't happening all over the state. Instead, it's constrained to the northwest region. Why is this? Let's bring in some new data from the EIA, which will make this clear. We're going to grab a shapefile of the Marcellus shale play - the rock formation from which you can actually extract hydrocarbons.
+
+
+```{r spatial19, echo=TRUE}
+
+playBdry <- shapefile("data/ShalePlay_Marcellus_Boundary_EIA_Aug2015_v2.shp")
+
+playBdry
+```
+
+And we'll check the projection:
+
+```{r spatial20, echo=TRUE}
+
+playBdry@proj4string
+
+```
+
+Whoops - this is WGS84. We'll have to convert it:
+
+```{r spatial20a, echo=TRUE}
+playBdry <- spTransform(playBdry, CRS(proj4string(counties)))
+```
+
+Let's prepare these shapefiles for plotting using our mapToDF() function from earlier
+to convert this into a dataframe:
+```{r spatial21, echo=TRUE}
+
+bdryDF <- mapToDF(playBdry)
+```
+
+Now we can easily plot these things:
+
+```{r spatial22, echo=TRUE}
+
+bigPlot <- ggplot(data = bdryDF, aes(x = long, y = lat)) +
+        geom_polygon(data = paCounties, aes(x = long, y= lat, group = id), color = "gray75", fill = "NA") +
+        geom_path(data = bdryDF, aes(x = long, y = lat), color = "red") +
+        geom_point(data = wellsDF, aes(x = longitude, y = latitude, color = year),shape = 21) +
+        scale_color_brewer(palette="Blues") +
+      # put in a bounding box to restrict ourselves to the
+      # part of the play in PA
+        xlim(counties@bbox[1,1], counties@bbox[1, 2]) +
+        ylim(counties@bbox[2,1], counties@bbox[2, 2]) +
+        ggtitle("Unconventional Drilling in Pennsylvania") +
+        xlab("Longitude") + 
+        ylab("Latitude") +
+        myMapThemeStuff+
+        labs(color = "Year")
+
+
+bigPlot
+
+```
+
+
+Nearly all of our wells are within the play - which makes sense, of course. Even within the play, though, there seems to be massive heterogeneity in well locations. Suppose we're interested in seeing whether there's any correlation between a county's demographics and its well count. To do this, we'll have to count the number of wells in each county. We'll also need some demographic data. 
+
+We can count wells using the data we already have loaded, so let's start there. We'll do this using the `poly.counts()` function from the GISTools package.^[Be very careful when you do this - and make sure to plot your results! It's easy to end up with data that gets re-ordered in the counting process. It's always good to do a sanity check and make sure the output looks right whenever you generate a new column of data.]
+
+```{r spatial23, echo=TRUE}
+
+# return the number of wells in a county
+wellsInCty <- poly.counts(wells, counties) %>%
+      as.data.frame() %>%
+      mutate(id = rownames(counties@data))
+
+names(wellsInCty) <- c("wells", "id")
+
+wellsInCty <- mutate(wellsInCty, wells = ifelse(is.na(wells) == TRUE, 0, wells))
+```
+
+Since this is a spatial object, after all, let's go ahead and plot it. To do this, we'll `left_join()` our new column into our county dataframe:
+
+
+```{r spatial24, echo=TRUE}
+
+paCounties <- left_join(paCounties, wellsInCty, by = "id")
+
+```
+
+And plot:
+
+```{r spatial25, echo=TRUE}
+
+countyPlot <- ggplot(data = bdryDF, aes(x = long, y = lat)) +
+      geom_polygon(data = paCounties, aes(x = long, y = lat, group = id, fill = wells), color = "black")+ 
+      geom_path(data = bdryDF, aes(x = long, y = lat), color = "red") +
+      geom_point(data = wellsDF, aes(x = longitude, y = latitude, color = year),shape = 21) +
+      scale_color_brewer(palette="Blues") +
+      xlim(counties@bbox[1,1], counties@bbox[1, 2]) +
+      ylim(counties@bbox[2,1], counties@bbox[2, 2]) +
+      ggtitle("Unconventional Drilling in Pennsylvania") +
+      xlab("Longitude") + 
+      ylab("Latitude") +
+      scale_fill_gradient(low = "white", high = "deepskyblue3") +
+      labs(fill = "Number of wells") +
+      myMapThemeStuff+
+      labs(color = "Year")
+
+countyPlot
+```
+
+
+### Regressions in space!
+
+To do actual analysis, we want to merge this (hard-won) column into our county data. But our county data are currently a giant huge dataframe that's kind of unwieldy, because there's one row per lat-long combination. To make things easier for ourselves, let's grab the unique county data from the original shapefile:
+
+```{r spatial26, echo=TRUE}
+
+countyData <- counties@data %>%
+      as.data.frame() %>%
+      mutate(id = rownames(counties@data)) %>%
+    # for easier merging later
+      rename(fips = countyfpec)
+
+```
+
+Much more manageable. We're actually going to want to bring in some new demographic data for our analysis; all we need out of this county dataset is a way to link our well counts to our other dataset. Let's merge the `county` variable from our `countyData` dataset into our well counts, and only keep the few variables that we need:
+
+```{r spatial27, echo=TRUE}
+
+countyWells <- left_join(wellsInCty, countyData, by="id")
+countyWells <-countyWells [,c("fips", "id", "wells")]
+```
+
+Next, let's bring in our (long-promised) demographic data:
+
+```{r spatial28, echo=TRUE}
+
+countyDemogs <- read.csv("data/PA_county_data.csv")%>%
+        # remove the row for the whole state
+          filter(NAME != "Pennsylvania")
+
+
+countyDemogs<-countyDemogs[,c('COUNTY', 'NAME', 'Total.Population','Median.Age', 'Average.Household.Size')] 
+
+countyDemogs<-countyDemogs%>%rename(fips = 'COUNTY', name = 'NAME', totp = 'Total.Population',
+                  medage = 'Median.Age', avghhsize = 'Average.Household.Size')
+
+
+```
+
+We need to combine this with our quasi-spatial county dataset. We can merge these two datasets on the county name, or better yet, the FIPS code. Let's do it:
+
+
+```{r spatial29, echo=TRUE}
+
+countyWells$fips<-as.numeric(as.character(countyWells$fips))
+
+analysisData <- left_join(countyDemogs, countyWells, by = "fips") %>%
+      mutate(ones = 1)
+
+head(analysisData)
+
+```
+
+Wahoo! We can finally run a regression!
+
+```{r spatial30, echo=TRUE}
+
+myReg <- lm(wells~totp+medage+avghhsize, analysisData)
+summary(myReg)
+
+```
+
+... aaaand after all that work nothing is statistically significant. How anticlimactic. 
+
+### Pointillism
+
+Let's bring in one last dataset - nighttime lights. This dataset grids up the world into approximately 1x1 km squares, and records a luminosity value, which is a measure of the amount of light emanating out of each pixel. This dataset is available annually; we use the 2012 version here. The original file was a TIFF
+image, which makes this dataset an raster : a giant gridded image. The original file also took up more than 1GB of space, so it has been trimmed  down to just Pennsylvania, and exported as an ASCII text file. Let's go ahead and bring it into R, and make sure that R knows that we're treating it as a raster.
+
+```{r spatial31, echo=TRUE}
+
+# make the raster layer
+lights <- readAsciiGrid("data/palights.txt") %>%
+      raster()
+# create a database version
+lightsDF <- readAsciiGrid("data/palights.txt") %>%
+      as.data.frame()
+names(lightsDF) <- c("dn", "long", "lat")
+```
+
+And plot:
+
+```{r spatial32, echo=TRUE}
+
+lightsPlot <- ggplot(data = lightsDF, aes(x = long, y = lat)) +
+        geom_raster(aes(fill = dn)) +
+        geom_polygon(data = paCounties,aes(x = long, y = lat, group = id), 
+                     color = "deepskyblue2", fill = "NA") +
+        myMapThemeStuff + 
+        labs(fill = "Digital Number") +
+        scale_fill_gradient(low = "black", high = "white")
+
+lightsPlot
+
+```
+
+
+The next thing we want to do is to calculate the average lights value for each county (this might take a little while):
+
+```{r spatial33, echo=TRUE}
+
+countyLights <- extract(lights, counties, fun = mean, na.rm = T, df = T) %>%
+        as.data.frame()
+
+countyLights <- mutate(countyLights, id = as.character(ID)) 
+
+countyLights<-countyLights[,c("palights.txt", "id")]
+
+names(countyLights) <- c("dn", "id")
+```
+
+
+And merge into our county data:
+
+```{r spatial34, echo=TRUE}
+
+analysisData <- left_join(analysisData, countyLights, by = "id") %>%
+        na.omit()
+head(analysisData)
+```
+
+
+And again, we can run our regression:
+
+```{r spatial35, echo=TRUE}
+
+myReg2 <- lm(wells~dn, analysisData)
+summary(myReg2)
+
+```
+
+
+There doesn't appear to be a correlation between the number of wells drilled in Pennsylvania and nighttime lights. Should we be worried? Not really - these datasets aren't perfect; the wells aren't all active anymore (and we haven't dealt with the time component of these data at all); there's not necessarily a clear reason to think that nighttime lights should be strongly related to fracking anyway (except for gas 
+flaring - but that doesn't happen nearly as much in Pennsylvania as it does in North Dakota). Despite the lack of stars on this regression, I hope that this has been a useful exploration of the ways in which you can use R to manipulate spatial data.^[As my econometrics professor once famously said, "This is not Hollywood - do not go looking for stars!"]
+
+
+
+
