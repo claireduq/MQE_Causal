@@ -1049,7 +1049,7 @@ Note that the order in which you load these packages is important. I've set thin
 library(raster)
 #library(vctrs)
 #library(tibble)
-library(GISTools)
+#library(GISTools)
 #library(readr)
 library(dplyr)
 library(lubridate)
@@ -1314,18 +1314,15 @@ bigPlot
 
 Nearly all of our wells are within the play - which makes sense, of course. Even within the play, though, there seems to be massive heterogeneity in well locations. Suppose we're interested in seeing whether there's any correlation between a county's demographics and its well count. To do this, we'll have to count the number of wells in each county. We'll also need some demographic data. 
 
-We can count wells using the data we already have loaded, so let's start there. We'll do this using the `poly.counts()` function from the GISTools package.^[Be very careful when you do this - and make sure to plot your results! It's easy to end up with data that gets re-ordered in the counting process. It's always good to do a sanity check and make sure the output looks right whenever you generate a new column of data.]
 
 ```{r spatial23, echo=TRUE}
 
-# return the number of wells in a county
-wellsInCty <- poly.counts(wells, counties) %>%
-      as.data.frame() %>%
-      mutate(id = rownames(counties@data))
+res <- over(wells, counties)
 
-names(wellsInCty) <- c("wells", "id")
+wellsInCty<-res %>% group_by(countyfpec) %>% summarise(n = n())
+names(wellsInCty) <- c("countyfpec", "wells")
 
-wellsInCty <- mutate(wellsInCty, wells = ifelse(is.na(wells) == TRUE, 0, wells))
+
 ```
 
 Since this is a spatial object, after all, let's go ahead and plot it. To do this, we'll `left_join()` our new column into our county dataframe:
@@ -1333,7 +1330,8 @@ Since this is a spatial object, after all, let's go ahead and plot it. To do thi
 
 ```{r spatial24, echo=TRUE}
 
-paCounties <- left_join(paCounties, wellsInCty, by = "id")
+paCounties <- left_join(paCounties, wellsInCty, by = "countyfpec")
+paCounties <- mutate(paCounties, wells = ifelse(is.na(wells) == TRUE, 0, wells))
 
 ```
 
@@ -1378,7 +1376,7 @@ Much more manageable. We're actually going to want to bring in some new demograp
 
 ```{r spatial27, echo=TRUE}
 
-countyWells <- left_join(wellsInCty, countyData, by="id")
+countyWells <- left_join(paCounties, countyData, by="id")
 countyWells <-countyWells [,c("fips", "id", "wells")]
 ```
 

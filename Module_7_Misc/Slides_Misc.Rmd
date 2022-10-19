@@ -1498,7 +1498,6 @@ Notes:
 library(raster)
 #library(vctrs)
 #library(tibble)
-library(GISTools)
 #library(readr)
 library(dplyr)
 library(lubridate)
@@ -1864,19 +1863,17 @@ Suppose we're interested in seeing whether there's any correlation between a cou
 
 ## Counting wells
 
-We can count wells using the `poly.counts()` function from the GISTools package.
+
 
 \tiny
 ```{r spatial23, echo=TRUE}
 # return the number of wells in a county
-wellsInCty <- poly.counts(wells, counties) %>%
-      as.data.frame() %>%
-      mutate(id = rownames(counties@data))
+res <- over(wells, counties)
 
-names(wellsInCty) <- c("wells", "id")
+wellsInCty<-res %>% group_by(countyfpec) %>% summarise(n = n())
+names(wellsInCty) <- c("countyfpec", "wells")
 
-wellsInCty <- mutate(wellsInCty, wells = ifelse(is.na(wells) == TRUE, 0, wells))
-head(wellsInCty)
+
 ```
 
 
@@ -1887,7 +1884,8 @@ Since this is a spatial object,we can plot it. To do this, `left_join()` our new
 \tiny
 ```{r spatial24, echo=TRUE}
 
-paCounties <- left_join(paCounties, wellsInCty, by = "id")
+paCounties <- left_join(paCounties, wellsInCty, by = "countyfpec")
+paCounties <- mutate(paCounties, wells = ifelse(is.na(wells) == TRUE, 0, wells))
 
 countyPlot <- ggplot(data = bdryDF, aes(x = long, y = lat)) +
     #set the fill color to be the number of wells
@@ -1938,8 +1936,8 @@ Let's merge this with our well counts, and only keep the few variables that we n
 \tiny
 ```{r spatial27, echo=TRUE}
 
-countyWells <- left_join(wellsInCty, countyData, by="id")
-countyWells <-countyWells[,c("fips", "id", "wells")]
+countyWells <- left_join(paCounties, countyData, by="id")
+countyWells <-countyWells [,c("fips", "id", "wells")]
 ```
 
 ## Regressions in space!

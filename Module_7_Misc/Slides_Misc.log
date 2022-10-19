@@ -1,36 +1,31 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7300 64-bit) (preloaded format=pdflatex 2020.2.15)  18 NOV 2020 18:49
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2022.9.22)  19 OCT 2022 20:30
 entering extended mode
-**./Slides_Misc.tex
-(Slides_Misc.tex
-LaTeX2e <2020-02-02>
-L3 programming layer <2020-02-03> ("C:\Users\Claire\AppData\Local\Programs\MiKT
-eX 2.9\tex/latex/beamer\beamer.cls"
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**Slides_Misc.tex
+(./Slides_Misc.tex
+LaTeX2e <2020-02-02> patch level 2
+L3 programming layer <2020-02-14> (/usr/share/texlive/texmf-dist/tex/latex/beam
+er/beamer.cls
 Document Class: beamer 2019/09/29 v3.57 A class for typesetting presentations
-
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbase
-modes.sty"
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/etoolbox\etoolbox
-.sty"
+(/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbasemodes.sty (/usr/share
+/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
 Package: etoolbox 2019/09/21 v2.5h e-TeX tools for LaTeX (JAW)
 \etb@tempcnta=\count167
 )
 \beamer@tempbox=\box45
 \beamer@tempcount=\count168
 \c@beamerpauses=\count169
-
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbase
-decode.sty"
+(/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbasedecode.sty
 \beamer@slideinframe=\count170
 \beamer@minimum=\count171
 \beamer@decode@box=\box46
 )
 \beamer@commentbox=\box47
 \beamer@modecount=\count172
-) ("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/iftex\ifpdf.s
-ty"
+) (/usr/share/texlive/texmf-dist/tex/generic/iftex/ifpdf.sty
 Package: ifpdf 2019/10/25 v3.4 ifpdf legacy package. Use iftex instead.
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/iftex\iftex.sty
-"
+(/usr/share/texlive/texmf-dist/tex/generic/iftex/iftex.sty
 Package: iftex 2019/11/07 v1.0c TeX engine tests
 ))
 \headdp=\dimen134
@@ -75,23 +70,16 @@ Package: iftex 2019/11/07 v1.0c TeX engine tests
 \beamer@coveringdepth=\count189
 \beamer@sectionadjust=\count190
 \beamer@tocsectionnumber=\count191
-
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbase
-options.sty"
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics\keyval.s
-ty"
+(/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbaseoptions.sty (/usr/sha
+re/texlive/texmf-dist/tex/latex/graphics/keyval.sty
 Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
 \KV@toks@=\toks14
 ))
 \beamer@paperwidth=\skip48
 \beamer@paperheight=\skip49
-
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/geometry\geometry
-.sty"
+(/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty
 Package: geometry 2020/01/02 v5.9 Page Geometry
-
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/iftex\ifvtex.st
-y"
+(/usr/share/texlive/texmf-dist/tex/generic/iftex/ifvtex.sty
 Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 )
 \Gm@cnth=\count192
@@ -106,73 +94,47 @@ Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 \Gm@layouthoffset=\dimen156
 \Gm@layoutvoffset=\dimen157
 \Gm@dimlist=\toks15
-
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/geometry\geometry
-.cfg")) ("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\size
-11.clo"
+) (/usr/share/texlive/texmf-dist/tex/latex/base/size11.clo
 File: size11.clo 2019/12/20 v1.4l Standard LaTeX file (size option)
-)
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/pgf/basiclayer\pg
-fcore.sty"
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics\graphicx
-.sty"
+) (/usr/share/texlive/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty (/usr/sha
+re/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2019/11/30 v1.2a Enhanced LaTeX Graphics (DPC,SPQR)
-
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics\graphics
-.sty"
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
 Package: graphics 2019/11/30 v1.4a Standard LaTeX Graphics (DPC,SPQR)
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics\trig.sty
-"
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
 Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
-)
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics-cfg\grap
-hics.cfg"
+) (/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 105.
-
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics-def\pdft
-ex.def"
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def
 File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
 ))
 \Gin@req@height=\dimen158
 \Gin@req@width=\dimen159
-)
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/pgf/systemlayer\p
-gfsys.sty"
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/pgf/utilities\pgf
-rcs.sty"
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/utilities\p
-gfutil-common.tex"
+) (/usr/share/texlive/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty (/usr/sha
+re/texlive/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty (/usr/share/texlive/te
+xmf-dist/tex/generic/pgf/utilities/pgfutil-common.tex
 \pgfutil@everybye=\toks16
 \pgfutil@tempdima=\dimen160
 \pgfutil@tempdimb=\dimen161
 
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/utilities\p
-gfutil-common-lists.tex"))
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/utilities\p
-gfutil-latex.def"
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-common-lists.t
+ex)) (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def
 \pgfutil@abb=\box54
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/ms\everyshi.sty"
+(/usr/share/texlive/texmf-dist/tex/latex/ms/everyshi.sty
 Package: everyshi 2001/05/15 v3.00 EveryShipout Package (MS)
-))
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/utilities\p
-gfrcs.code.tex"
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf\pgf.revisio
-n.tex")
+)) (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex (/u
+sr/share/texlive/texmf-dist/tex/generic/pgf/pgf.revision.tex)
 Package: pgfrcs 2020/01/08 v3.1.5b (3.1.5b)
-))
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/systemlayer
-\pgfsys.code.tex"
+)) (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex
 Package: pgfsys 2020/01/08 v3.1.5b (3.1.5b)
-
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/utilities\p
-gfkeys.code.tex"
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
 \pgfkeys@pathtoks=\toks17
 \pgfkeys@temptoks=\toks18
 
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/utilities\p
-gfkeysfiltered.code.tex"
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeysfiltered.code.t
+ex
 \pgfkeys@tmptoks=\toks19
 ))
 \pgf@x=\dimen162
@@ -195,36 +157,29 @@ gfkeysfiltered.code.tex"
 \t@pgf@tokb=\toks21
 \t@pgf@tokc=\toks22
 \pgf@sys@id@count=\count199
-
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/systemlayer
-\pgf.cfg"
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg
 File: pgf.cfg 2020/01/08 v3.1.5b (3.1.5b)
 )
 Driver file for pgf: pgfsys-pdftex.def
-
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/systemlayer
-\pgfsys-pdftex.def"
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-pdftex.def
 File: pgfsys-pdftex.def 2020/01/08 v3.1.5b (3.1.5b)
 
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/systemlayer
-\pgfsys-common-pdf.def"
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-common-pdf.de
+f
 File: pgfsys-common-pdf.def 2020/01/08 v3.1.5b (3.1.5b)
 )))
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/systemlayer
-\pgfsyssoftpath.code.tex"
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.code.
+tex
 File: pgfsyssoftpath.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 \pgfsyssoftpath@smallbuffer@items=\count266
 \pgfsyssoftpath@bigbuffer@items=\count267
 )
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/systemlayer
-\pgfsysprotocol.code.tex"
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.code.
+tex
 File: pgfsysprotocol.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-)) ("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/xcolor\xcolor.
-sty"
+)) (/usr/share/texlive/texmf-dist/tex/latex/xcolor/xcolor.sty
 Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
-
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics-cfg\colo
-r.cfg"
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package xcolor Info: Driver file: pdftex.def on input line 225.
@@ -237,52 +192,41 @@ Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
 Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
-)
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/basiclayer\
-pgfcore.code.tex"
+) (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex
 Package: pgfcore 2020/01/08 v3.1.5b (3.1.5b)
-
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/math\pgfmat
-h.code.tex"
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/math\pgfmat
-hcalc.code.tex"
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/math\pgfmat
-hutil.code.tex")
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/math\pgfmat
-hparser.code.tex"
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex (/usr/shar
+e/texlive/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex (/usr/share/texl
+ive/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex) (/usr/share/texlive/t
+exmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
 \pgfmath@dimen=\dimen172
 \pgfmath@count=\count268
 \pgfmath@box=\box55
 \pgfmath@toks=\toks23
 \pgfmath@stack@operand=\toks24
 \pgfmath@stack@operation=\toks25
-)
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/math\pgfmat
-hfunctions.code.tex"
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/math\pgfmat
-hfunctions.basic.code.tex")
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/math\pgfmat
-hfunctions.trigonometric.code.tex")
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/math\pgfmat
-hfunctions.random.code.tex")
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/math\pgfmat
-hfunctions.comparison.code.tex")
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/math\pgfmat
-hfunctions.base.code.tex")
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/math\pgfmat
-hfunctions.round.code.tex")
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/math\pgfmat
-hfunctions.misc.code.tex")
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/math\pgfmat
-hfunctions.integerarithmetics.code.tex")))
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/math\pgfmat
-hfloat.code.tex"
+) (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.tex
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic.code
+.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trigonomet
+ric.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.random.cod
+e.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.comparison
+.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base.code.
+tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.round.code
+.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc.code.
+tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integerari
+thmetics.code.tex))) (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmat
+hfloat.code.tex
 \c@pgfmathroundto@lastzeros=\count269
-))
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/math\pgfint
-.code.tex")
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/basiclayer\
-pgfcorepoints.code.tex"
+)) (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfint.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.code.te
+x
 File: pgfcorepoints.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 \pgf@picminx=\dimen173
 \pgf@picmaxx=\dimen174
@@ -299,168 +243,130 @@ File: pgfcorepoints.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 \pgf@zx=\dimen185
 \pgf@zy=\dimen186
 )
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/basiclayer\
-pgfcorepathconstruct.code.tex"
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathconstruct.
+code.tex
 File: pgfcorepathconstruct.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 \pgf@path@lastx=\dimen187
 \pgf@path@lasty=\dimen188
 )
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/basiclayer\
-pgfcorepathusage.code.tex"
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathusage.code
+.tex
 File: pgfcorepathusage.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 \pgf@shorten@end@additional=\dimen189
 \pgf@shorten@start@additional=\dimen190
 )
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/basiclayer\
-pgfcorescopes.code.tex"
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.code.te
+x
 File: pgfcorescopes.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 \pgfpic=\box56
 \pgf@hbox=\box57
 \pgf@layerbox@main=\box58
 \pgf@picture@serial@count=\count270
 )
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/basiclayer\
-pgfcoregraphicstate.code.tex"
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicstate.c
+ode.tex
 File: pgfcoregraphicstate.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 \pgflinewidth=\dimen191
 )
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/basiclayer\
-pgfcoretransformations.code.tex"
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransformation
+s.code.tex
 File: pgfcoretransformations.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 \pgf@pt@x=\dimen192
 \pgf@pt@y=\dimen193
 \pgf@pt@temp=\dimen194
 )
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/basiclayer\
-pgfcorequick.code.tex"
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorequick.code.tex
 File: pgfcorequick.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 )
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/basiclayer\
-pgfcoreobjects.code.tex"
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreobjects.code.t
+ex
 File: pgfcoreobjects.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 )
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/basiclayer\
-pgfcorepathprocessing.code.tex"
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathprocessing
+.code.tex
 File: pgfcorepathprocessing.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 )
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/basiclayer\
-pgfcorearrows.code.tex"
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.code.te
+x
 File: pgfcorearrows.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 \pgfarrowsep=\dimen195
 )
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/basiclayer\
-pgfcoreshade.code.tex"
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.code.tex
 File: pgfcoreshade.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 \pgf@max=\dimen196
 \pgf@sys@shading@range@num=\count271
 \pgf@shadingcount=\count272
 )
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/basiclayer\
-pgfcoreimage.code.tex"
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.code.tex
 File: pgfcoreimage.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/basiclayer\
-pgfcoreexternal.code.tex"
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.code.
+tex
 File: pgfcoreexternal.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 \pgfexternal@startupbox=\box59
 ))
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/basiclayer\
-pgfcorelayers.code.tex"
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorelayers.code.te
+x
 File: pgfcorelayers.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 )
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/basiclayer\
-pgfcoretransparency.code.tex"
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransparency.c
+ode.tex
 File: pgfcoretransparency.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 )
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/basiclayer\
-pgfcorepatterns.code.tex"
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepatterns.code.
+tex
 File: pgfcorepatterns.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-)
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/basiclayer\
-pgfcorerdf.code.tex"
+) (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorerdf.code.tex
 File: pgfcorerdf.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-)))
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/pgf/utilities\xxc
-olor.sty"
+))) (/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/xxcolor.sty
 Package: xxcolor 2003/10/24 ver 0.1
 \XC@nummixins=\count273
 \XC@countmixins=\count274
-)
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/atbegshi\atbegs
-hi.sty"
+) (/usr/share/texlive/texmf-dist/tex/generic/atbegshi/atbegshi.sty
 Package: atbegshi 2019/12/05 v1.19 At begin shipout hook (HO)
-
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/infwarerr\infwa
-rerr.sty"
+(/usr/share/texlive/texmf-dist/tex/generic/infwarerr/infwarerr.sty
 Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
-)
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/ltxcmds\ltxcmds
-.sty"
+) (/usr/share/texlive/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
 Package: ltxcmds 2019/12/15 v1.24 LaTeX kernel commands for general use (HO)
-))
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/hyperref\hyperref
-.sty"
+)) (/usr/share/texlive/texmf-dist/tex/latex/hyperref/hyperref.sty
 Package: hyperref 2020/01/14 v7.00d Hypertext links for LaTeX
-
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/pdftexcmds\pdftex
-cmds.sty"
+(/usr/share/texlive/texmf-dist/tex/latex/pdftexcmds/pdftexcmds.sty
 Package: pdftexcmds 2019/11/24 v0.31 Utility functions of pdfTeX for LuaTeX (HO
 )
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 Package pdftexcmds Info: \pdfdraftmode found.
-)
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/kvsetkeys\kvset
-keys.sty"
+) (/usr/share/texlive/texmf-dist/tex/generic/kvsetkeys/kvsetkeys.sty
 Package: kvsetkeys 2019/12/15 v1.18 Key value parser (HO)
-)
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/kvdefinekeys\kv
-definekeys.sty"
+) (/usr/share/texlive/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
 Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
-)
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pdfescape\pdfes
-cape.sty"
+) (/usr/share/texlive/texmf-dist/tex/generic/pdfescape/pdfescape.sty
 Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
-)
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/hycolor\hycolor.s
-ty"
+) (/usr/share/texlive/texmf-dist/tex/latex/hycolor/hycolor.sty
 Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
-)
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/letltxmacro\letlt
-xmacro.sty"
+) (/usr/share/texlive/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty
 Package: letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
-)
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/auxhook\auxhook.s
-ty"
+) (/usr/share/texlive/texmf-dist/tex/latex/auxhook/auxhook.sty
 Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
-)
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/kvoptions\kvoptio
-ns.sty"
+) (/usr/share/texlive/texmf-dist/tex/latex/kvoptions/kvoptions.sty
 Package: kvoptions 2019/11/29 v3.13 Key value format for package options (HO)
 )
 \@linkdim=\dimen197
 \Hy@linkcounter=\count275
 \Hy@pagecounter=\count276
-
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/hyperref\pd1enc.d
-ef"
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/pd1enc.def
 File: pd1enc.def 2020/01/14 v7.00d Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
 ... no UTF-8 mapping file for font encoding PD1
-)
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/intcalc\intcalc
-.sty"
+) (/usr/share/texlive/texmf-dist/tex/generic/intcalc/intcalc.sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
-)
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/etexcmds\etexcm
-ds.sty"
+) (/usr/share/texlive/texmf-dist/tex/generic/etexcmds/etexcmds.sty
 Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
 )
 \Hy@SavedSpaceFactor=\count277
+\pdfmajorversion=\count278
 Package hyperref Info: Option `unicode' set `true' on input line 4421.
-
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/hyperref\puenc.de
-f"
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/puenc.def
 File: puenc.def 2020/01/14 v7.00d Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
 ... no UTF-8 mapping file for font encoding PU
@@ -475,24 +381,20 @@ Package hyperref Info: Plain pages OFF on input line 4562.
 Package hyperref Info: Backreferencing OFF on input line 4567.
 Package hyperref Info: Implicit mode OFF; no redefinition of LaTeX internals.
 Package hyperref Info: Bookmarks ON on input line 4800.
-\c@Hy@tempcnt=\count278
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/url\url.sty"
+\c@Hy@tempcnt=\count279
+(/usr/share/texlive/texmf-dist/tex/latex/url/url.sty
 \Urlmuskip=\muskip16
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 5159.
 \XeTeXLinkMargin=\dimen198
-
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/bitset\bitset.s
-ty"
+(/usr/share/texlive/texmf-dist/tex/generic/bitset/bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
-
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/bigintcalc\bigi
-ntcalc.sty"
+(/usr/share/texlive/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
 )
 ))
-\Fld@menulength=\count279
+\Fld@menulength=\count280
 \Field@Width=\dimen199
 \Fld@charsize=\dimen256
 Package hyperref Info: Hyper figures OFF on input line 6430.
@@ -504,47 +406,32 @@ Package hyperref Info: Link coloring with OCG OFF on input line 6455.
 Package hyperref Info: PDF/A mode OFF on input line 6460.
 LaTeX Info: Redefining \ref on input line 6500.
 LaTeX Info: Redefining \pageref on input line 6504.
-\Hy@abspage=\count280
+\Hy@abspage=\count281
 
 Package hyperref Message: Stopped early.
 
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
-
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/hyperref\hpdftex.
-def"
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hpdftex.def
 File: hpdftex.def 2020/01/14 v7.00d Hyperref driver for pdfTeX
-
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/atveryend\atverye
-nd.sty"
+(/usr/share/texlive/texmf-dist/tex/latex/atveryend/atveryend.sty
 Package: atveryend 2019-12-11 v1.11 Hooks at the very end of document (HO)
 )
-\Fld@listcount=\count281
-\c@bookmark@seq@number=\count282
-
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/rerunfilecheck\re
-runfilecheck.sty"
+\Fld@listcount=\count282
+\c@bookmark@seq@number=\count283
+(/usr/share/texlive/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
 Package: rerunfilecheck 2019/12/05 v1.9 Rerun checks for auxiliary files (HO)
-
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/uniquecounter\u
-niquecounter.sty"
+(/usr/share/texlive/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
 Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 )
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 86.
-))
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbase
-requires.sty"
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbase
-compatibility.sty")
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbase
-font.sty"
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsfonts\amssymb.
-sty"
+)) (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbaserequires.sty (/usr
+/share/texlive/texmf-dist/tex/latex/beamer/beamerbasecompatibility.sty) (/usr/s
+hare/texlive/texmf-dist/tex/latex/beamer/beamerbasefont.sty (/usr/share/texlive
+/texmf-dist/tex/latex/amsfonts/amssymb.sty
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
-
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsfonts\amsfonts
-.sty"
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 \@emptytoks=\toks26
 \symAMSa=\mathgroup4
@@ -552,90 +439,59 @@ Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
-))
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/sansmathaccent\sa
-nsmathaccent.sty"
+)) (/usr/share/texlive/texmf-dist/tex/latex/sansmathaccent/sansmathaccent.sty
 Package: sansmathaccent 2020/01/31
-
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/koma-script\scrlf
-ile.sty"
+(/usr/share/texlive/texmf-dist/tex/latex/koma-script/scrlfile.sty
 Package: scrlfile 2020/01/24 v3.29 KOMA-Script package (loading files)
-)))
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbase
-translator.sty"
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/translator\transl
-ator.sty"
+))) (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbasetranslator.sty (/
+usr/share/texlive/texmf-dist/tex/latex/translator/translator.sty
 Package: translator 2019-05-31 v1.12a Easy translation of strings in LaTeX
-))
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbase
-misc.sty")
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbase
-twoscreens.sty")
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbase
-overlay.sty"
-\beamer@argscount=\count283
+)) (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbasemisc.sty) (/usr/sh
+are/texlive/texmf-dist/tex/latex/beamer/beamerbasetwoscreens.sty) (/usr/share/t
+exlive/texmf-dist/tex/latex/beamer/beamerbaseoverlay.sty
+\beamer@argscount=\count284
 \beamer@lastskipcover=\skip50
-\beamer@trivlistdepth=\count284
-)
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbase
-title.sty")
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbase
-section.sty"
-\c@lecture=\count285
-\c@part=\count286
-\c@section=\count287
-\c@subsection=\count288
-\c@subsubsection=\count289
-)
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbase
-frame.sty"
+\beamer@trivlistdepth=\count285
+) (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbasetitle.sty) (/usr/sh
+are/texlive/texmf-dist/tex/latex/beamer/beamerbasesection.sty
+\c@lecture=\count286
+\c@part=\count287
+\c@section=\count288
+\c@subsection=\count289
+\c@subsubsection=\count290
+) (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbaseframe.sty
 \beamer@framebox=\box60
 \beamer@frametitlebox=\box61
 \beamer@zoombox=\box62
-\beamer@zoomcount=\count290
-\beamer@zoomframecount=\count291
+\beamer@zoomcount=\count291
+\beamer@zoomframecount=\count292
 \beamer@frametextheight=\dimen257
-\c@subsectionslide=\count292
+\c@subsectionslide=\count293
 \beamer@frametopskip=\skip51
 \beamer@framebottomskip=\skip52
 \beamer@frametopskipautobreak=\skip53
 \beamer@framebottomskipautobreak=\skip54
 \beamer@envbody=\toks27
 \framewidth=\dimen258
-\c@framenumber=\count293
-)
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbase
-verbatim.sty"
+\c@framenumber=\count294
+) (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbaseverbatim.sty
 \beamer@verbatimfileout=\write4
-)
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbase
-framesize.sty"
+) (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbaseframesize.sty
 \beamer@splitbox=\box63
-\beamer@autobreakcount=\count294
+\beamer@autobreakcount=\count295
 \beamer@autobreaklastheight=\dimen259
 \beamer@frametitletoks=\toks28
 \beamer@framesubtitletoks=\toks29
-)
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbase
-framecomponents.sty"
+) (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbaseframecomponents.sty
 \beamer@footins=\box64
-)
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbase
-color.sty")
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbase
-notes.sty"
+) (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbasecolor.sty) (/usr/sh
+are/texlive/texmf-dist/tex/latex/beamer/beamerbasenotes.sty
 \beamer@frameboxcopy=\box65
-)
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbase
-toc.sty")
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbase
-templates.sty"
+) (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbasetoc.sty) (/usr/shar
+e/texlive/texmf-dist/tex/latex/beamer/beamerbasetemplates.sty
 \beamer@sbttoks=\toks30
-
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbase
-auxtemplates.sty"
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbase
-boxes.sty"
+(/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbaseauxtemplates.sty (/us
+r/share/texlive/texmf-dist/tex/latex/beamer/beamerbaseboxes.sty
 \bmb@box=\box66
 \bmb@colorbox=\box67
 \bmb@boxshadow=\box68
@@ -647,57 +503,41 @@ boxes.sty"
 \bmb@prevheight=\dimen263
 )
 \beamer@blockheadheight=\dimen264
-))
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbase
-localstructure.sty"
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/tools\enumerate.s
-ty"
+)) (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbaselocalstructure.sty
+(/usr/share/texlive/texmf-dist/tex/latex/tools/enumerate.sty
 Package: enumerate 2015/07/23 v3.00 enumerate extensions (DPC)
 \@enLab=\toks31
 )
-\c@figure=\count295
-\c@table=\count296
+\c@figure=\count296
+\c@table=\count297
 \abovecaptionskip=\skip55
 \belowcaptionskip=\skip56
-)
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbase
-navigation.sty"
+) (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbasenavigation.sty
 \beamer@section@min@dim=\dimen265
-)
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbase
-theorems.sty"
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsmath\amsmath.s
-ty"
+) (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbasetheorems.sty (/usr/
+share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2020/01/20 v2.17e AMS math features
 \@mathmargin=\skip57
 For additional information on amsmath, use the `?' option.
-
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsmath\amstext.s
-ty"
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
 Package: amstext 2000/06/29 v2.01 AMS text
-
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsmath\amsgen.st
-y"
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
 \@emptytoks=\toks32
 \ex@=\dimen266
-))
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsmath\amsbsy.st
-y"
+)) (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 \pmbraise@=\dimen267
-)
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsmath\amsopn.st
-y"
+) (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 2016/03/08 v2.02 operator names
 )
-\inf@bad=\count297
+\inf@bad=\count298
 LaTeX Info: Redefining \frac on input line 227.
-\uproot@=\count298
-\leftroot@=\count299
+\uproot@=\count299
+\leftroot@=\count300
 LaTeX Info: Redefining \overline on input line 389.
-\classnum@=\count300
-\DOTSCASE@=\count301
+\classnum@=\count301
+\DOTSCASE@=\count302
 LaTeX Info: Redefining \ldots on input line 486.
 LaTeX Info: Redefining \dots on input line 489.
 LaTeX Info: Redefining \cdots on input line 610.
@@ -706,15 +546,15 @@ LaTeX Info: Redefining \cdots on input line 610.
 \big@size=\dimen268
 LaTeX Font Info:    Redeclaring font encoding OML on input line 733.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 734.
-\macc@depth=\count302
-\c@MaxMatrixCols=\count303
+\macc@depth=\count303
+\c@MaxMatrixCols=\count304
 \dotsspace@=\muskip17
-\c@parentequation=\count304
-\dspbrk@lvl=\count305
+\c@parentequation=\count305
+\dspbrk@lvl=\count306
 \tag@help=\toks33
-\row@=\count306
-\column@=\count307
-\maxfields@=\count308
+\row@=\count307
+\column@=\count308
+\maxfields@=\count309
 \andhelp@=\toks34
 \eqnshift@=\dimen269
 \alignsep@=\dimen270
@@ -728,8 +568,7 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 734.
 \mathdisplay@stack=\toks36
 LaTeX Info: Redefining \[ on input line 2859.
 LaTeX Info: Redefining \] on input line 2860.
-) ("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amscls\amsthm.s
-ty"
+) (/usr/share/texlive/texmf-dist/tex/latex/amscls/amsthm.sty
 Package: amsthm 2017/10/31 v2.20.4
 \thm@style=\toks37
 \thm@bodyfont=\toks38
@@ -741,49 +580,40 @@ Package: amsthm 2017/10/31 v2.20.4
 \thm@headsep=\skip62
 \dth@everypar=\toks42
 )
-\c@theorem=\count309
-)
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbase
-themes.sty"))
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerthem
-edefault.sty"
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerfont
-themedefault.sty")
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamercolo
-rthemedefault.sty")
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerinne
-rthemedefault.sty"
+\c@theorem=\count310
+) (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbasethemes.sty)) (/usr/
+share/texlive/texmf-dist/tex/latex/beamer/beamerthemedefault.sty (/usr/share/te
+xlive/texmf-dist/tex/latex/beamer/beamerfontthemedefault.sty) (/usr/share/texli
+ve/texmf-dist/tex/latex/beamer/beamercolorthemedefault.sty) (/usr/share/texlive
+/texmf-dist/tex/latex/beamer/beamerinnerthemedefault.sty
 \beamer@dima=\dimen275
 \beamer@dimb=\dimen276
-)
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beameroute
-rthemedefault.sty")))
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/pgf/utilities\pgf
-pages.sty"
+) (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerouterthemedefault.sty))
+) (/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgfpages.sty
 Package: pgfpages 2011/01/05 ver 0.02
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/tools\calc.sty"
+(/usr/share/texlive/texmf-dist/tex/latex/tools/calc.sty
 Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
-\calc@Acount=\count310
-\calc@Bcount=\count311
+\calc@Acount=\count311
+\calc@Bcount=\count312
 \calc@Adimen=\dimen277
 \calc@Bdimen=\dimen278
 \calc@Askip=\skip63
 \calc@Bskip=\skip64
 LaTeX Info: Redefining \setlength on input line 80.
 LaTeX Info: Redefining \addtolength on input line 81.
-\calc@Ccount=\count312
+\calc@Ccount=\count313
 \calc@Cskip=\skip65
 )
-\pgf@logicalpages=\count313
-\pgf@firstshipout=\count314
-\pgf@lastshipout=\count315
-\pgf@currentshipout=\count316
-\pgf@cpn=\count317
-\pgf@shipoutnextto=\count318
+\pgf@logicalpages=\count314
+\pgf@firstshipout=\count315
+\pgf@lastshipout=\count316
+\pgf@currentshipout=\count317
+\pgf@cpn=\count318
+\pgf@shipoutnextto=\count319
 \pgfphysicalheight=\dimen279
 \pgfphysicalwidth=\dimen280
 \pgfpages@shipoutbox=\box73
-) ("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/lm\lmodern.sty"
+) (/usr/share/texmf/tex/latex/lm/lmodern.sty
 Package: lmodern 2009/10/30 v1.6 Latin Modern Fonts
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
 (Font)                  OT1/cmr/m/n --> OT1/lmr/m/n on input line 22.
@@ -817,47 +647,30 @@ LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
 (Font)                  OT1/cmr/bx/it --> OT1/lmr/bx/it on input line 37.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 (Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 38.
-)
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/iftex\ifxetex.s
-ty"
-Package: ifxetex 2019/10/25 v0.7 ifxetex legacy package. Use iftex instead.
-)
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/iftex\ifluatex.
-sty"
-Package: ifluatex 2019/10/25 v1.5 ifluatex legacy package. Use iftex instead.
-) ("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\fontenc.st
-y"
-Package: fontenc 2020/01/25 v2.0m Standard LaTeX package
+) (/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2020/02/11 v2.0o Standard LaTeX package
 LaTeX Font Info:    Trying to load font information for T1+lmss on input line 1
 12.
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/lm\t1lmss.fd"
+(/usr/share/texmf/tex/latex/lm/t1lmss.fd
 File: t1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)) ("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\inputenc.
-sty"
+)) (/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
 Package: inputenc 2018/08/11 v1.3c Input encoding file
 \inpenc@prehook=\toks43
 \inpenc@posthook=\toks44
-) ("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\textcomp.s
-ty"
-Package: textcomp 2020/02/02 v2.0m Standard LaTeX package
-)
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/upquote\upquote.s
-ty"
+) (/usr/share/texlive/texmf-dist/tex/latex/base/textcomp.sty
+Package: textcomp 2020/02/02 v2.0n Standard LaTeX package
+) (/usr/share/texlive/texmf-dist/tex/latex/upquote/upquote.sty
 Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verba
 tim
-)
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/microtype\microty
-pe.sty"
+) (/usr/share/texlive/texmf-dist/tex/latex/microtype/microtype.sty
 Package: microtype 2019/11/18 v2.7d Micro-typographical refinements (RS)
 \MT@toks=\toks45
-\MT@count=\count319
+\MT@count=\count320
 LaTeX Info: Redefining \textls on input line 790.
 \MT@outer@kern=\dimen281
 LaTeX Info: Redefining \textmicrotypecontext on input line 1354.
-\MT@listname@count=\count320
-
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/microtype\microty
-pe-pdftex.def"
+\MT@listname@count=\count321
+(/usr/share/texlive/texmf-dist/tex/latex/microtype/microtype-pdftex.def
 File: microtype-pdftex.def 2019/11/18 v2.7d Definitions specific to pdftex (RS)
 
 LaTeX Info: Redefining \lsstyle on input line 914.
@@ -865,46 +678,26 @@ LaTeX Info: Redefining \lslig on input line 914.
 \MT@outer@space=\skip66
 )
 Package microtype Info: Loading configuration file microtype.cfg.
-
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/microtype\microty
-pe.cfg"
+(/usr/share/texlive/texmf-dist/tex/latex/microtype/microtype.cfg
 File: microtype.cfg 2019/11/18 v2.7d microtype main configuration file (RS)
-))
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/parskip\parskip.s
-ty"
+)) (/usr/share/texlive/texmf-dist/tex/latex/parskip/parskip.sty
 Package: parskip 2020-01-22 v2.0d non-zero parskip adjustments
-) ("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/xurl\xurl.sty"
-Package: xurl 2020/01/24 v 0.09 modify URL breaks
-)
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/bookmark\bookmark
-.sty"
-Package: bookmark 2019/12/03 v1.28 PDF bookmarks (HO)
-
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/bookmark\bkm-pdft
-ex.def"
-File: bkm-pdftex.def 2019/12/03 v1.28 bookmark driver for pdfTeX (HO)
-\BKM@id=\count321
-))
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/fancyvrb\fancyvrb
-.sty"
-Package: fancyvrb 2020/05/03 v3.6 verbatim text (tvz,hv)
+) (/usr/share/texlive/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty
+Package: fancyvrb 2020/01/13 v3.5 verbatim text (tvz,hv)
 \FV@CodeLineNo=\count322
 \FV@InFile=\read3
 \FV@TabBox=\box74
 \c@FancyVerbLine=\count323
 \FV@StepNumber=\count324
 \FV@OutFile=\write5
-) ("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/framed\framed.s
-ty"
+) (/usr/share/texlive/texmf-dist/tex/latex/framed/framed.sty
 Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
 \OuterFrameSep=\skip67
 \fb@frw=\dimen282
 \fb@frh=\dimen283
 \FrameRule=\dimen284
 \FrameSep=\dimen285
-)
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/tools\longtable.s
-ty"
+) (/usr/share/texlive/texmf-dist/tex/latex/tools/longtable.sty
 Package: longtable 2020/01/07 v4.13 Multi-page Table package (DPC)
 \LTleft=\skip68
 \LTright=\skip69
@@ -921,9 +714,7 @@ Package: longtable 2020/01/07 v4.13 Multi-page Table package (DPC)
 \c@LT@tables=\count328
 \c@LT@chunks=\count329
 \LT@p@ftn=\toks46
-)
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/booktabs\booktabs
-.sty"
+) (/usr/share/texlive/texmf-dist/tex/latex/booktabs/booktabs.sty
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \heavyrulewidth=\dimen287
 \lightrulewidth=\dimen288
@@ -942,22 +733,27 @@ Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \@thisruleclass=\count332
 \@lastruleclass=\count333
 \@thisrulewidth=\dimen299
-)
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/caption\caption.s
-ty"
+) (/usr/share/texlive/texmf-dist/tex/latex/tools/array.sty
+Package: array 2019/08/31 v2.4l Tabular extension package (FMi)
+\col@sep=\dimen300
+\ar@mcellbox=\box79
+\extrarowheight=\dimen301
+\NC@list=\toks47
+\extratabsurround=\skip72
+\backup@length=\skip73
+\ar@cellbox=\box80
+) (/usr/share/texlive/texmf-dist/tex/latex/caption/caption.sty
 Package: caption 2020/01/03 v3.4h Customizing captions (AR)
-
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/caption\caption3.
-sty"
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty
 Package: caption3 2020/01/03 v1.8h caption3 kernel (AR)
 Package caption3 Info: TeX engine: e-TeX on input line 61.
-\captionmargin=\dimen300
-\captionmargin@=\dimen301
-\captionwidth=\dimen302
-\caption@tempdima=\dimen303
-\caption@indent=\dimen304
-\caption@parindent=\dimen305
-\caption@hangindent=\dimen306
+\captionmargin=\dimen302
+\captionmargin@=\dimen303
+\captionwidth=\dimen304
+\caption@tempdima=\dimen305
+\caption@indent=\dimen306
+\caption@parindent=\dimen307
+\caption@hangindent=\dimen308
 Package caption Info: beamer document class detected.
 )
 \c@caption@flags=\count334
@@ -967,23 +763,26 @@ Package caption Info: hyperref package is loaded.
 Package caption Info: Hyperref support is turned off
 (caption)             because hyperref has stopped early.
 Package caption Info: longtable package is loaded.
-
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/caption\ltcaption
-.sty"
+(/usr/share/texlive/texmf-dist/tex/latex/caption/ltcaption.sty
 Package: ltcaption 2018/08/26 v1.4a longtable captions (AR)
-)) ("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/bbm\bbm.sty"
+)) (/usr/share/texlive/texmf-dist/tex/latex/bbm-macros/bbm.sty
 Package: bbm 1999/03/15 V 1.2 provides fonts for set symbols - TH
 LaTeX Font Info:    Overwriting math alphabet `\mathbbm' in version `bold'
 (Font)                  U/bbm/m/n --> U/bbm/bx/n on input line 33.
 LaTeX Font Info:    Overwriting math alphabet `\mathbbmss' in version `bold'
 (Font)                  U/bbmss/m/n --> U/bbmss/bx/n on input line 35.
-)
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/l3backend\l3backe
-nd-pdfmode.def"
+) (/usr/share/texlive/texmf-dist/tex/latex/bookmark/bookmark.sty
+Package: bookmark 2019/12/03 v1.28 PDF bookmarks (HO)
+(/usr/share/texlive/texmf-dist/tex/latex/bookmark/bkm-pdftex.def
+File: bkm-pdftex.def 2019/12/03 v1.28 bookmark driver for pdfTeX (HO)
+\BKM@id=\count336
+)) (/usr/share/texlive/texmf-dist/tex/latex/xurl/xurl.sty
+Package: xurl 2020/01/24 v 0.09 modify URL breaks
+) (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def
 File: l3backend-pdfmode.def 2020-02-03 L3 backend support: PDF mode
-\l__kernel_color_stack_int=\count336
-\l__pdf_internal_box=\box79
-) (Slides_Misc.aux
+\l__kernel_color_stack_int=\count337
+\l__pdf_internal_box=\box81
+) (./Slides_Misc.aux
 
 LaTeX Warning: Label `' multiply defined.
 
@@ -993,24 +792,24 @@ LaTeX Warning: Label `' multiply defined.
 )
 \openout1 = `Slides_Misc.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 154.
-LaTeX Font Info:    ... okay on input line 154.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 154.
-LaTeX Font Info:    ... okay on input line 154.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 154.
-LaTeX Font Info:    ... okay on input line 154.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 154.
-LaTeX Font Info:    ... okay on input line 154.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 154.
-LaTeX Font Info:    ... okay on input line 154.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 154.
-LaTeX Font Info:    ... okay on input line 154.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 154.
-LaTeX Font Info:    ... okay on input line 154.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 154.
-LaTeX Font Info:    ... okay on input line 154.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 154.
-LaTeX Font Info:    ... okay on input line 154.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 158.
+LaTeX Font Info:    ... okay on input line 158.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 158.
+LaTeX Font Info:    ... okay on input line 158.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 158.
+LaTeX Font Info:    ... okay on input line 158.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 158.
+LaTeX Font Info:    ... okay on input line 158.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 158.
+LaTeX Font Info:    ... okay on input line 158.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 158.
+LaTeX Font Info:    ... okay on input line 158.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 158.
+LaTeX Font Info:    ... okay on input line 158.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 158.
+LaTeX Font Info:    ... okay on input line 158.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 158.
+LaTeX Font Info:    ... okay on input line 158.
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -1045,127 +844,120 @@ LaTeX Font Info:    ... okay on input line 154.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/context/base/mkii\supp-
-pdf.mkii"
+(/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count337
-\scratchdimen=\dimen307
-\scratchbox=\box80
-\nofMPsegments=\count338
-\nofMParguments=\count339
-\everyMPshowfont=\toks47
-\MPscratchCnt=\count340
-\MPscratchDim=\dimen308
-\MPnumerator=\count341
-\makeMPintoPDFobject=\count342
-\everyMPtoPDFconversion=\toks48
-)
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/epstopdf-pkg\epst
-opdf-base.sty"
+\scratchcounter=\count338
+\scratchdimen=\dimen309
+\scratchbox=\box82
+\nofMPsegments=\count339
+\nofMParguments=\count340
+\everyMPshowfont=\toks48
+\MPscratchCnt=\count341
+\MPscratchDim=\dimen310
+\MPnumerator=\count342
+\makeMPintoPDFobject=\count343
+\everyMPtoPDFconversion=\toks49
+) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 85.
-) ABD: EveryShipout initializing macros
-\AtBeginShipoutBox=\box81
-Package hyperref Info: Link coloring OFF on input line 154.
-
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/hyperref\nameref.
-sty"
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+)) ABD: EveryShipout initializing macros
+\AtBeginShipoutBox=\box83
+Package hyperref Info: Link coloring OFF on input line 158.
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
-
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/refcount\refcount
-.sty"
+(/usr/share/texlive/texmf-dist/tex/latex/refcount/refcount.sty
 Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
-)
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/generic/gettitlestring\
-gettitlestring.sty"
+) (/usr/share/texlive/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count343
+\c@section@level=\count344
 )
-LaTeX Info: Redefining \ref on input line 154.
-LaTeX Info: Redefining \pageref on input line 154.
-LaTeX Info: Redefining \nameref on input line 154.
+LaTeX Info: Redefining \ref on input line 158.
+LaTeX Info: Redefining \pageref on input line 158.
+LaTeX Info: Redefining \nameref on input line 158.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/lmr/m/n --> OT1/cmss/m/n on input line 154.
+(Font)                  OT1/lmr/m/n --> OT1/cmss/m/n on input line 158.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/lmr/bx/n --> OT1/cmss/b/n on input line 154.
+(Font)                  OT1/lmr/bx/n --> OT1/cmss/b/n on input line 158.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmss/m/n --> OT1/lmss/m/n on input line 154.
+(Font)                  OT1/cmss/m/n --> OT1/lmss/m/n on input line 158.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmss/b/n --> OT1/lmss/b/n on input line 154.
+(Font)                  OT1/cmss/b/n --> OT1/lmss/b/n on input line 158.
 \symnumbers=\mathgroup6
 \sympureletters=\mathgroup7
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `normal'
-(Font)                  OT1/lmss/m/n --> T1/lmr/m/n on input line 154.
-LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 154.
+(Font)                  OT1/lmss/m/n --> T1/lmr/m/n on input line 158.
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 158.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/lmr/bx/n --> T1/lmss/b/n on input line 154.
+(Font)                  OT1/lmr/bx/n --> T1/lmss/b/n on input line 158.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  OT1/lmr/bx/n --> T1/lmss/b/n on input line 154.
-LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 154.
+(Font)                  OT1/lmr/bx/n --> T1/lmss/b/n on input line 158.
+LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 158.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/lmss/m/n --> T1/lmss/m/n on input line 154.
+(Font)                  OT1/lmss/m/n --> T1/lmss/m/n on input line 158.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/lmss/bx/n --> T1/lmss/m/n on input line 154.
-LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 154.
+(Font)                  OT1/lmss/bx/n --> T1/lmss/m/n on input line 158.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 158.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/lmr/m/it --> T1/lmss/m/it on input line 154.
+(Font)                  OT1/lmr/m/it --> T1/lmss/m/it on input line 158.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/lmr/bx/it --> T1/lmss/m/it on input line 154.
-LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 154.
+(Font)                  OT1/lmr/bx/it --> T1/lmss/m/it on input line 158.
+LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 158.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/lmtt/m/n --> T1/lmtt/m/n on input line 154.
+(Font)                  OT1/lmtt/m/n --> T1/lmtt/m/n on input line 158.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/lmtt/m/n --> T1/lmtt/m/n on input line 154.
+(Font)                  OT1/lmtt/m/n --> T1/lmtt/m/n on input line 158.
 LaTeX Font Info:    Overwriting symbol font `numbers' in version `bold'
-(Font)                  T1/lmss/m/n --> T1/lmss/b/n on input line 154.
+(Font)                  T1/lmss/m/n --> T1/lmss/b/n on input line 158.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  T1/lmss/m/it --> T1/lmss/b/it on input line 154.
+(Font)                  T1/lmss/m/it --> T1/lmss/b/it on input line 158.
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `bold'
-(Font)                  OT1/lmss/b/n --> T1/lmr/b/n on input line 154.
+(Font)                  OT1/lmss/b/n --> T1/lmr/b/n on input line 158.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  T1/lmss/b/n --> T1/lmss/b/n on input line 154.
+(Font)                  T1/lmss/b/n --> T1/lmss/b/n on input line 158.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  T1/lmss/m/n --> T1/lmss/b/n on input line 154.
+(Font)                  T1/lmss/m/n --> T1/lmss/b/n on input line 158.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  T1/lmss/m/it --> T1/lmss/b/it on input line 154.
+(Font)                  T1/lmss/m/it --> T1/lmss/b/it on input line 158.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  T1/lmtt/m/n --> T1/lmtt/b/n on input line 154.
+(Font)                  T1/lmtt/m/n --> T1/lmtt/b/n on input line 158.
 
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/translator\transl
-ator-basic-dictionary-English.dict"
+(/usr/share/texlive/texmf-dist/tex/latex/translator/translator-basic-dictionary
+-English.dict
 Dictionary: translator-basic-dictionary, Language: English 
 )
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/translator\transl
-ator-bibliography-dictionary-English.dict"
+(/usr/share/texlive/texmf-dist/tex/latex/translator/translator-bibliography-dic
+tionary-English.dict
 Dictionary: translator-bibliography-dictionary, Language: English 
 )
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/translator\transl
-ator-environment-dictionary-English.dict"
+(/usr/share/texlive/texmf-dist/tex/latex/translator/translator-environment-dict
+ionary-English.dict
 Dictionary: translator-environment-dictionary, Language: English 
 )
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/translator\transl
-ator-months-dictionary-English.dict"
+(/usr/share/texlive/texmf-dist/tex/latex/translator/translator-months-dictionar
+y-English.dict
 Dictionary: translator-months-dictionary, Language: English 
 )
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/translator\transl
-ator-numbers-dictionary-English.dict"
+(/usr/share/texlive/texmf-dist/tex/latex/translator/translator-numbers-dictiona
+ry-English.dict
 Dictionary: translator-numbers-dictionary, Language: English 
 )
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/translator\transl
-ator-theorem-dictionary-English.dict"
+(/usr/share/texlive/texmf-dist/tex/latex/translator/translator-theorem-dictiona
+ry-English.dict
 Dictionary: translator-theorem-dictionary, Language: English 
 )
-LaTeX Info: Redefining \microtypecontext on input line 154.
+LaTeX Info: Redefining \microtypecontext on input line 158.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using protrusion set `basicmath'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `basictext'.
-LaTeX Info: Redefining \showhyphens on input line 154.
+LaTeX Info: Redefining \showhyphens on input line 158.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -1175,12 +967,12 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             See the microtype manual for details.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
-(Slides_Misc.nav) [1
+(./Slides_Misc.nav) [1
 
-{C:/Users/Claire/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
 LaTeX Font Info:    Trying to load font information for OT1+lmss on input line 
-175.
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/lm\ot1lmss.fd"
+179.
+(/usr/share/texmf/tex/latex/lm/ot1lmss.fd
 File: ot1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 Package microtype Info: Loading generic protrusion settings for font family
@@ -1188,62 +980,58 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 LaTeX Font Info:    Trying to load font information for OML+lmm on input line 1
-75.
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/lm\omllmm.fd"
+79.
+(/usr/share/texmf/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-175.
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/lm\omslmsy.fd"
+179.
+(/usr/share/texmf/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-175.
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/lm\omxlmex.fd"
+179.
+(/usr/share/texmf/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 175.
+(Font)              <10.95> on input line 179.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 175.
+(Font)              <8> on input line 179.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 175.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 175
+(Font)              <6> on input line 179.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 179
 .
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsfonts\umsa.fd"
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-)
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/microtype\mt-msa.
-cfg"
+) (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 175
+LaTeX Font Info:    Trying to load font information for U+msb on input line 179
 .
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsfonts\umsb.fd"
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/microtype\mt-msb.
-cfg"
+) (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <10.95> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 175.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 179.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <8> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 175.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 179.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <6> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 175.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 179.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 175.
+(Font)              <10> on input line 179.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 175.
+(Font)              <7> on input line 179.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 175.
+(Font)              <5> on input line 179.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <10> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 175.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 179.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <7> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 175.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 179.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <5> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 175.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 179.
 [2
 
 ] [3
@@ -1259,17 +1047,15 @@ LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <5> not available
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb
+(./Slides_Misc.vrb
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 7
 .
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/lm\t1lmtt.fd"
+(/usr/share/texmf/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <6> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 14.
 LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 
 39.
-("C:\Users\Claire\AppData\Local\Programs\MiKTeX 2.9\tex/latex/lm\ts1lmtt.fd"
+(/usr/share/texmf/tex/latex/lm/ts1lmtt.fd
 File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )) [8
 
@@ -1280,15 +1066,15 @@ File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb) [11
+(./Slides_Misc.vrb) [11
 
 ] [12
 
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb)
-Overfull \vbox (9.16394pt too high) detected at line 427
+(./Slides_Misc.vrb)
+Overfull \vbox (9.16434pt too high) detected at line 431
  []
 
 [13
@@ -1308,17 +1094,17 @@ Overfull \vbox (9.16394pt too high) detected at line 427
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb) [20
+(./Slides_Misc.vrb) [20
 
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb) [21
+(./Slides_Misc.vrb) [21
 
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb
+(./Slides_Misc.vrb
 
 Package hyperref Warning: Ignoring empty anchor on input line 15.
 
@@ -1339,28 +1125,13 @@ Package hyperref Warning: Ignoring empty anchor on input line 15.
 ] [29
 
 ]
-Overfull \hbox (2.70198pt too wide) in paragraph at lines 813--813
-[]\T1/lmss/m/n/10.95 (-20) DepVar|  
+Overfull \hbox (3.1935pt too wide) in paragraph at lines 787--787
+[]\T1/lmss/m/n/10.95 (-20) DepVar  
  []
 
 
-Overfull \hbox (2.8792pt too wide) in paragraph at lines 813--813
-[]\T1/lmss/m/n/10.95 (-20) IndepVar|  
- []
-
-
-Overfull \hbox (1.90375pt too wide) in alignment at lines 813--813
- [] [] [] [] [] 
- []
-
-
-Overfull \hbox (0.66508pt too wide) in paragraph at lines 813--813
-[]\T1/lmss/m/n/10.95 (-20) Logarithmic|  
- []
-
-
-Overfull \hbox (1.90375pt too wide) in alignment at lines 813--813
- [] [] [] [] [] 
+Overfull \hbox (1.99588pt too wide) in paragraph at lines 787--787
+[]\T1/lmss/m/n/10.95 (-20) IndepVar  
  []
 
 [30
@@ -1386,7 +1157,7 @@ Overfull \hbox (1.90375pt too wide) in alignment at lines 813--813
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb) [40
+(./Slides_Misc.vrb) [40
 
 ] [41
 
@@ -1399,7 +1170,7 @@ Overfull \hbox (1.90375pt too wide) in alignment at lines 813--813
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb) [45
+(./Slides_Misc.vrb) [45
 
 ] [46
 
@@ -1411,19 +1182,20 @@ Overfull \hbox (1.90375pt too wide) in alignment at lines 813--813
 
 ]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <9> on input line 1170.
+(Font)              <9> on input line 1144.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <9> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 1170.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 1144.
 
 
-Overfull \hbox (19.01436pt too wide) detected at line 1170
-\T1/lmss/m/sl/9 inlf \OT1/lmss/m/n/9 = \OML/lmm/m/it/9 [] \OT1/lmss/m/n/9 + \O
-ML/lmm/m/it/9 []\T1/lmss/m/sl/9 nwifeinc \OT1/lmss/m/n/9 + \OML/lmm/m/it/9 []
-\T1/lmss/m/sl/9 educ \OT1/lmss/m/n/9 + \OML/lmm/m/it/9 []\T1/lmss/m/sl/9 exper
- \OT1/lmss/m/n/9 + \OML/lmm/m/it/9 []\T1/lmss/m/sl/9 exper[] \OT1/lmss/m/n/9 +
- \OML/lmm/m/it/9 []\T1/lmss/m/sl/9 age \OT1/lmss/m/n/9 + \OML/lmm/m/it/9 []\T
-1/lmss/m/sl/9 kidslt\T1/lmss/m/n/9 6 \OT1/lmss/m/n/9 + \OML/lmm/m/it/9 []\T1/l
-mss/m/sl/9 kidsge\T1/lmss/m/n/9 6 \OT1/lmss/m/n/9 + \T1/lmss/m/sl/9 u
+Overfull \hbox (19.01436pt too wide) detected at line 1144
+\T1/lmss/m/sl/9 inlf \OT1/lmss/m/n/9 = \OML/lmm/m/it/9 ^^L[] \OT1/lmss/m/n/9 + 
+\OML/lmm/m/it/9 ^^L[]\T1/lmss/m/sl/9 nwifeinc \OT1/lmss/m/n/9 + \OML/lmm/m/it/9
+ ^^L[]\T1/lmss/m/sl/9 educ \OT1/lmss/m/n/9 + \OML/lmm/m/it/9 ^^L[]\T1/lmss/m/sl
+/9 exper \OT1/lmss/m/n/9 + \OML/lmm/m/it/9 ^^L[]\T1/lmss/m/sl/9 exper[] \OT1/lm
+ss/m/n/9 + \OML/lmm/m/it/9 ^^L[]\T1/lmss/m/sl/9 age \OT1/lmss/m/n/9 + \OML/lmm/
+m/it/9 ^^L[]\T1/lmss/m/sl/9 kidslt\T1/lmss/m/n/9 6 \OT1/lmss/m/n/9 + \OML/lmm/m
+/it/9 ^^L[]\T1/lmss/m/sl/9 kidsge\T1/lmss/m/n/9 6 \OT1/lmss/m/n/9 + \T1/lmss/m/
+sl/9 u
  []
 
 [50
@@ -1431,13 +1203,13 @@ mss/m/sl/9 kidsge\T1/lmss/m/n/9 6 \OT1/lmss/m/n/9 + \T1/lmss/m/sl/9 u
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb) [51
+(./Slides_Misc.vrb) [51
 
 ]
-<images/Picture1.png, id=359, 875.52094pt x 566.86781pt>
+<images/Picture1.png, id=361, 875.52094pt x 566.86781pt>
 File: images/Picture1.png Graphic file (type png)
 <use images/Picture1.png>
-Package pdftex.def Info: images/Picture1.png  used on input line 1228.
+Package pdftex.def Info: images/Picture1.png  used on input line 1202.
 (pdftex.def)             Requested size: 230.46225pt x 149.21588pt.
 [52
 
@@ -1450,28 +1222,28 @@ Package pdftex.def Info: images/Picture1.png  used on input line 1228.
 ] [56
 
 ]
-<images/lin_v_log.png, id=394, 702.625pt x 301.125pt>
+<images/lin_v_log.png, id=396, 702.625pt x 301.125pt>
 File: images/lin_v_log.png Graphic file (type png)
 <use images/lin_v_log.png>
-Package pdftex.def Info: images/lin_v_log.png  used on input line 1293.
+Package pdftex.def Info: images/lin_v_log.png  used on input line 1267.
 (pdftex.def)             Requested size: 230.46248pt x 98.76962pt.
 [57
 
  <./images/lin_v_log.png>]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb) [58
+(./Slides_Misc.vrb) [58
 
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb) [59
+(./Slides_Misc.vrb) [59
 
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb)
-Overfull \vbox (41.43933pt too high) detected at line 1385
+(./Slides_Misc.vrb)
+Overfull \vbox (41.43933pt too high) detected at line 1359
  []
 
 [60
@@ -1479,49 +1251,43 @@ Overfull \vbox (41.43933pt too high) detected at line 1385
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb) [61
+(./Slides_Misc.vrb) [61
 
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb) [62
+(./Slides_Misc.vrb) [62
 
 ] [63
 
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb) [64
+(./Slides_Misc.vrb) [64
 
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb
-LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <9> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 7.
-) [65
+(./Slides_Misc.vrb) [65
 
 ] [66
 
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb
-LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 10.
-) [67
+(./Slides_Misc.vrb) [67
 
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb
-<Slides_Misc_files/figure-beamer/logitvlpm4-1.pdf, id=468, 650.43pt x 361.35pt>
-
+(./Slides_Misc.vrb
+<Slides_Misc_files/figure-beamer/logitvlpm4-1.pdf, id=471, 634.37pt x 351.3125p
+t>
 File: Slides_Misc_files/figure-beamer/logitvlpm4-1.pdf Graphic file (type pdf)
 <use Slides_Misc_files/figure-beamer/logitvlpm4-1.pdf>
 Package pdftex.def Info: Slides_Misc_files/figure-beamer/logitvlpm4-1.pdf  used
  on input line 9.
-(pdftex.def)             Requested size: 307.30002pt x 170.72223pt.
+(pdftex.def)             Requested size: 307.30124pt x 170.18265pt.
 ) [68
 
  <./Slides_Misc_files/figure-beamer/logitvlpm4-1.pdf>] [69
@@ -1533,23 +1299,23 @@ Package pdftex.def Info: Slides_Misc_files/figure-beamer/logitvlpm4-1.pdf  used
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb) [72
+(./Slides_Misc.vrb) [72
 
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb) [73
+(./Slides_Misc.vrb) [73
 
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb) [74
+(./Slides_Misc.vrb) [74
 
 ]
-<img_with_inset.png, id=524, 341.02406pt x 233.37187pt>
+<img_with_inset.png, id=529, 341.02406pt x 233.37187pt>
 File: img_with_inset.png Graphic file (type png)
 <use img_with_inset.png>
-Package pdftex.def Info: img_with_inset.png  used on input line 1743.
+Package pdftex.def Info: img_with_inset.png  used on input line 1731.
 (pdftex.def)             Requested size: 307.30908pt x 210.2998pt.
 [75
 
@@ -1562,12 +1328,12 @@ Package pdftex.def Info: img_with_inset.png  used on input line 1743.
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb) [79
+(./Slides_Misc.vrb) [79
 
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb
+(./Slides_Misc.vrb
 
 Package hyperref Warning: Ignoring empty anchor on input line 13.
 
@@ -1577,7 +1343,7 @@ Package hyperref Warning: Ignoring empty anchor on input line 13.
 
 ]
 LaTeX Font Info:    Font shape `T1/lmss/bx/it' in size <10.95> not available
-(Font)              Font shape `T1/lmss/bx/sl' tried instead on input line 1899
+(Font)              Font shape `T1/lmss/bx/sl' tried instead on input line 1887
 .
 [82
 
@@ -1590,12 +1356,12 @@ LaTeX Font Info:    Font shape `T1/lmss/bx/it' in size <10.95> not available
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb) [86
+(./Slides_Misc.vrb) [86
 
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb
+(./Slides_Misc.vrb
 
 Package hyperref Warning: Ignoring empty anchor on input line 16.
 
@@ -1614,20 +1380,20 @@ Package hyperref Warning: Ignoring empty anchor on input line 16.
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb) [93
+(./Slides_Misc.vrb) [93
 
 ]
-Overfull \hbox (9.81393pt too wide) detected at line 2114
+Overfull \hbox (9.81393pt too wide) detected at line 2102
 \T1/lmss/m/sl/10 E\OT1/lmss/m/n/10 [\T1/lmss/m/sl/10 bweight\OMS/lmsy/m/n/10 j\
 T1/lmss/m/sl/10 faminc\OML/lmm/m/it/10 ; \T1/lmss/m/sl/10 meduc\OML/lmm/m/it/10
- ; \T1/lmss/m/sl/10 parity\OT1/lmss/m/n/10 ] = \OML/lmm/m/it/10 [] \OT1/lmss/m
-/n/10 + \OML/lmm/m/it/10 []\T1/lmss/m/sl/10 log\OT1/lmss/m/n/10 (\T1/lmss/m/sl
-/10 faminc\OT1/lmss/m/n/10 ) + \OML/lmm/m/it/10 []\T1/lmss/m/sl/10 meduc \OT1/
-lmss/m/n/10 + \OML/lmm/m/it/10 []\T1/lmss/m/sl/10 parity
+ ; \T1/lmss/m/sl/10 parity\OT1/lmss/m/n/10 ] = \OML/lmm/m/it/10 ^^L[] \OT1/lmss
+/m/n/10 + \OML/lmm/m/it/10 ^^L[]\T1/lmss/m/sl/10 log\OT1/lmss/m/n/10 (\T1/lmss/
+m/sl/10 faminc\OT1/lmss/m/n/10 ) + \OML/lmm/m/it/10 ^^L[]\T1/lmss/m/sl/10 meduc
+ \OT1/lmss/m/n/10 + \OML/lmm/m/it/10 ^^L[]\T1/lmss/m/sl/10 parity
  []
 
 
-Overfull \hbox (2.35931pt too wide) detected at line 2114
+Overfull \hbox (2.35931pt too wide) detected at line 2102
 []\OT1/lmss/m/n/9 [\T1/lmss/m/sl/9 bweight\OMS/lmsy/m/n/9 j\T1/lmss/m/sl/9 fami
 nc\OML/lmm/m/it/9 ; \T1/lmss/m/sl/9 meduc\OML/lmm/m/it/9 ; \T1/lmss/m/sl/9 pari
 ty\OT1/lmss/m/n/9 ] = [] = [] + []\T1/lmss/m/sl/9 log\OT1/lmss/m/n/9 (\T1/lmss/
@@ -1638,7 +1404,7 @@ m/sl/9 faminc\OT1/lmss/m/n/9 ) + []\T1/lmss/m/sl/9 meduc \OT1/lmss/m/n/9 + []\T
 [94
 
 ]
-Overfull \hbox (6.37325pt too wide) detected at line 2137
+Overfull \hbox (6.37325pt too wide) detected at line 2125
 [][]
  []
 
@@ -1651,16 +1417,16 @@ Overfull \hbox (6.37325pt too wide) detected at line 2137
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb
+(./Slides_Misc.vrb
 Overfull \hbox (11.14053pt too wide) detected at line 6
-\T1/lmss/m/sl/10.95 bweight \OT1/lmss/m/n/10.95 = \OML/lmm/m/it/10.95 [] \OT1/
-lmss/m/n/10.95 + \OML/lmm/m/it/10.95 []\OT1/lmss/m/n/10.95 (\T1/lmss/m/sl/10.9
-5 lfaminc \OMS/lmsy/m/n/10.95   \T1/lmss/m/n/10.95 2\OML/lmm/m/it/10.95 :\T1/lm
-ss/m/n/10.95 674\OT1/lmss/m/n/10.95 ) + \OML/lmm/m/it/10.95 []\OT1/lmss/m/n/10
-.95 (\T1/lmss/m/sl/10.95 meduc \OMS/lmsy/m/n/10.95   \T1/lmss/m/n/10.95 12\OT1/
-lmss/m/n/10.95 ) + \OML/lmm/m/it/10.95 []\OT1/lmss/m/n/10.95 (\T1/lmss/m/sl/10
-.95 parity \OMS/lmsy/m/n/10.95   \T1/lmss/m/n/10.95 3\OT1/lmss/m/n/10.95 ) + \T
-1/lmss/m/sl/10.95 u
+\T1/lmss/m/sl/10.95 bweight \OT1/lmss/m/n/10.95 = \OML/lmm/m/it/10.95 ^^L[] \OT
+1/lmss/m/n/10.95 + \OML/lmm/m/it/10.95 ^^L[]\OT1/lmss/m/n/10.95 (\T1/lmss/m/sl/
+10.95 lfaminc \OMS/lmsy/m/n/10.95 ^^@ \T1/lmss/m/n/10.95 2\OML/lmm/m/it/10.95 :
+\T1/lmss/m/n/10.95 674\OT1/lmss/m/n/10.95 ) + \OML/lmm/m/it/10.95 ^^L[]\OT1/lms
+s/m/n/10.95 (\T1/lmss/m/sl/10.95 meduc \OMS/lmsy/m/n/10.95 ^^@ \T1/lmss/m/n/10.
+95 12\OT1/lmss/m/n/10.95 ) + \OML/lmm/m/it/10.95 ^^L[]\OT1/lmss/m/n/10.95 (\T1/
+lmss/m/sl/10.95 parity \OMS/lmsy/m/n/10.95 ^^@ \T1/lmss/m/n/10.95 3\OT1/lmss/m/
+n/10.95 ) + \T1/lmss/m/sl/10.95 u
  []
 
 ) [98
@@ -1670,7 +1436,7 @@ lmss/m/n/10.95 ) + \OML/lmm/m/it/10.95 []\OT1/lmss/m/n/10.95 (\T1/lmss/m/sl/10
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb) [100
+(./Slides_Misc.vrb) [100
 
 ] [101
 
@@ -1681,7 +1447,7 @@ lmss/m/n/10.95 ) + \OML/lmm/m/it/10.95 []\OT1/lmss/m/n/10.95 (\T1/lmss/m/sl/10
 ] [104
 
 ]
-Overfull \hbox (18.99959pt too wide) detected at line 2306
+Overfull \hbox (18.99959pt too wide) detected at line 2294
 [][]
  []
 
@@ -1694,12 +1460,12 @@ Overfull \hbox (18.99959pt too wide) detected at line 2306
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb) [108
+(./Slides_Misc.vrb) [108
 
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb) [109
+(./Slides_Misc.vrb) [109
 
 ] [110
 
@@ -1710,38 +1476,35 @@ Overfull \hbox (18.99959pt too wide) detected at line 2306
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb) [113
+(./Slides_Misc.vrb) [113
 
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb
-LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10.95> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 5.
-) [114
+(./Slides_Misc.vrb) [114
 
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb
-Overfull \hbox (205.89763pt too wide) in paragraph at lines 29--29
+(./Slides_Misc.vrb
+Overfull \hbox (212.27263pt too wide) in paragraph at lines 39--39
 []\T1/lmtt/m/n/6 ## names       : STATEFPEC, COUNTYFPEC, CNTYIDFPEC, NAMEEC,   
-NAMELSADEC, LSADEC, CLASSFPEC, MTFCCEC, FUNCSTATEC,    ALANDEC, AWATEREC,  INTP
-TLATEC,   INTPTLONEC[] 
+NAMELSADEC, LSADEC, CLASSFPEC, MTFCCEC, FUNCSTATEC,    ALANDEC,   AWATEREC,  IN
+TPTLATEC,   INTPTLONEC[] 
  []
 
 
-Overfull \hbox (205.87799pt too wide) in paragraph at lines 29--29
+Overfull \hbox (212.25903pt too wide) in paragraph at lines 39--39
 []\T1/lmtt/m/n/6 ## min values  :        42,        001,      42001,  Adams, Ad
-ams County,     06,        H1,   G4020,          A, 1013665160, 10168790, +39.8
-489668, -075.0313969[] 
+ams County,     06,        H1,   G4020,          A,  337328421,     559752, +39
+.8489668, -075.0313969[] 
  []
 
 
-Overfull \hbox (205.88705pt too wide) in paragraph at lines 29--29
+Overfull \hbox (212.26205pt too wide) in paragraph at lines 39--39
 []\T1/lmtt/m/n/6 ## max values  :        42,        133,      42133,   York,  Y
-ork County,     06,        H6,   G4020,          C,  988299800,  9544848, +42.1
-179518, -080.3507888[] 
+ork County,     06,        H6,   G4020,          C, 2142508185, 1966028897, +42
+.1179518, -080.3507888[] 
  []
 
 ) [115
@@ -1749,55 +1512,63 @@ ork County,     06,        H6,   G4020,          C,  988299800,  9544848, +42.1
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb) [116
+(./Slides_Misc.vrb) [116
 
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb) [117
+(./Slides_Misc.vrb) [117
 
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb) [118
+(./Slides_Misc.vrb) [118
 
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb) [119
+(./Slides_Misc.vrb)
+Overfull \vbox (94.13028pt too high) detected at line 2705
+ []
+
+[119
 
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb) [120
+(./Slides_Misc.vrb
+LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <6> not available
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 22.
+) [120
 
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb) [121
+(./Slides_Misc.vrb) [121
 
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb) [122
+(./Slides_Misc.vrb) [122
 
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb
-<Slides_Misc_files/figure-beamer/spatial9a-1.pdf, id=827, 650.43pt x 361.35pt>
+(./Slides_Misc.vrb
+<Slides_Misc_files/figure-beamer/spatial9a-1.pdf, id=836, 613.29124pt x 351.312
+5pt>
 File: Slides_Misc_files/figure-beamer/spatial9a-1.pdf Graphic file (type pdf)
 <use Slides_Misc_files/figure-beamer/spatial9a-1.pdf>
 Package pdftex.def Info: Slides_Misc_files/figure-beamer/spatial9a-1.pdf  used 
 on input line 9.
-(pdftex.def)             Requested size: 307.30002pt x 170.72223pt.
+(pdftex.def)             Requested size: 307.29056pt x 176.0257pt.
 ) [123
 
  <./Slides_Misc_files/figure-beamer/spatial9a-1.pdf>]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb)
-Overfull \vbox (32.67267pt too high) detected at line 2868
+(./Slides_Misc.vrb)
+Overfull \vbox (32.67267pt too high) detected at line 2877
  []
 
 [124
@@ -1805,58 +1576,64 @@ Overfull \vbox (32.67267pt too high) detected at line 2868
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb) [125
+(./Slides_Misc.vrb) [125
 
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb) [126
+(./Slides_Misc.vrb
+Overfull \hbox (8.27263pt too wide) in paragraph at lines 24--24
+[]\T1/lmtt/m/n/6 ## Warning in proj4string(counties): CRS object has comment, w
+hich is lost in output; in tests, see[] 
+ []
+
+) [126
 
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb) [127
+(./Slides_Misc.vrb) [127
 
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb
-<Slides_Misc_files/figure-beamer/spatial16a-1.pdf, id=864, 650.43pt x 361.35pt>
-
+(./Slides_Misc.vrb
+<Slides_Misc_files/figure-beamer/spatial16a-1.pdf, id=875, 613.29124pt x 351.31
+25pt>
 File: Slides_Misc_files/figure-beamer/spatial16a-1.pdf Graphic file (type pdf)
 <use Slides_Misc_files/figure-beamer/spatial16a-1.pdf>
 Package pdftex.def Info: Slides_Misc_files/figure-beamer/spatial16a-1.pdf  used
  on input line 9.
-(pdftex.def)             Requested size: 307.30002pt x 170.72223pt.
+(pdftex.def)             Requested size: 307.29056pt x 176.0257pt.
 ) [128
 
  <./Slides_Misc_files/figure-beamer/spatial16a-1.pdf>]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb) [129
+(./Slides_Misc.vrb) [129
 
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb) [130
+(./Slides_Misc.vrb) [130
 
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb
-<Slides_Misc_files/figure-beamer/spatial18a-1.pdf, id=888, 650.43pt x 361.35pt>
-
+(./Slides_Misc.vrb
+<Slides_Misc_files/figure-beamer/spatial18a-1.pdf, id=901, 634.37pt x 351.3125p
+t>
 File: Slides_Misc_files/figure-beamer/spatial18a-1.pdf Graphic file (type pdf)
 <use Slides_Misc_files/figure-beamer/spatial18a-1.pdf>
 Package pdftex.def Info: Slides_Misc_files/figure-beamer/spatial18a-1.pdf  used
  on input line 9.
-(pdftex.def)             Requested size: 307.30002pt x 170.72223pt.
+(pdftex.def)             Requested size: 307.30124pt x 170.18265pt.
 ) [131
 
  <./Slides_Misc_files/figure-beamer/spatial18a-1.pdf>]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb
+(./Slides_Misc.vrb
 Overfull \hbox (11.46013pt too wide) in paragraph at lines 23--23
 []\T1/lmtt/m/n/6 ## names       :       Basin, Lithology, Shale_play, Source, A
 rea_sq_mi, Area_sq_km,       Age_shale[] 
@@ -1868,24 +1645,28 @@ Overfull \hbox (11.4571pt too wide) in paragraph at lines 23--23
     58326,     151065, Middle Devonian[] 
  []
 
-) [132
+)
+Overfull \vbox (122.22249pt too high) detected at line 3137
+ []
+
+[132
 
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb) [133
+(./Slides_Misc.vrb) [133
 
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb
-<Slides_Misc_files/figure-beamer/spatial22a-1.pdf, id=913, 650.43pt x 361.35pt>
-
+(./Slides_Misc.vrb
+<Slides_Misc_files/figure-beamer/spatial22a-1.pdf, id=929, 634.37pt x 351.3125p
+t>
 File: Slides_Misc_files/figure-beamer/spatial22a-1.pdf Graphic file (type pdf)
 <use Slides_Misc_files/figure-beamer/spatial22a-1.pdf>
 Package pdftex.def Info: Slides_Misc_files/figure-beamer/spatial22a-1.pdf  used
  on input line 9.
-(pdftex.def)             Requested size: 307.30002pt x 170.72223pt.
+(pdftex.def)             Requested size: 307.30124pt x 170.18265pt.
 ) [134
 
  <./Slides_Misc_files/figure-beamer/spatial22a-1.pdf>] [135
@@ -1893,80 +1674,84 @@ Package pdftex.def Info: Slides_Misc_files/figure-beamer/spatial22a-1.pdf  used
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb) [136
+(./Slides_Misc.vrb) [136
 
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb) [137
+(./Slides_Misc.vrb) [137
 
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb
-<Slides_Misc_files/figure-beamer/spatial24a-1.pdf, id=943, 650.43pt x 361.35pt>
-
+(./Slides_Misc.vrb
+<Slides_Misc_files/figure-beamer/spatial24a-1.pdf, id=961, 634.37pt x 351.3125p
+t>
 File: Slides_Misc_files/figure-beamer/spatial24a-1.pdf Graphic file (type pdf)
 <use Slides_Misc_files/figure-beamer/spatial24a-1.pdf>
 Package pdftex.def Info: Slides_Misc_files/figure-beamer/spatial24a-1.pdf  used
  on input line 9.
-(pdftex.def)             Requested size: 307.30002pt x 170.72223pt.
+(pdftex.def)             Requested size: 307.30124pt x 170.18265pt.
 ) [138
 
  <./Slides_Misc_files/figure-beamer/spatial24a-1.pdf>]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb) [139
+(./Slides_Misc.vrb) [139
 
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb) [140
+(./Slides_Misc.vrb) [140
 
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb) [141
+(./Slides_Misc.vrb) [141
 
 ] [142
 
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb) [143
+(./Slides_Misc.vrb) [143
 
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb) [144
+(./Slides_Misc.vrb) [144
 
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb
-<Slides_Misc_files/figure-beamer/spatial32a-1.pdf, id=993, 650.43pt x 361.35pt>
-
+(./Slides_Misc.vrb
+<Slides_Misc_files/figure-beamer/spatial32a-1.pdf, id=1013, 634.37pt x 338.2637
+5pt>
 File: Slides_Misc_files/figure-beamer/spatial32a-1.pdf Graphic file (type pdf)
 <use Slides_Misc_files/figure-beamer/spatial32a-1.pdf>
 Package pdftex.def Info: Slides_Misc_files/figure-beamer/spatial32a-1.pdf  used
  on input line 9.
-(pdftex.def)             Requested size: 307.30002pt x 170.72223pt.
+(pdftex.def)             Requested size: 307.30124pt x 163.86157pt.
 ) [145
 
  <./Slides_Misc_files/figure-beamer/spatial32a-1.pdf>]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb) [146
+(./Slides_Misc.vrb) [146
 
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb) [147
+(./Slides_Misc.vrb) [147
 
 ]
 \openout4 = `Slides_Misc.vrb'.
 
-(Slides_Misc.vrb) [148
+(./Slides_Misc.vrb)
+Overfull \vbox (7.83937pt too high) detected at line 3525
+ []
+
+[148
 
 ]
 \tf@nav=\write6
@@ -1978,63 +1763,50 @@ Package pdftex.def Info: Slides_Misc_files/figure-beamer/spatial32a-1.pdf  used
 \tf@snm=\write8
 \openout8 = `Slides_Misc.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 3520.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 3520.
-(Slides_Misc.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 3520.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 3520.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 3527.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 3527.
+(./Slides_Misc.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 3527.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 3527.
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 26270 strings out of 481565
- 483393 string characters out of 2913711
- 725270 words of memory out of 3000000
- 40275 multiletter control sequences out of 15000+200000
- 621377 words of font info for 137 fonts, out of 3000000 for 9000
+ 26295 strings out of 481239
+ 470188 string characters out of 5920377
+ 726987 words of memory out of 5000000
+ 40332 multiletter control sequences out of 15000+600000
+ 620423 words of font info for 134 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 58i,11n,67p,801b,554s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Users/Claire/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/lm/lm-math
-it.enc}{C:/Users/Claire/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/lm/lm
--mathsy.enc}{C:/Users/Claire/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/
-lm/lm-ec.enc}{C:/Users/Claire/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips
-/lm/lm-rm.enc}{C:/Users/Claire/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvip
-s/lm/lm-mathex.enc}{C:/Users/Claire/AppData/Local/Programs/MiKTeX 2.9/fonts/enc
-/dvips/lm/lm-ts1.enc}<C:/Users/Claire/AppData/Local/Programs/MiKTeX 2.9/fonts/t
-ype1/public/lm/lmex10.pfb><C:/Users/Claire/AppData/Local/Programs/MiKTeX 2.9/fo
-nts/type1/public/lm/lmmi10.pfb><C:/Users/Claire/AppData/Local/Programs/MiKTeX 2
-.9/fonts/type1/public/lm/lmmi5.pfb><C:/Users/Claire/AppData/Local/Programs/MiKT
-eX 2.9/fonts/type1/public/lm/lmmi6.pfb><C:/Users/Claire/AppData/Local/Programs/
-MiKTeX 2.9/fonts/type1/public/lm/lmmi8.pfb><C:/Users/Claire/AppData/Local/Progr
-ams/MiKTeX 2.9/fonts/type1/public/lm/lmmi9.pfb><C:/Users/Claire/AppData/Local/P
-rograms/MiKTeX 2.9/fonts/type1/public/lm/lmss10.pfb><C:/Users/Claire/AppData/Lo
-cal/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmss12.pfb><C:/Users/Claire/AppDa
-ta/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmss8.pfb><C:/Users/Claire/A
-ppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmss9.pfb><C:/Users/Clai
-re/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmssbo10.pfb><C:/Use
-rs/Claire/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmssbx10.pfb>
-<C:/Users/Claire/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmsso1
-0.pfb><C:/Users/Claire/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/
-lmsso8.pfb><C:/Users/Claire/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/publi
-c/lm/lmsso9.pfb><C:/Users/Claire/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/
-public/lm/lmsy10.pfb><C:/Users/Claire/AppData/Local/Programs/MiKTeX 2.9/fonts/t
-ype1/public/lm/lmsy5.pfb><C:/Users/Claire/AppData/Local/Programs/MiKTeX 2.9/fon
-ts/type1/public/lm/lmsy6.pfb><C:/Users/Claire/AppData/Local/Programs/MiKTeX 2.9
-/fonts/type1/public/lm/lmsy8.pfb><C:/Users/Claire/AppData/Local/Programs/MiKTeX
- 2.9/fonts/type1/public/lm/lmsy9.pfb><C:/Users/Claire/AppData/Local/Programs/Mi
-KTeX 2.9/fonts/type1/public/lm/lmtk10.pfb><C:/Users/Claire/AppData/Local/Progra
-ms/MiKTeX 2.9/fonts/type1/public/lm/lmtt10.pfb><C:/Users/Claire/AppData/Local/P
-rograms/MiKTeX 2.9/fonts/type1/public/lm/lmtt8.pfb><C:/Users/Claire/AppData/Loc
-al/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmtt9.pfb><C:/Users/Claire/AppData
-/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmtti10.pfb><C:/Users/Claire/A
-ppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msam10.pfb
-><C:/Users/Claire/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts
-/symbols/msam7.pfb><C:/Users/Claire/AppData/Local/Programs/MiKTeX 2.9/fonts/typ
-e1/public/amsfonts/symbols/msbm10.pfb>
-Output written on Slides_Misc.pdf (148 pages, 5831317 bytes).
+ 58i,11n,67p,799b,554s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dv
+ips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/s
+hare/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm
+-mathex.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc}</usr/share/texmf/f
+onts/type1/public/lm/lmex10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi10.
+pfb></usr/share/texmf/fonts/type1/public/lm/lmmi5.pfb></usr/share/texmf/fonts/t
+ype1/public/lm/lmmi6.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></us
+r/share/texmf/fonts/type1/public/lm/lmmi9.pfb></usr/share/texmf/fonts/type1/pub
+lic/lm/lmss10.pfb></usr/share/texmf/fonts/type1/public/lm/lmss12.pfb></usr/shar
+e/texmf/fonts/type1/public/lm/lmss8.pfb></usr/share/texmf/fonts/type1/public/lm
+/lmss9.pfb></usr/share/texmf/fonts/type1/public/lm/lmssbo10.pfb></usr/share/tex
+mf/fonts/type1/public/lm/lmssbx10.pfb></usr/share/texmf/fonts/type1/public/lm/l
+msso10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsso8.pfb></usr/share/texmf
+/fonts/type1/public/lm/lmsso9.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy1
+0.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy5.pfb></usr/share/texmf/fonts
+/type1/public/lm/lmsy6.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb></
+usr/share/texmf/fonts/type1/public/lm/lmsy9.pfb></usr/share/texmf/fonts/type1/p
+ublic/lm/lmtk10.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt10.pfb></usr/sh
+are/texmf/fonts/type1/public/lm/lmtt8.pfb></usr/share/texmf/fonts/type1/public/
+lm/lmtt9.pfb></usr/share/texmf/fonts/type1/public/lm/lmtti10.pfb></usr/share/te
+xlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/tex
+live/texmf-dist/fonts/type1/public/amsfonts/symbols/msam7.pfb></usr/share/texli
+ve/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on Slides_Misc.pdf (148 pages, 5693195 bytes).
 PDF statistics:
- 1261 PDF objects out of 1440 (max. 8388607)
+ 1287 PDF objects out of 1440 (max. 8388607)
+ 1062 compressed objects within 11 object streams
  444 named destinations out of 1000 (max. 500000)
  18629 words of extra memory for PDF output out of 20736 (max. 10000000)
 
