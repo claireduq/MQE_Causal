@@ -1,7 +1,7 @@
 ---
-title: 'Lecture Notes: Causal Inference Fall 2020'
+title: 'Lecture Notes: Causal Inference Fall 2022'
 author: "Claire Duquennois"
-date: "7/28/2020"
+date: "10/17/2022"
 output:
   pdf_document:
     number_sections: yes
@@ -134,7 +134,7 @@ In R, you code:
 
 ```{r chunk1}
 
-mydata<-read.csv("../../data/data_M1_OVB/cps_clean.csv")
+mydata<-read.csv("../cps_clean.csv")
 
 reg1<-lm(inctot~edu,mydata[mydata$age>22,])
 summary(reg1)
@@ -723,7 +723,7 @@ library(haven)
 library(lfe)
 library(dplyr)
 
-agg_data<-read_dta("../../data/data_M1_OVB/IA_MI_merge040504.dta")
+agg_data<-read_dta("../IA_MI_merge040504.dta")
 nrow(agg_data)
 
 ##scalling the vote02 variable to remove excess 0's from tables

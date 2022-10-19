@@ -558,7 +558,7 @@ library(here)
 library(lfe)
 library(dplyr)
 
-agg_data<-read_dta("../../data/data_M3_IV/IA_MI_merge040504.dta")
+agg_data<-read_dta("../IA_MI_merge040504.dta")
 nrow(agg_data)
 
 #scalling the vote02 variable to remove excess 0's from tables

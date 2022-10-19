@@ -12,6 +12,7 @@ output:
 library(MASS)
 library(lfe)
 library(stargazer)
+library(knitr)
 knitr::opts_chunk$set(echo = FALSE)
 knitr::opts_chunk$set(fig.width=9, fig.height=5)
 options(width=80)
@@ -318,50 +319,40 @@ cor(scoresmini)
 \tiny
 ```{r simrct2b, echo=TRUE}
 
-namevec<-names(scores5)
-#selecting variables to test
-namevec<-namevec[!namevec%in%c("class","error", "treat","read4")]
 
-#generating the syntax that will go in the lm function with a loop
-allModelsList <- lapply(paste(namevec,"~treat"), as.formula)
+scores5 <- scores5[, c(1, 12, 13, 14, 2,3,4,5,6,7,8,9,10,11,15,16,17,18,19,20,21,22,23,24)]
+strCols = names(scores5)
 
-#running all of the balance tests with a loop
-allModelsResults <- lapply(allModelsList, function(x) lm(x, scores5))  
+allModelsResults <- list()  # Create empty list             
+formula <- list() # Create empty list
+model <- list()  # Create empty list
+pvals <- c()  # Create empty list
+betas <- c()  # Create empty list
+ses <- c()  # Create empty list
+
+for (i in 5:24) {
+  formula[[i]] = paste0(strCols[i], " ~ ", "treat")
+
+
+  model[[i]] = lm(formula[[i]], scores5) 
+  allModelsResults[[i]] <- summary(  model[[i]])
+  pvals[i] <- summary( model[[i]])$coefficients["treat", "Pr(>|t|)"]
+  betas[i] <- summary( model[[i]])$coefficients["treat", "Estimate"]
+  ses[i] <- summary( model[[i]])$coefficients["treat", "Std. Error"]
+}
+
+
+my_balance <- data.frame(strCols, betas, ses, pvals)
+my_balance <- my_balance[-c(1, 2,3,4), ] 
+
 ```
-
-
 
 ## RCT Simulation
 \tiny
-```{r simrct2c, echo=TRUE, results="asis"}
+```{r simrct2c, echo=TRUE}
 
-stargazer(allModelsResults[[1]],allModelsResults[[2]],allModelsResults[[3]],
-          allModelsResults[[4]], allModelsResults[[5]], type="latex", header=FALSE)
+kable(my_balance) 
 ```
-## RCT Simulation
-\tiny
-```{r simrct2d, echo=TRUE, results="asis"}
-
-stargazer(allModelsResults[[6]],allModelsResults[[7]],allModelsResults[[8]],
-          allModelsResults[[9]], allModelsResults[[10]], type="latex", header=FALSE)
-```
-## RCT Simulation
-\tiny
-```{r simrct2e, echo=TRUE, results="asis"}
-
-stargazer(allModelsResults[[11]],allModelsResults[[12]],allModelsResults[[13]],
-          allModelsResults[[14]], allModelsResults[[15]], type="latex", header=FALSE)
-```
-## RCT Simulation
-\tiny
-```{r simrct2f, echo=TRUE, results="asis"}
-
-stargazer(allModelsResults[[16]],allModelsResults[[17]],allModelsResults[[18]],
-          allModelsResults[[19]], allModelsResults[[20]], type="latex", header=FALSE)
-
-```
-
-
 ## RCT Simulation
 
 Our data seems reasonably balanced:

@@ -119,7 +119,7 @@ $$
 \tiny
 ```{r chunk1, echo = TRUE}
 
-mydata<-read.csv("../../data/data_M1_OVB/cps_clean.csv")
+mydata<-read.csv("../cps_clean.csv")
 
 reg1<-lm(inctot~edu,mydata[mydata$age>22,])
 summary(reg1)
@@ -906,7 +906,7 @@ library(dplyr)
 Replicating results of columns 1 of p.49 and p.50:
 \tiny
 ```{r repagg1aa, echo=TRUE, results = "asis"}
-agg_data<-read_dta("../../data/data_M1_OVB/IA_MI_merge040504.dta")
+agg_data<-read_dta("../IA_MI_merge040504.dta")
 nrow(agg_data)
 
 ##scalling the vote02 variable to remove excess 0's from tables

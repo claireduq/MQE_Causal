@@ -956,7 +956,7 @@ Replicating results of columns 1 of p.49 and p.50:
 
 library(haven)
 
-agg_data<-read_dta("../../data/data_M3_IV/IA_MI_merge040504.dta")
+agg_data<-read_dta("../IA_MI_merge040504.dta")
 
 #scalling the vote02 variable to remove excess 0's from tables
 agg_data$vote02<-100*as.numeric(agg_data$vote02)

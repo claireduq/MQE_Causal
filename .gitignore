@@ -1,3 +1,7 @@
 *.dta
 *.csv
+<<<<<<< HEAD
+=======
+.Rproj.user
+>>>>>>> c1975564068a7a01bc7344758dc3440fd3f7b04c
 mod7data/
