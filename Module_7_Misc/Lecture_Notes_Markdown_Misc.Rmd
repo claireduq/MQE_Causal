@@ -1071,7 +1071,7 @@ Now we can get to the actual spatial stuff. We're going to use some georeference
 
 ```{r spatial3, echo=TRUE}
 
-counties <- shapefile("data/PA_counties.shp")
+counties <- shapefile("../mod7data/PA_counties.shp")
 
 counties
 ```
@@ -1169,7 +1169,7 @@ Woohoo! A map! We must've done a lot of work. Just a map by itself isn't very in
 
 ```{r spatial11, echo=TRUE}
 
-wells <- read.csv("data/PA_wells.csv") %>%as.data.frame()
+wells <- read.csv("../mod7data/PA_wells.csv") %>%as.data.frame()
 
 names(wells) <- tolower(names(wells))
 head(wells)
@@ -1261,7 +1261,7 @@ Whoa. Lots of more recent wells! One other thing that's immediately obvious from
 
 ```{r spatial19, echo=TRUE}
 
-playBdry <- shapefile("data/ShalePlay_Marcellus_Boundary_EIA_Aug2015_v2.shp")
+playBdry <- shapefile("../mod7data/ShalePlay_Marcellus_Boundary_EIA_Aug2015_v2.shp")
 
 playBdry
 ```
@@ -1384,7 +1384,7 @@ Next, let's bring in our (long-promised) demographic data:
 
 ```{r spatial28, echo=TRUE}
 
-countyDemogs <- read.csv("data/PA_county_data.csv")%>%
+countyDemogs <- read.csv("../mod7data/PA_county_data.csv")%>%
         # remove the row for the whole state
           filter(NAME != "Pennsylvania")
 
@@ -1430,10 +1430,10 @@ image, which makes this dataset an raster : a giant gridded image. The original 
 ```{r spatial31, echo=TRUE}
 
 # make the raster layer
-lights <- readAsciiGrid("data/palights.txt") %>%
+lights <- readAsciiGrid("../mod7data/palights.txt") %>%
       raster()
 # create a database version
-lightsDF <- readAsciiGrid("data/palights.txt") %>%
+lightsDF <- readAsciiGrid("../mod7data/palights.txt") %>%
       as.data.frame()
 names(lightsDF) <- c("dn", "long", "lat")
 ```
