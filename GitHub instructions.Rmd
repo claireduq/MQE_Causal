@@ -1,7 +1,7 @@
 ---
 title: 'Step-by-step Assignment Instructions for GitHub'
 author: "Claire Duquennois"
-date: "10/14/2021-Revised"
+date: "10/14/2022-Revised"
 output:
   pdf_document:
     number_sections: yes
@@ -21,6 +21,11 @@ Git and GitHub are often used in conjunction but are really two distinct things.
 To get a big picture overview of exactly what you can do with Git and Git hub, I would recommend taking the time to watch the Git and GitHub for Poets series of youtube videos https://www.youtube.com/playlist?list=PLRqwX-V7Uu6ZF9C0YMKuns9sLDzK6zoiV.
 
 The diagram below give a basic sketch of what group workflow on GitHub should look like. Each group will have a central repo which each group member will fork onto their personal GitHub account. If you wish to work on your local computer, you can then use Git to clone, pull and push changes between your fork and your local machine. From your GitHub account, you can then integrate your code and sync your work with the central repo for your project. 
+
+**How does RStudio Cloud fit into all this?**
+You project folder on RStudio Cloud mimics a project folder on your local machine. Essentially, pretty much everything discussed below applys in a very similar way to syncing your RStudio Cloud project folder, though you will input commands in the terminal tab of the SW panel in RStudio Cloud instead of in your computer's terminal or GitBash. 
+Throughout this set of instruction you can essentially substitute "local computer folder" for "RStudio Cloud folder" if you are working in RStudio Cloud.
+
 
   ![]("images\git-fork-clone-flow.png"){width=75%}
 
@@ -86,7 +91,7 @@ If you would like to rename the repo:
   2. Go to the settings tab
   3. Type in a new name and click Rename.
 
-**PRACTICE**: Fork the course repo from claireduq/MQE_Causal_Inf to your account and rename it
+**PRACTICE**: Fork the course repo from claireduq/MQE_Causal to your account and rename it
 
 ## Adding files to your repo via GitHub
 
@@ -139,7 +144,7 @@ There are two main ways to propose an edit to someone else's  repo:
             You have now sent a pull request to the owner of the repo you edited. They will need to review your edits, probably have to make some changes since there is a merge conflict, and decide if they wan to integrate them into their file.
         
 
-**PRACTICE**: Add your first name and username to claireduq/MQE_Causal_Inf/GitHub_names.txt.
+**PRACTICE**: Add your first name and username to claireduq/MQE_Causal/GitHub_names.Rmd.
 
 
 ### Editing a file in your repo that was forked from someone else's repo and initiating a pull request
@@ -227,7 +232,7 @@ To check in see if someone made changes to the parent repo you originally forked
 
 4. You will see a cell that specifies the base repository and the head repository. We need to have the base repository be your repository and the head repository be the parent repository. For example, if you are trying to update your fork of the course repo we want 
 
-    `base repository: student/MQE_Causal_Inf` and `head repository: claireduq/MQE_Causal_Inf`
+    `base repository: student/MQE_Causal` and `head repository: claireduq/MQE_Causal`
     
     to do this you can likely simply click on the highlighted blue text "switching the base" that is in the main window under the cell that specifies the base and the head.
     
@@ -246,14 +251,14 @@ To check in see if someone made changes to the parent repo you originally forked
 Note: this can be set up tobe done with a lot less clicking using git (see below).
 
   
-**PRACTICE:** Update your forked MQE_Causal_Inf repos so that the reflect my recent edits. 
+**PRACTICE:** Update your forked MQE_Causal repos so that the reflect my recent edits. 
 
 
 # Basic actions with Git
 
 
 
-While you can make edits directly on GitHub, if you are making substantial changes, or want to work offline, you will want to work on your local machine. This is especially true if you are writing code. You cannot run your code to make sure that it runs correctly in GitHub. So when you are making substantial changes to an R code file you will want to "Pull" the file off of GitHub, work on it in R on your local machine, make sure it runs correctly, and then push the changes back to GitHub. This can be done fairly easily using Git.
+While you can make edits directly on GitHub, if you are making substantial changes, or want to work offline, you will want to work on your local machine (or in RStudio Cloud). This is especially true if you are writing code. You cannot run your code to make sure that it runs correctly in GitHub. So when you are making substantial changes to an R code file you will want to "Pull" the file off of GitHub, work on it in R on your local machine, make sure it runs correctly, and then push the changes back to GitHub. This can be done fairly easily using Git.
 
 ## Cloning GitHub files to your computer
 

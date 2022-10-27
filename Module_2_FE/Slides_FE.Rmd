@@ -148,7 +148,7 @@ Also:
 
 **What will these individual controls control for?**
 
-- $\beta_{a1}$ will control for the effect of being individual 1 on income that is not explained by that person's gender or schooling.
+- $\beta_{a1}$ will control for the effect of being individual 1 on income that is not explained by that person's marital status or schooling.
 
 - Any **time invariant** characteristic that affects individual 1's income, such as ability, grit, enthusiasm... will be controlled for by adding this individual dummy variable. 
 
