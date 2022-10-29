@@ -11,3 +11,4 @@ knitr::opts_chunk$set(echo = TRUE)
 ## First name -- User name
 
 Claire -- claireduq
+Jingchuan -- jingchuan
