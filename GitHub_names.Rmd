@@ -12,3 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Claire -- claireduq
 Jingchuan -- jingchuan
+
+Megan -- MeganKveragas
+Jeff -- zil11
+Andrew -- akerzak
