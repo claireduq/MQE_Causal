@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.8.9)  28 NOV 2022 10:09
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.8.9)  16 DEC 2022 14:49
 entering extended mode
 **./CV_Duquennois_3_2022.tex
 (CV_Duquennois_3_2022.tex
@@ -448,14 +448,14 @@ Package geometry Warning: The marginal notes overrun the paper.
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
 * modes: 
 * h-part:(L,W,R)=(34.14322pt, 546.00856pt, 34.14322pt)
-* v-part:(T,H,B)=(36.98866pt, 720.99266pt, 36.98866pt)
+* v-part:(T,H,B)=(65.44142pt, 692.5399pt, 36.98866pt)
 * \paperwidth=614.295pt
 * \paperheight=794.96999pt
 * \textwidth=546.00856pt
-* \textheight=720.99266pt
+* \textheight=692.5399pt
 * \oddsidemargin=-38.12677pt
 * \evensidemargin=-38.12677pt
-* \topmargin=-72.28133pt
+* \topmargin=-43.82857pt
 * \headheight=12.0pt
 * \headsep=25.0pt
 * \topskip=10.0pt
@@ -531,66 +531,55 @@ LaTeX Info: Redefining \nameref on input line 72.
 \@outlinefile=\write3
 \openout3 = `CV_Duquennois_3_2022.out'.
 
-<logopitt.png, id=3, 871.255pt x 339.2675pt>
-File: logopitt.png Graphic file (type png)
-<use logopitt.png>
-Package pdftex.def Info: logopitt.png  used on input line 77.
-(pdftex.def)             Requested size: 109.20004pt x 42.52222pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 79--80
+Underfull \hbox (badness 10000) in paragraph at lines 124--126
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 126--128
+Underfull \hbox (badness 10000) in paragraph at lines 124--126
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 126--128
+Underfull \hbox (badness 10000) in paragraph at lines 127--129
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 129--131
+Underfull \hbox (badness 10000) in paragraph at lines 127--129
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 129--131
+Underfull \hbox (badness 10000) in paragraph at lines 130--132
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 132--134
+Underfull \hbox (badness 10000) in paragraph at lines 130--132
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 132--134
+Underfull \hbox (badness 10000) in paragraph at lines 139--141
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 141--143
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 141--143
+Underfull \hbox (badness 10000) in paragraph at lines 139--141
 
  []
 
 [1
 
-{C:/Users/Claire/AppData/Local/MiKTeX/pdftex/config/pdftex.map} <./logopitt.png
->]
-Underfull \hbox (badness 2717) in paragraph at lines 147--148
+{C:/Users/Claire/AppData/Local/MiKTeX/pdftex/config/pdftex.map}]
+Underfull \hbox (badness 2717) in paragraph at lines 145--146
 []\T1/ptm/b/n/10 Research in
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 150--153
+Underfull \hbox (badness 10000) in paragraph at lines 148--153
 
  []
 
@@ -608,7 +597,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.231 
+l.216 
        [2]pdfTeX warning (ext4): destination with the same identifier (name{pag
 e.}) has been already used, duplicate ignored
 <to be read again> 
@@ -619,11 +608,11 @@ Package rerunfilecheck Info: File `CV_Duquennois_3_2022.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 11046 strings out of 478868
- 167098 string characters out of 2848336
- 518069 words of memory out of 3000000
- 28804 multiletter control sequences out of 15000+600000
- 422542 words of font info for 40 fonts, out of 8000000 for 9000
+ 11033 strings out of 478868
+ 166916 string characters out of 2848336
+ 517065 words of memory out of 3000000
+ 28795 multiletter control sequences out of 15000+600000
+ 417326 words of font info for 38 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  60i,5n,66p,1362b,334s stack positions out of 5000i,500n,10000p,200000b,80000s
 {C:/Users/Claire/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}<C
@@ -631,9 +620,9 @@ Here is how much of TeX's memory you used:
 C:/Users/Claire/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb>
 <C:/Users/Claire/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pf
 b>
-Output written on CV_Duquennois_3_2022.pdf (3 pages, 94669 bytes).
+Output written on CV_Duquennois_3_2022.pdf (3 pages, 62742 bytes).
 PDF statistics:
- 42 PDF objects out of 1000 (max. 8388607)
+ 39 PDF objects out of 1000 (max. 8388607)
  2 named destinations out of 1000 (max. 500000)
- 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
