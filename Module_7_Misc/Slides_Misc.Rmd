@@ -1522,7 +1522,7 @@ This data comes in ArcGIS's the _shapefile_ format.
 
 \tiny
 ```{r spatial3, echo=TRUE}
-counties <- shapefile("data/PA_counties.shp")
+counties <- shapefile("../mod7data/PA_counties.shp")
 counties
 ```
 
@@ -1676,7 +1676,7 @@ Let's bring in another dataset, with the locations of unconventional wells drill
 \tiny
 ```{r spatial11, echo=TRUE}
 
-wells <- read.csv("data/PA_wells.csv") %>%as.data.frame()
+wells <- read.csv("../mod7data/PA_wells.csv") %>%as.data.frame()
 
 names(wells) <- tolower(names(wells))
 head(wells)
@@ -1802,7 +1802,7 @@ Let's bring in some new data from the EIA: a shapefile of the Marcellus shale pl
 \tiny
 ```{r spatial19, echo=TRUE}
 
-playBdry <- shapefile("data/ShalePlay_Marcellus_Boundary_EIA_Aug2015_v2.shp")
+playBdry <- shapefile("../mod7data/ShalePlay_Marcellus_Boundary_EIA_Aug2015_v2.shp")
 playBdry
 
 playBdry@proj4string
@@ -1947,7 +1947,7 @@ Finally, let's bring in our (long-promised) demographic data:
 \tiny
 ```{r spatial28, echo=TRUE}
 
-countyDemogs <- read.csv("data/PA_county_data.csv")%>%
+countyDemogs <- read.csv("../mod7data/PA_county_data.csv")%>%
         # remove the row for the whole state
           filter(NAME != "Pennsylvania")
 
@@ -2002,10 +2002,10 @@ Let's load it into R, and make sure that R knows that it's a raster.
 ```{r spatial31, echo=TRUE}
 
 # make the raster layer
-lights <- readAsciiGrid("data/palights.txt") %>%
+lights <- readAsciiGrid("../mod7data/palights.txt") %>%
       raster()
 # create a dataframe version
-lightsDF <- readAsciiGrid("data/palights.txt") %>%
+lightsDF <- readAsciiGrid("../mod7data/palights.txt") %>%
       as.data.frame()
 names(lightsDF) <- c("dn", "long", "lat")
 ```

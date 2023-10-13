@@ -1,9 +1,7 @@
 ---
-title: "Lecture Notes: Causal Inference Fall 2020"
+title: "Lecture Notes: Applied Econometrics 2"
 author: "Claire Duquennois"
-date: "7/28/2020"
-header-includes:
-   - \usepackage{bbm}
+date: ""
 output:
   pdf_document:
     toc: true
@@ -75,7 +73,7 @@ RD papers often include a graph that plots treatment by the running variable. We
 After constructing the bins described above, plotting this graph requires calculating, $\bar{D}_k$, the average treatment level in the bin
 
 $$
-\bar{D}_k=\frac{1}{N_k}\sum_{i=1}^ND_i*\mathbbm{1}(b_k<R_i\leq b_{k+1})
+\bar{D}_k=\frac{1}{N_k}\sum_{i=1}^ND_i*\mathbf{1}(b_k<R_i\leq b_{k+1})
 $$ 
 and plotting these values against the midpoint of each of the bins. 
 
@@ -86,7 +84,7 @@ The main course of an RD paper is a plot of the outcome by the running variable.
 Plotting this graph requires calculating, $\bar{Y}_k$, the average outcome in each bin
 
 $$
-\bar{Y}_k=\frac{1}{N_k}\sum_{i=1}^NY_i*\mathbbm{1}(b_k<R_i\leq b_{k+1})
+\bar{Y}_k=\frac{1}{N_k}\sum_{i=1}^NY_i*\mathbf{1}(b_k<R_i\leq b_{k+1})
 $$
 
 and plotting these values against the midpoint of each of the bins. 
@@ -101,7 +99,7 @@ In addition to inspecting the threshold for a discontinuity, you should also ins
 Using the same methodology as above, it is common to plot the average value of certain covariates that may be related to the outcome but should not be affected by the treatment. As above, we calculate $\bar{X}_i$ where 
 
 $$
-\bar{X}_k=\frac{1}{N_k}\sum_{i=1}^NX_i*\mathbbm{1}(b_k<R_i\leq b_{k+1})
+\bar{X}_k=\frac{1}{N_k}\sum_{i=1}^NX_i*\mathbf{1}(b_k<R_i\leq b_{k+1})
 $$
 is plotted against the midpoint of each bin. 
 
@@ -111,7 +109,7 @@ For the covariate graphs, if the research design is valid there should not be an
 
 Finally, it is also common to plot the density of the running variable. For each bin, you calculate
 $$
-N_k=\sum_{i=1}^N\mathbbm{1}(b_k<R_i\leq b_{k+1})
+N_k=\sum_{i=1}^N\mathbf{1}(b_k<R_i\leq b_{k+1})
 $$
 and plot these against the midpoint of the bin. 
 
@@ -223,7 +221,7 @@ Recall, it is common in RD designs to include a graph that plots treatment by th
 After constructing the bins described above, plotting this graph requires calculating, $\bar{D}_k$, the average treatment level in the bin
 
 $$
-\bar{D}_k=\frac{1}{N_k}\sum_{i=1}^ND_i*\mathbbm{1}(b_k<R_i\leq b_{k+1}).
+\bar{D}_k=\frac{1}{N_k}\sum_{i=1}^ND_i*\mathbf{1}(b_k<R_i\leq b_{k+1}).
 $$ 
 
 
@@ -272,7 +270,7 @@ plot1shp
 This is typically the most important element of RD projects. We calculate, $\bar{Y}_k$, the average outcome in each bin
 
 $$
-\bar{Y}_k=\frac{1}{N_k}\sum_{i=1}^NY_i*\mathbbm{1}(b_k<R_i\leq b_{k+1})
+\bar{Y}_k=\frac{1}{N_k}\sum_{i=1}^NY_i*\mathbf{1}(b_k<R_i\leq b_{k+1})
 $$
 
 and plotting these values against the midpoint of each of the bins. 
@@ -298,7 +296,7 @@ plot2shp
   We calculate $\bar{X}_i$ where 
 
 $$
-\bar{X}_k=\frac{1}{N_k}\sum_{i=1}^NX_i*\mathbbm{1}(b_k<R_i\leq b_{k+1})
+\bar{X}_k=\frac{1}{N_k}\sum_{i=1}^NX_i*\mathbf{1}(b_k<R_i\leq b_{k+1})
 $$
 is plotted against the midpoint of each bin. 
  
@@ -327,7 +325,7 @@ plot4shp
   
 We  calculate
 $$
-N_k=\sum_{i=1}^N\mathbbm{1}(b_k<R_i\leq b_{k+1})
+N_k=\sum_{i=1}^N\mathbf{1}(b_k<R_i\leq b_{k+1})
 $$
 and plot these against the midpoint of the bin.
 
@@ -470,7 +468,7 @@ fuzzy<-fuzzy[fuzzy$read3<78 & fuzzy$read3>72,]
 As described in earlier sections, calculate, $\bar{D}_k$, the average treatment level in the bin
 
 $$
-\bar{D}_k=\frac{1}{N_k}\sum_{i=1}^ND_i*\mathbbm{1}(b_k<R_i\leq b_{k+1}).
+\bar{D}_k=\frac{1}{N_k}\sum_{i=1}^ND_i*\mathbf{1}(b_k<R_i\leq b_{k+1}).
 $$ 
  
 In a fuzzy RD, $\bar{D}_k$ can take on many possible values. This plot should show that there is a visual discontinuity in the probability of getting treated at the threshold $c$. A visual break implies that crossing the threshold has a significant effect on the probability of treatment. In fuzzy RD designs, this graph is equivalent to the first stage in an IV analysis. It shows that we have found a tool that generates some random variation we can leverage to estimate unbiased treatment effects. 
@@ -516,7 +514,7 @@ plot1fuz
 We calculate, $\bar{Y}_k$, the average outcome in each bin
 
 $$
-\bar{Y}_k=\frac{1}{N_k}\sum_{i=1}^NY_i*\mathbbm{1}(b_k<R_i\leq b_{k+1})
+\bar{Y}_k=\frac{1}{N_k}\sum_{i=1}^NY_i*\mathbf{1}(b_k<R_i\leq b_{k+1})
 $$
 
 and plotting these values against the midpoint of each of the bins. 
@@ -541,7 +539,7 @@ plot2fuz
   We calculate $\bar{X}_i$ where 
 
 $$
-\bar{X}_k=\frac{1}{N_k}\sum_{i=1}^NX_i*\mathbbm{1}(b_k<R_i\leq b_{k+1})
+\bar{X}_k=\frac{1}{N_k}\sum_{i=1}^NX_i*\mathbf{1}(b_k<R_i\leq b_{k+1})
 $$
 is plotted against the midpoint of each bin. 
 
@@ -573,7 +571,7 @@ plot4fuz
   
 We  calculate
 $$
-N_k=\sum_{i=1}^N\mathbbm{1}(b_k<R_i\leq b_{k+1})
+N_k=\sum_{i=1}^N\mathbf{1}(b_k<R_i\leq b_{k+1})
 $$
 and plot these against the midpoint of the bin.
 
@@ -610,7 +608,7 @@ and
 $$
 D_i=\gamma_0+\gamma_1Z_i+\gamma_2(R_i-c)+\gamma_3(R_i-c)*Z_i+v_i
 $$
-where $Z_i=\mathbbm{1}(R_i\geq c)$. The fuzzy RD estimator is then 
+where $Z_i=\mathbf{1}(R_i\geq c)$. The fuzzy RD estimator is then 
 
 $$
 \hat{\tau}_{FRD}=\frac{\hat{\pi}_1}{\hat{\gamma}_1}.
