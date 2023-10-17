@@ -1,7 +1,6 @@
 ---
 title: "MQE: Economic Inference from Data:  \nModule 1: Omitted Variable Bias"
 author: "Claire Duquennois"
-date: "6/9/2020"
 output:
   beamer_presentation: default
   pdf_document: default
