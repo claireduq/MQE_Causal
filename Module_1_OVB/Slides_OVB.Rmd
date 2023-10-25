@@ -14,6 +14,9 @@ knitr::opts_chunk$set(fig.width=9, fig.height=5)
 library("lfe")
 library("stargazer")
 
+
+
+
 ```
 ## Module 1: Regressions,causality and bias
 
@@ -371,29 +374,6 @@ $$
 
 with the right research design, we can recover $\bar{\tau}$.
 
-## Conditional Expectations 
-
-
-\center ![]("images\ciacomic.png"){width=50%}
-
-$$
-\begin{aligned}
-E[death_i]=?\\
-E[death_i|knows\text{ }E[death]_i]=?\\
-\end{aligned}
-$$
-
-## Conditional Expectations 
-
-
-\center ![]("images\ciacomic.png"){width=50%}
-
-$$
-\begin{aligned}
-E[death]=\frac{1}{7,000,000}\\
-E[death|knows\text{ }E[death]]=\frac{1}{6}\\
-\end{aligned}
-$$
 
 ## The Conditional Independence Assumption
 
@@ -593,7 +573,7 @@ We can thus sign the bias by signing $\beta_2$, the covariance between $x_{2i}$ 
 
 I am interested in how health relates to income. Using my CPS sample of working age adults I estimate
 $$
-Income_i=\beta_0+\beta_1Health_i+\epsilon, 
+Income_i=\beta_0+\beta_1BadHealth_i+\epsilon, 
 $$
 where heath is a respondents subjective assessment of their health with 1 being very healthy and 5 being very unhealthy. 
 
@@ -601,7 +581,10 @@ where heath is a respondents subjective assessment of their health with 1 being 
 
 \tiny
 ```{r chinkhealth1, echo=TRUE}
-reghealth<-lm(inctot~health,mydata)
+
+names(mydata)[names(mydata) == "health"] <- "badhealth"
+
+reghealth<-lm(inctot~badhealth,mydata)
 summary(reghealth)
 ```
 \normalsize
@@ -619,7 +602,7 @@ $\Rightarrow$ Top Hat
 
 How might the omission of age be biasing these estimates?
 
-- $cov(health_i,age_i)>0$ 
+- $cov(BadHealth_i,age_i)>0$ 
 
 - $cov(income_i,age_i)>0$
 
@@ -631,7 +614,7 @@ How might the omission of age be biasing these estimates?
 \tiny
 ```{r chunk4, echo=TRUE}
 
-reghealth2<-lm(inctot~health+age ,mydata)
+reghealth2<-lm(inctot~badhealth+age ,mydata)
 summary(reghealth2)
 
 ```
@@ -648,7 +631,7 @@ $\Rightarrow$ Top Hat
 
 How might the omission of schooling be biasing these estimates?
 
-- $cov(health_i,schooling_i)<0$ 
+- $cov(BadHealth_i,schooling_i)<0$ 
 
 - $cov(income_i,schooling_i)>0$ 
 
@@ -659,7 +642,7 @@ How might the omission of schooling be biasing these estimates?
 \tiny
 ```{r chunk5, echo=TRUE}
 
-reghealth3<-lm(inctot~health+age+edu ,mydata)
+reghealth3<-lm(inctot~badhealth+age+edu ,mydata)
 summary(reghealth3)
 
 ```
@@ -672,7 +655,7 @@ summary(reghealth3)
 ```{r chunk6, echo=TRUE,  results = "asis"}
 
 stargazer(reghealth,reghealth2, reghealth3, type="latex", header=FALSE, 
-          title="Income and health", omit.stat=c("f", "ser"))
+          title="Income and Poor health", omit.stat=c("f", "ser"))
 
 
 ```
@@ -681,7 +664,7 @@ Check out jakeruss.com/cheatsheets/stargazer/
 
 ## Example: Using CPS data
 
-So is our estimate of $\beta_1$ in column 3 the causal effect of health on income? 
+So is our estimate of $\beta_1$ in column 3 the causal effect of poor health on income? 
 
 Does the CIA hold?
 

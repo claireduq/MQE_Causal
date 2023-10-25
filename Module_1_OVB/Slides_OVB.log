@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.14)  13 OCT 2023 14:39
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.14)  25 OCT 2023 12:31
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -983,20 +983,9 @@ Overfull \hbox (6.41284pt too wide) detected at line 612
 
 ] [30
 
-]
-<images/ciacomic.png, id=224, 545.03625pt x 461.725pt>
-File: images/ciacomic.png Graphic file (type png)
-<use images/ciacomic.png>
-Package pdftex.def Info: images/ciacomic.png  used on input line 711.
-(pdftex.def)             Requested size: 153.64037pt x 130.15573pt.
-[31
+] [31
 
- <./images/ciacomic.png (PNG copy)>]
-File: images/ciacomic.png Graphic file (type png)
-<use images/ciacomic.png>
-Package pdftex.def Info: images/ciacomic.png  used on input line 723.
-(pdftex.def)             Requested size: 153.64037pt x 130.15573pt.
-[32
+] [32
 
 ] [33
 
@@ -1018,32 +1007,28 @@ Package pdftex.def Info: images/ciacomic.png  used on input line 723.
 
 ] [42
 
-] [43
+]
+\openout4 = `Slides_OVB.vrb'.
+
+(./Slides_OVB.vrb) [43
 
 ] [44
 
+] [45
+
 ]
 \openout4 = `Slides_OVB.vrb'.
 
-(./Slides_OVB.vrb) [45
-
-] [46
+(./Slides_OVB.vrb) [46
 
 ] [47
 
-]
-\openout4 = `Slides_OVB.vrb'.
-
-(./Slides_OVB.vrb) [48
-
-] [49
-
-] [50
+] [48
 
 ]
 \openout4 = `Slides_OVB.vrb'.
 
-(./Slides_OVB.vrb) [51
+(./Slides_OVB.vrb) [49
 
 ]
 \openout4 = `Slides_OVB.vrb'.
@@ -1056,11 +1041,29 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <5> on input line 15.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <5> not available
 (Font)              Font shape `T1/lmss/m/sl' tried instead on input line 15.
-) [52
+) [50
 
-] [53
+] [51
 
 ]
+\openout4 = `Slides_OVB.vrb'.
+
+(./Slides_OVB.vrb) [52
+
+]
+\openout4 = `Slides_OVB.vrb'.
+
+(./Slides_OVB.vrb
+LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10.95> not available
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 5.
+<Slides_OVB_files/figure-beamer/sim1a-1.pdf, id=366, 650.43pt x 361.35pt>
+File: Slides_OVB_files/figure-beamer/sim1a-1.pdf Graphic file (type pdf)
+<use Slides_OVB_files/figure-beamer/sim1a-1.pdf>
+Package pdftex.def Info: Slides_OVB_files/figure-beamer/sim1a-1.pdf  used on input line 9.
+(pdftex.def)             Requested size: 307.30002pt x 170.72223pt.
+) [53
+
+ <./Slides_OVB_files/figure-beamer/sim1a-1.pdf>]
 \openout4 = `Slides_OVB.vrb'.
 
 (./Slides_OVB.vrb) [54
@@ -1069,16 +1072,12 @@ LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <5> not available
 \openout4 = `Slides_OVB.vrb'.
 
 (./Slides_OVB.vrb
-LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10.95> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 5.
-<Slides_OVB_files/figure-beamer/sim1a-1.pdf, id=379, 650.43pt x 361.35pt>
-File: Slides_OVB_files/figure-beamer/sim1a-1.pdf Graphic file (type pdf)
-<use Slides_OVB_files/figure-beamer/sim1a-1.pdf>
-Package pdftex.def Info: Slides_OVB_files/figure-beamer/sim1a-1.pdf  used on input line 9.
-(pdftex.def)             Requested size: 307.30002pt x 170.72223pt.
+
+Package hyperref Warning: Ignoring empty anchor on input line 14.
+
 ) [55
 
- <./Slides_OVB_files/figure-beamer/sim1a-1.pdf>]
+]
 \openout4 = `Slides_OVB.vrb'.
 
 (./Slides_OVB.vrb) [56
@@ -1088,23 +1087,9 @@ Package pdftex.def Info: Slides_OVB_files/figure-beamer/sim1a-1.pdf  used on inp
 
 (./Slides_OVB.vrb
 
-Package hyperref Warning: Ignoring empty anchor on input line 14.
-
-) [57
-
-]
-\openout4 = `Slides_OVB.vrb'.
-
-(./Slides_OVB.vrb) [58
-
-]
-\openout4 = `Slides_OVB.vrb'.
-
-(./Slides_OVB.vrb
-
 Package hyperref Warning: Ignoring empty anchor on input line 16.
 
-) [59
+) [57
 
 ]
 \openout4 = `Slides_OVB.vrb'.
@@ -1114,49 +1099,49 @@ LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 1
 (c:/Users/Claire/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ts1lmtt.fd
 File: ts1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-<Slides_OVB_files/figure-beamer/key 4-1.pdf, id=418, 650.43pt x 361.35pt>
+<Slides_OVB_files/figure-beamer/key 4-1.pdf, id=404, 650.43pt x 361.35pt>
 File: Slides_OVB_files/figure-beamer/key 4-1.pdf Graphic file (type pdf)
 <use Slides_OVB_files/figure-beamer/key 4-1.pdf>
 Package pdftex.def Info: Slides_OVB_files/figure-beamer/key 4-1.pdf  used on input line 22.
 (pdftex.def)             Requested size: 307.30002pt x 170.72223pt.
 )
-Overfull \vbox (12.22404pt too high) detected at line 1370
+Overfull \vbox (12.22404pt too high) detected at line 1348
  []
 
-[60
+[58
 
- <./Slides_OVB_files/figure-beamer/key 4-1.pdf>] [61
+ <./Slides_OVB_files/figure-beamer/key 4-1.pdf>] [59
 
-] [62
+] [60
 
 ]
-<images/curvefittingcomic.png, id=447, 622.325pt x 987.69pt>
+<images/curvefittingcomic.png, id=433, 622.325pt x 987.69pt>
 File: images/curvefittingcomic.png Graphic file (type png)
 <use images/curvefittingcomic.png>
-Package pdftex.def Info: images/curvefittingcomic.png  used on input line 1410.
+Package pdftex.def Info: images/curvefittingcomic.png  used on input line 1388.
 (pdftex.def)             Requested size: 138.27933pt x 219.46268pt.
-[63
+[61
 
- <./images/curvefittingcomic.png (PNG copy)>] [64
+ <./images/curvefittingcomic.png (PNG copy)>] [62
 
-] [65
+] [63
 
-] [66
+] [64
 
 ]
-<images/santa.jpg, id=472, 345.54094pt x 380.17032pt>
+<images/santa.jpg, id=459, 345.54094pt x 380.17032pt>
 File: images/santa.jpg Graphic file (type jpg)
 <use images/santa.jpg>
-Package pdftex.def Info: images/santa.jpg  used on input line 1457.
+Package pdftex.def Info: images/santa.jpg  used on input line 1435.
 (pdftex.def)             Requested size: 138.28246pt x 152.14084pt.
-[67
+[65
 
- <./images/santa.jpg>] [68
+ <./images/santa.jpg>] [66
 
 ]
 \openout4 = `Slides_OVB.vrb'.
 
-(./Slides_OVB.vrb) [69
+(./Slides_OVB.vrb) [67
 
 ]
 \openout4 = `Slides_OVB.vrb'.
@@ -1170,7 +1155,7 @@ LaTeX Font Warning: Font shape `T1/lmtt/bx/it' in size <6> not available
 LaTeX Font Warning: Font shape `TS1/lmtt/bx/it' in size <6> not available
 (Font)              Font shape `TS1/lmtt/b/sl' tried instead on input line 16.
 
-) [70
+) [68
 
 ]
 \openout4 = `Slides_OVB.vrb'.
@@ -1179,24 +1164,24 @@ LaTeX Font Warning: Font shape `TS1/lmtt/bx/it' in size <6> not available
 
 Package hyperref Warning: Ignoring empty anchor on input line 14.
 
-) [71
+) [69
 
-] [72
+] [70
 
-] [73
+] [71
 
 ]
 \openout4 = `Slides_OVB.vrb'.
 
-(./Slides_OVB.vrb) [74
+(./Slides_OVB.vrb) [72
 
 ]
-<images/codecomic2.png, id=526, 414.54875pt x 361.35pt>
+<images/codecomic2.png, id=512, 414.54875pt x 361.35pt>
 File: images/codecomic2.png Graphic file (type png)
 <use images/codecomic2.png>
-Package pdftex.def Info: images/codecomic2.png  used on input line 1649.
+Package pdftex.def Info: images/codecomic2.png  used on input line 1636.
 (pdftex.def)             Requested size: 153.63997pt x 133.92346pt.
-[75
+[73
 
  <./images/codecomic2.png>]
 \openout4 = `Slides_OVB.vrb'.
@@ -1205,9 +1190,9 @@ Package pdftex.def Info: images/codecomic2.png  used on input line 1649.
 
 Package hyperref Warning: Ignoring empty anchor on input line 14.
 
-) [76
+) [74
 
-] [77
+] [75
 
 ]
 \tf@nav=\write7
@@ -1227,18 +1212,18 @@ Package rerunfilecheck Info: File `Slides_OVB.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 24437 strings out of 477984
- 478866 string characters out of 5837659
+ 24417 strings out of 477984
+ 478517 string characters out of 5837659
  1867382 words of memory out of 5000000
- 43833 multiletter control sequences out of 15000+600000
+ 43820 multiletter control sequences out of 15000+600000
  570544 words of font info for 78 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  101i,25n,104p,514b,596s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {c:/Users/Claire/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{c:/Users/Claire/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{c:/Users/Claire/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{c:/Users/Claire/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{c:/Users/Claire/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{c:/Users/Claire/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}<c:/Users/Claire/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmex10.pfb><c:/Users/Claire/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb><c:/Users/Claire/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi6.pfb><c:/Users/Claire/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi8.pfb><c:/Users/Claire/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmss10.pfb><c:/Users/Claire/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmss12.pfb><c:/Users/Claire/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmss8.pfb><c:/Users/Claire/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmssbo10.pfb><c:/Users/Claire/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmssbx10.pfb><c:/Users/Claire/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsso10.pfb><c:/Users/Claire/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsso8.pfb><c:/Users/Claire/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/Users/Claire/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy5.pfb><c:/Users/Claire/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy6.pfb><c:/Users/Claire/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy8.pfb><c:/Users/Claire/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtk10.pfb><c:/Users/Claire/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtko10.pfb><c:/Users/Claire/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb><c:/Users/Claire/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt8.pfb><c:/Users/Claire/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtti10.pfb><c:/Users/Claire/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb><c:/Users/Claire/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on Slides_OVB.pdf (77 pages, 1314826 bytes).
+Output written on Slides_OVB.pdf (75 pages, 1251114 bytes).
 PDF statistics:
- 706 PDF objects out of 1000 (max. 8388607)
- 552 compressed objects within 6 object streams
- 231 named destinations out of 1000 (max. 500000)
- 98 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 692 PDF objects out of 1000 (max. 8388607)
+ 541 compressed objects within 6 object streams
+ 225 named destinations out of 1000 (max. 500000)
+ 93 words of extra memory for PDF output out of 10000 (max. 10000000)
 
