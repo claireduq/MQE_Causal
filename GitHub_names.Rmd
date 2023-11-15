@@ -4,7 +4,7 @@ output: html_document
 date: "2023-10-19"
 ---
 
-```{r setup, include=FALSE}
+```{r
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
@@ -16,3 +16,20 @@ Ben -- bwechtenhiser
 
 Jiayue -- TiffanyJiayue
 
+Xiang -- CylliaL
+
+Scott -- sth66
+
+Aileen -- AileenWW
+
+Xiang -- CylliaL
+
+Liam -- connellyw
+
+Reda -- azaidr
+
+Santiago -- SantiagoRisco
+
+Neel -- neel.patel1
+
+Irving -- hizj251
