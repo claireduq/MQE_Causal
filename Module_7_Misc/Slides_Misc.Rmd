@@ -1495,6 +1495,7 @@ Notes:
 ## Spatial Data in R
 
 ```{r spatial2, echo=TRUE,message=FALSE, warning=FALSE}
+library(purrr)
 library(raster)
 #library(vctrs)
 #library(tibble)

@@ -333,12 +333,13 @@ simiv3<-felm(Y~1|0|(x_1~z),ivdat)
 ```
 
 
+
 ## A simulation:
 
 
 :::::: {.columns}
 
-::: {.column width="30%" data-latex="{0.55\textwidth}"}
+::: {.column width="30%" data-latex="{\textwidth}"}
 
 ![]("images\dab_uni.jpg")
 
@@ -350,7 +351,7 @@ simiv3<-felm(Y~1|0|(x_1~z),ivdat)
 :::
 
 
-::: {.column width="70%" data-latex="{0.4\textwidth}"}
+::: {.column width="70%" data-latex="{0.8\textwidth}"}
 
 \tiny
 ```{r simiv 6a, results = "asis", echo=TRUE}
@@ -360,6 +361,7 @@ stargazer(simiv1, simiv2, simiv3, header=FALSE,
 
 :::
 ::::::
+
 
 ## 2SLS:
 
@@ -411,24 +413,26 @@ sim2slsss<-felm(Y~hatx_1,ivdat)
 ```
 
 
-
 ## The second stage:
 
 
 
 :::::: {.columns}
 
-::: {.column width="30%" data-latex="{0.55\textwidth}"}
+::: {.column width="30%" data-latex="{\textwidth}"}
 
 
 \small
 - Math Magic! $\hat{\beta}_{1,2SLS}$ consistently estimates $\beta_1$ and $\hat{\beta}_{1,2SLS}=\hat{\beta}_{1,IV}$!
+\footnotesize
+
+- Note: The standard errors reported from the second stage of 2SLS will not be correct (because they are based on $\hat{x}_1$ rather than $x_1$).(There are ways to correct this but the math and coding are a bit complicated.)
 
 
 :::
 
 
-::: {.column width="70%" data-latex="{0.4\textwidth}"}
+::: {.column width="70%" data-latex="{0.3\textwidth}"}
 
 \tiny
 ```{r sim2sls 2b, results = "asis", echo=TRUE}
@@ -438,9 +442,9 @@ stargazer(simiv1, simiv3,sim2slsss, header=FALSE,  type='latex',
 
 :::
 ::::::
-\footnotesize
 
-- Note: The standard errors reported from the second stage of 2SLS will not be correct (because they are based on $\hat{x}_1$ rather than $x_1$).(There are ways to correct this but the math and coding are a bit complicated.)
+
+
 
 
 ## The Reduced Form (and more cool IV intuition)

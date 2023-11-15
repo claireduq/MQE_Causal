@@ -1,7 +1,7 @@
 ---
-title: "MQE: Economic Inference from Data:  \nModule 5: Difference in Differences"
+title: " Difference in Differences"
 author: "Claire Duquennois"
-date: "6/9/2020"
+date: ""
 output:
   beamer_presentation:
      keep_tex: yes
@@ -14,10 +14,8 @@ library(lfe)
 library(stargazer)
 library(dplyr)
 library(ggplot2)
-knitr::opts_chunk$set(echo = FALSE)
-knitr::opts_chunk$set(fig.width=9, fig.height=5)
-options(width=80)
-knitr::opts_chunk$set(echo = TRUE,out.width = 40, tidy=T, tidy.opts=list(width.cutoff=60))
+
+knitr::opts_chunk$set(echo = TRUE)
 
 ```
 
@@ -61,103 +59,117 @@ With no randomized control trial we have to assume that the treatment was not ra
 
 Differences-in-differences is a way of getting around non-random assignment of a treatment. 
 
-## DID: Example and intuition^[This section is borrowed from scunning.com]
+## DID: Example and intuition 
 
-2002: Craigslist opens a new section called "erotic services" in San Francisco:
+This example is based off of Card and Krueger (1994), one of the most famous early DID studies. 
 
-- mostly used by sex workers to advertise and solicit clients.
+- David Card, Joshua Angrist and Guido Imbens were awarded the Nobel prize in 2021 for their methodological contributions to the analysis of causal relationships in labour markets.
 
-- Sex workers claimed it made them safer, because they could solicit indoors from their computers and learn more about the men contacting them.
+Card and Krueger (1994) : 
 
-- Activists and law enforcement worried that it was facilitating sex trafficking and increasing violence against women.
+- What is the effect of increasing the minimum wage on employment of low-skilled workers?
 
-Which was it? Was erotic services (ERS) making women safer, or was it placing them in harm's way? 
+- focus on employment in fast food restaurants 
+
+- look at an increase in the state minimum wage in New Jersey which rose by \$0.80 (from \$ 4.25 to \$ 5.05) in April 1992
+
+
+## SOS Empiricist!
+
+What is the effect of increasing the minimum wage on employment of low-skilled workers?
+
+This is an empirical question: 
+
+- Classic economic theory suggests a minimum wage is a price floor and will reduce the demand for labor
+
+- Others argue it could boost consumer spending creating more jobs 
+
 
 ## SOS Empiricist!
 
 
-This is an empirical question: What is the effect of ERS on female safety?
+So what is it? How do we get an answer?
 
 - The fundamental problem of causal inference strikes again!
 
 - We can't know what effect it had because we are missing the data for the counterfactual: 
 
 $$
-E[\tau]=E[\underbrace{Y_{SF,2003}(D_{SF,2003}=1)}_\text{observed}]-E[\underbrace{Y_{SF,2003}(D_{SF,2003}=0)}_\text{unobserved}]
+E[\tau]=E[\underbrace{Y_{NJ,Nov92}(D_{NJ,Nov92}=1)}_\text{observed}]-E[\underbrace{Y_{NJ,Nov92}(D_{NJ,Nov92}=0)}_\text{unobserved}]
 $$
 
- In 2003 only the first occurs, and the second is a counterfactual. So how do we proceed?
+ In November 1992 only the first occurs, and the second is a counterfactual. So how do we proceed?
 
 ## Diff-in-Diff to the rescue: 
 
 The standard differences-in-differences strategy (DiD):
 
-- Define the intervention, $D$= the availability of the Craigslist ERS webpage.
+- Define the intervention, $D$= raising the minimum wage by \$0.80
 
-- We want to know the causal effect, $\tau$ of $D$ on $Y$= female murders. 
+- We want to know the causal effect, $\tau$ of $D$ on $Y$= employment in the fast food industry. 
 
-Can we just compare SF murders in, say, 2003 with some other city, like Pittsburgh?
+Can we just compare fast food employment in New Jersey in, November 1992 with some other state, like Pennsylvania?
 
 
 ## Differencing A: 
 
 
-|....City.... |...........Outcome.............|
-|-------------|-------------------------------|
-|San Francisco|$Y_{SF,2003}=\alpha_{SF}+\tau$ |
-|Pittsburgh   |$Y_{P,2003}=\alpha_{P}$        |
+|....State... |...........Outcome...............|
+|-------------|---------------------------------|
+|New Jersey   |$Y_{NJ,Nov92}=\alpha_{NJ}+\tau$  |
+|Pennsylvania |$Y_{PA,Nov92}=\alpha_{PA}$       |
 
-- $\alpha_{SF}$ is a San Francisco fixed effect 
+- $\alpha_{NJ}$ is a New Jersey fixed effect 
 
-- $\alpha_P$ is a Pittsburgh fixed effect. 
+- $\alpha_{PA}$ is a Pennsylvania fixed effect. 
 
-If make a simple comparison between Pittsburgh and SF:
+If we make a simple comparison between New Jersey and Pennsylvania:
 
 $$
-\tilde{\tau}=Y_{SF,2003}-Y_{P,2003}=\alpha_{SF}+\tau-\alpha_{P}.
+\tilde{\tau}=Y_{NJ,Nov92}-Y_{PA,Nov92}=\alpha_{NJ}+\tau-\alpha_{PA}.
 $$ 
 
 ## Differencing A: 
 
-The simple difference is biased because of the difference in the underlying murder rates between the two cities:
+The simple difference is biased because of the difference in the fast food employment rates between the two states:
 
 $$
-\tilde{\tau}-\tau=\alpha_{SF}-\alpha_{P}. 
+\tilde{\tau}-\tau=\alpha_{NJ}-\alpha_{PA}. 
 $$
 
 ## Differencing B: 
 
-What if we compare SF to itself? Say in 2003 to 2001?  
+What if we compare NJ to itself? Say in February 1992 and November 1992?  
 
-|.....City....|..Time..|..........Outcome.............|
-|:-----------:|:------:|:-------------------------------------------:|
-|San Francisco|Before  |$Y_{SF,2001}=\alpha_{SF}$                    |
-|             |After   |$Y_{SF,2003}=\alpha_{SF}+\lambda_{03}+\tau$  |
+|.....State...|..Time..|..........Outcome................................|
+|:-----------:|:------:|:-----------------------------------------------:|
+|New Jersey   |Pre     |$Y_{NJ,Feb92}=\alpha_{NJ}$                       |
+|             |Post    |$Y_{NJ,Nov92}=\alpha_{NJ}+\lambda_{Nov92}+\tau$  |
 
 Again, this doesn't lead to an unbiased estimate of $\tau$ since:
 $$
-\tilde{\tau}=\alpha_{SF}+\lambda_{03}+\tau-\alpha_{SF}=\lambda_{03}+\tau
+\tilde{\tau}=\alpha_{NJ}+\lambda_{Nov92}+\tau-\alpha_{NJ}=\lambda_{Nov92}+\tau
 $$
 
 
-We eliminated the city fixed effect but not the changes in the murder rate over time which will bias my estimate:
+We eliminated the state fixed effect but not the changes in the employment rate over time which will bias my estimate:
 $$
-\tilde{\tau}-\tau=\lambda_{03}
+\tilde{\tau}-\tau=\lambda_{Nov92}
 $$
 **How can I identify and control for these time effects?**
 
 
 ## Differencing A+B= Diff-in-Diff
 
-Combining the two approaches to eliminate both the city effects and the time effects: 
+Combining the two approaches to eliminate both the state effects and the time effects: 
 
-|...City...  |..Time..|........Outcome........             |1st Diff|2nd Diff|
-|-------------|----|---------------------------------------|----------------|--------------|
-|SF        |Before|$Y_{SF,2001}=\alpha_{SF}$               |                |              |
-|          |After |$Y_{SF,2003}=\alpha_{SF}+\lambda_{03}+\tau$|$\lambda_{03}+\tau$|              |
-|          |      |                                        |                |$\tau$           |
-|Pittsburgh|Before|$Y_{P,2001}=\alpha_{P}$                 |                |              |
-|          |After|$Y_{P,2003}=\alpha_{P}+\lambda_{03}$     | $\lambda_{03}$  |                  |
+|   State  |  Time |Outcome                                                  |1st Diff               |2nd Diff  |
+|----------|-------|---------------------------------------------------------|-----------------------|----------|
+|NJ        |Pre    |$Y_{NJ,Feb92}=\alpha_{NJ}$                               |                       |          |
+|          |Post   |$Y_{NJ,Nov92}=\alpha_{NJ}+\lambda_{Nov92}+\tau$          |$\lambda_{Nov92}+\tau$ |          |
+|          |       |                                                         |                       |$\tau$    |
+|PA        |Pre    |$Y_{PA,Feb92}=\alpha_{PA}$                               |$\lambda_{Nov92}$      |          |
+|          |Post   |$Y_{PA,Nov92}=\alpha_{PA}+\lambda_{Nov92}$               |                       |          |
 
 
 
@@ -224,12 +236,12 @@ $\Rightarrow$ Top Hat
 This can be done in a regression framework:
 
 $$
-Y_{it}=\beta_0+\beta_1 Post_t+\beta_2 GetsTreat_i+\beta_3 Post_t\times GetsTreat_i+u_{it}
+Y_{it}=\beta_0+\beta_1 Post_t+\beta_2 WillGetTreat_i+\beta_3 Post_t\times WillGetTreat_i+u_{it}
 $$
 
 - $Post_t$ is an indicator for the post treatment period, 
 
-- $GetsTreat_i$ is an indicator for observations in the treatment group that eventually gets treated. 
+- $WillGetTreat_i$ is an indicator for observations in the treatment group that eventually gets treated. 
 
 **Which coefficient identifies the treatment effect?**
 
@@ -280,19 +292,28 @@ scores <- fastDummies::dummy_cols(scores, select_columns = "class")
 
 scores$error<-rnorm(300, mean=0, sd=10)
 
-#suppose teachers in the better performing classes (classes, 7,8,9,10) select to participate in the book club program
+#suppose teachers in the better performing classes (classes, 7,8,9,10) 
+#select to participate in the book club program
 scores$treat<-0
 scores$treat[scores$class%in%c(7,8,9,10)]<-1
 
 tau<-10
 
+#class fixed effects
+scores$classFE<-NA
+scores$classFE[scores$class_1==1]<-(-10)
+scores$classFE[scores$class_2==1]<-(-15)
+scores$classFE[scores$class_3==1]<-(-5)
+scores$classFE[scores$class_4==1]<-(-8)
+scores$classFE[scores$class_5==1]<-(-7)
+scores$classFE[scores$class_6==1]<-(-13)
+scores$classFE[scores$class_7==1]<-11
+scores$classFE[scores$class_8==1]<-8
+scores$classFE[scores$class_9==1]<-10
+scores$classFE[scores$class_10==1]<-12
+
 #the data generating process
-scores$read4<-(85+tau*scores$treat
-                +(-10)*scores$class_1+(-15)*scores$class_2+(-5)*scores$class_3
-               +(-8)*scores$class_4+(-7)*scores$class_5+(-13)*scores$class_6
-               +(11)*scores$class_7+(8)*scores$class_8+(10)*scores$class_9
-               +(12)*scores$class_10
-               +scores$error)
+scores$read4<-(85+tau*scores$treat+scores$classFE+scores$error)
 
 scores$year<-"2001"
 scores01<-scores
@@ -311,13 +332,21 @@ scores$error<-rnorm(300, mean=0, sd=10)
 scores$treat<-0
 scores$treat[scores$class%in%c(7,8,9,10)]<-1
 
+#class fixed effects
+scores$classFE<-NA
+scores$classFE[scores$class_1==1]<-(-10)
+scores$classFE[scores$class_2==1]<-(-15)
+scores$classFE[scores$class_3==1]<-(-5)
+scores$classFE[scores$class_4==1]<-(-8)
+scores$classFE[scores$class_5==1]<-(-7)
+scores$classFE[scores$class_6==1]<-(-13)
+scores$classFE[scores$class_7==1]<-11
+scores$classFE[scores$class_8==1]<-8
+scores$classFE[scores$class_9==1]<-10
+scores$classFE[scores$class_10==1]<-12
+
 #the data generating process
-scores$read4<-(78
-               +(-10)*scores$class_1+(-15)*scores$class_2+(-5)*scores$class_3
-               +(-8)*scores$class_4+(-7)*scores$class_5+(-13)*scores$class_6
-               +(11)*scores$class_7+(8)*scores$class_8+(10)*scores$class_9
-               +(12)*scores$class_10
-               +scores$error)
+scores$read4<-(78+scores$classFE+scores$error)
 
 scores$year<-"2000"
 scores00<-scores
@@ -373,7 +402,7 @@ Key assumption:
 ## DID visually:
 
 $$
-Y_{it}=\beta_0+\beta_1 Post_t+\beta_2 GetsTreat_i+\beta_3 Post_t\times GetsTreat_i+u_{it}
+Y_{it}=\beta_0+\beta_1 Post_t+\beta_2 WillGetTreat_i+\beta_3 Post_t\times WillGetTreat_i+u_{it}
 $$
 Which number corresponds to which coefficient? $\Rightarrow$ Top Hat
 
@@ -382,7 +411,7 @@ Which number corresponds to which coefficient? $\Rightarrow$ Top Hat
 ## Identifying Assumption:
 
 $$
-Y_{it}=\beta_0+\beta_1 Post_t+\beta_2 GetsTreat_i+\beta_3 Post_t\times GetsTreat_i+u_{it}
+Y_{it}=\beta_0+\beta_1 Post_t+\beta_2 WillGetTreat_i+\beta_3 Post_t\times WillGetTreat_i+u_{it}
 $$
 
  ![Green: Never Treated, Red: Treated]("images\DIDregressionnum.png"){width=70%}
@@ -424,7 +453,7 @@ Including leads into the DiD model is an easy way to check the pre-treatment tre
 Suppose treatment occurs right after period $t=0$, estimate 
 
 $$
-Y_{it}=\beta_0+\beta_2GetsTreat_i+\sum_{t=-n}^m\beta_{3t}Period_t \times GetsTreat_i+\lambda_t+u_{it}.
+Y_{it}=\beta_0+\beta_2WillGetTreat_i+\sum_{t=-n}^m\beta_{3t}Period_t \times WillGetTreat_i+\lambda_t+u_{it}.
 $$
 
 
@@ -449,7 +478,7 @@ Two main types of graphs
 \tiny
 ```{r did2, results="asis"}
 #simulating the data
-set.seed(1999)
+set.seed(5000)
 scoresbase<-as.data.frame(rep(c(1,2,3,4,5,6,7,8,9,10),times=30))
 names(scoresbase)<-c("class")
 scoresbase <- fastDummies::dummy_cols(scoresbase, select_columns = "class")
@@ -471,6 +500,8 @@ yr<-c(1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005)
 tauyr<-c(0,0,0,0,0,0,10,10,10,10,10)
 yrfe<-c(72,77,75,79,81,79,83,77,82,84,81)
 
+
+
 #loop to generate the data
 for(i in 1:11){
   name<-paste("scores", yr[i], sep="_")
@@ -479,12 +510,11 @@ for(i in 1:11){
   tau<-tauyr[i]
   yearfe<-yrfe[i]
   #the data generating process
-  scores$read4<-(yearfe+tau*scores$treat+scores$error
+ scores$read4<-(yearfe+tau*scores$treat+scores$error
                +(-10)*scores$class_1+(-15)*scores$class_2+(-5)*scores$class_3
                +(-8)*scores$class_4+(-7)*scores$class_5+(-13)*scores$class_6
                +(11)*scores$class_7+(8)*scores$class_8+(10)*scores$class_9
                +(12)*scores$class_10)
-
   scores$year<-yr[i]
   assign(name, scores)
   rm(scores)
@@ -509,7 +539,10 @@ regdidall2<-felm(read4~treat
                  +year_2004+year_2005
                  +year_1995*treat+year_1996*treat+year_1997*treat+year_1998*treat
                  +year_1999*treat+year_2001*treat+year_2002*treat+year_2003*treat
-                 +year_2004*treat+year_2005*treat,
+                 +year_2004*treat+year_2005*treat
+                 |0
+                 |0
+                 |class,
                  allscores)
 ```
 
@@ -544,7 +577,9 @@ didmeans<-ggplot(grp_mean, aes(year, groupmean, group=treat, color = treat)) +
 ```
 
 ## Simulation: With leads and lags
- ![]("Slides_DID_files\figure-beamer\didplot-1.pdf")
+```{r didplot_fig, results="asis", echo=FALSE, warning=FALSE,  message = FALSE}
+didmeans
+```
 
 
 ## Simulation: With leads and lags
@@ -563,7 +598,7 @@ res<-rbind(res,a)
 
 year<-c(1995,1996,1997,1998,1999,2001,2002,2003,2004,2005,2000)
 res<-cbind(res,year)
-res$ci<-1.96*res$`Std. Error`
+res$ci<-1.96*res$`Cluster s.e.`
 
 names(res)<-c("Estimate","se", "t",  "p", "year", "ci")
 # Use 95% confidence interval instead of SEM
@@ -578,8 +613,11 @@ didplot2<-ggplot(res, aes(x=year, y=Estimate)) +
 
 ## Simulation: With leads and Lags
 
- ![]("Slides_DID_files\figure-beamer\didplotb-1.pdf")
- 
+```{r didplot_fig2, results="asis"}
+didplot2
+```
+
+
 ## A note on Inference: Clustering
  
 What if the variable of interest only varies at a "group" level 
@@ -632,11 +670,11 @@ stargazer( regdidall2,regdidall3, type="latex",no.space=TRUE, single.row=TRUE, o
 
 In addition to checking for parallel pre-trends, you can also check and see if there is a pattern of parallel trends for an alternative outcome measure that should not be affected by treatment. 
  
-For the ERS example, 
+For the minimum wage example, 
 
-- estimate the same model with manslaughter or male murders as the outcome variable. 
+- could estimate the same model with employment in technical fields as the outcome variable?
 
-- these variables would be affected by the underlying violent crime in the city, but should be unaffected by ERS. 
+- these variables would be affected by underlying economic conditions, but should be less affected by minimum wage laws. 
 
 
 
@@ -698,9 +736,9 @@ $$
 
 $$
 \begin{aligned}
-Y_{i,a,g,t}=&\alpha_0+\alpha_1 GetT_{g}+\alpha_2 AS_{a}+\alpha_3 Post_{t}\\
-&+\alpha_4 (GetT \times Post)_{gt}+\alpha_5 (GetT \times AS)_{ga}+\alpha_6 (Post \times AS)_{ta}\\
-&+\alpha_7 (GetT \times Post \times AS)_{agt}+u_{igta}
+Y_{i,a,g,t}=&\alpha_0+\alpha_1 WGetT_{g}+\alpha_2 AS_{a}+\alpha_3 Post_{t}\\
+&+\alpha_4 (WGetT \times Post)_{gt}+\alpha_5 (WGetT \times AS)_{ga}+\alpha_6 (Post \times AS)_{ta}\\
+&+\alpha_7 (WGetT \times Post \times AS)_{agt}+u_{igta}
 \end{aligned}
 $$
 What is the alternative hypothesis, stated in terms of these coefficients?
@@ -736,7 +774,6 @@ set.seed(123456)
 scores<-as.data.frame(rep(c(1,2,3,4,5,6,7,8,9,10),times=30))
 names(scores)<-c("class")
 scores <- fastDummies::dummy_cols(scores, select_columns = "class")
-
 scores$error<-rnorm(300, mean=0, sd=10)
 
 #a random indicator for participation in the afterschool program
@@ -760,7 +797,6 @@ scores$read4<-(85+13*scores$aftsch+tau*scores$treatnotaftsch+scores$error
                +(-10)*scores$class_1+(-15)*scores$class_2+(-5)*scores$class_3
                +(-8)*scores$class_4+(-3)*scores$class_5+(3)*scores$class_6
                +(5)*scores$class_7+(8)*scores$class_8+(10)*scores$class_9+(12)*scores$class_10)
-
 scores$year<-"2001"
 
 scores01<-scores
@@ -791,6 +827,7 @@ scores$treat[scores$class%in%c(7,8,9,10)]<-1
 scores$treatnotaftsch<-0
 scores$treatnotaftsch[scores$treat==1 & scores$aftsch==0]<-1
 
+#the data generating process
 #the data generating process
 scores$read4<-(78+18*scores$aftsch+scores$error
                +(-10)*scores$class_1+(-15)*scores$class_2+(-5)*scores$class_3

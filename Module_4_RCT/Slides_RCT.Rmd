@@ -604,7 +604,7 @@ It depends.
 
 :::::: {.columns}
 
-::: {.column width="40%" data-latex="{0.55\textwidth}"}
+::: {.column width="40%" data-latex="{\textwidth}"}
 
 \small
 
@@ -616,12 +616,14 @@ It depends.
 :::
 
 
-::: {.column width="60%" data-latex="{0.4\textwidth}"}
+::: {.column width="60%" data-latex="{\textwidth}"}
 
  ![...]("images\contraceptivefailure.png")
 
 :::
 ::::::
+
+
 
 ## The TOT (Treatment on the Treated)
 

@@ -44,16 +44,19 @@
   \frame{\subsectionpage}
 }
 \usepackage{amsmath,amssymb}
-\usepackage{lmodern}
 \usepackage{iftex}
 \ifPDFTeX
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
 \else % if luatex or xetex
-  \usepackage{unicode-math}
+  \usepackage{unicode-math} % this also loads fontspec
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -84,13 +87,13 @@
 \newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
 \newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
 \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
 \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
 \newcommand{\BuiltInTok}[1]{#1}
 \newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
 \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
 \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
 \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
 \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
@@ -98,7 +101,7 @@
 \newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
 \newcommand{\ExtensionTok}[1]{#1}
 \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
-\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
 \newcommand{\ImportTok}[1]{#1}
 \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
 \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
@@ -107,7 +110,7 @@
 \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
 \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
 \newcommand{\RegionMarkerTok}[1]{#1}
-\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
 \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
@@ -142,17 +145,16 @@
 \fi
 \IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\urlstyle{same} % disable monospaced font for URLs
+\urlstyle{same}
 \hypersetup{
-  pdftitle={MQE: Economic Inference from Data: Module 5: Difference in Differences},
+  pdftitle={Difference in Differences},
   pdfauthor={Claire Duquennois},
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
 
-\title{MQE: Economic Inference from Data:\\
-Module 5: Difference in Differences}
+\title{Difference in Differences}
 \author{Claire Duquennois}
-\date{6/9/2020}
+\date{}
 
 \begin{document}
 \frame{\titlepage}
@@ -192,32 +194,52 @@ Differences-in-differences is a way of getting around non-random
 assignment of a treatment.
 \end{frame}
 
-\begin{frame}{DID: Example and intuition\footnote<.->{This section is
-  borrowed from scunning.com}}
+\begin{frame}{DID: Example and intuition}
 \protect\hypertarget{did-example-and-intuition}{}
-2002: Craigslist opens a new section called ``erotic services'' in San
-Francisco:
+This example is based off of Card and Krueger (1994), one of the most
+famous early DID studies.
+
+\begin{itemize}
+\tightlist
+\item
+  David Card, Joshua Angrist and Guido Imbens were awarded the Nobel
+  prize in 2021 for their methodological contributions to the analysis
+  of causal relationships in labour markets.
+\end{itemize}
+
+Card and Krueger (1994) :
 
 \begin{itemize}
 \item
-  mostly used by sex workers to advertise and solicit clients.
+  What is the effect of increasing the minimum wage on employment of
+  low-skilled workers?
 \item
-  Sex workers claimed it made them safer, because they could solicit
-  indoors from their computers and learn more about the men contacting
-  them.
+  focus on employment in fast food restaurants
 \item
-  Activists and law enforcement worried that it was facilitating sex
-  trafficking and increasing violence against women.
+  look at an increase in the state minimum wage in New Jersey which rose
+  by \$0.80 (from \$ 4.25 to \$ 5.05) in April 1992
 \end{itemize}
-
-Which was it? Was erotic services (ERS) making women safer, or was it
-placing them in harm's way?
 \end{frame}
 
 \begin{frame}{SOS Empiricist!}
 \protect\hypertarget{sos-empiricist}{}
-This is an empirical question: What is the effect of ERS on female
-safety?
+What is the effect of increasing the minimum wage on employment of
+low-skilled workers?
+
+This is an empirical question:
+
+\begin{itemize}
+\item
+  Classic economic theory suggests a minimum wage is a price floor and
+  will reduce the demand for labor
+\item
+  Others argue it could boost consumer spending creating more jobs
+\end{itemize}
+\end{frame}
+
+\begin{frame}{SOS Empiricist!}
+\protect\hypertarget{sos-empiricist-1}{}
+So what is it? How do we get an answer?
 
 \begin{itemize}
 \item
@@ -228,11 +250,11 @@ safety?
 \end{itemize}
 
 \[
-E[\tau]=E[\underbrace{Y_{SF,2003}(D_{SF,2003}=1)}_\text{observed}]-E[\underbrace{Y_{SF,2003}(D_{SF,2003}=0)}_\text{unobserved}]
+E[\tau]=E[\underbrace{Y_{NJ,Nov92}(D_{NJ,Nov92}=1)}_\text{observed}]-E[\underbrace{Y_{NJ,Nov92}(D_{NJ,Nov92}=0)}_\text{unobserved}]
 \]
 
-In 2003 only the first occurs, and the second is a counterfactual. So
-how do we proceed?
+In November 1992 only the first occurs, and the second is a
+counterfactual. So how do we proceed?
 \end{frame}
 
 \begin{frame}{Diff-in-Diff to the rescue:}
@@ -241,111 +263,118 @@ The standard differences-in-differences strategy (DiD):
 
 \begin{itemize}
 \item
-  Define the intervention, \(D\)= the availability of the Craigslist ERS
-  webpage.
+  Define the intervention, \(D\)= raising the minimum wage by \$0.80
 \item
-  We want to know the causal effect, \(\tau\) of \(D\) on \(Y\)= female
-  murders.
+  We want to know the causal effect, \(\tau\) of \(D\) on \(Y\)=
+  employment in the fast food industry.
 \end{itemize}
 
-Can we just compare SF murders in, say, 2003 with some other city, like
-Pittsburgh?
+Can we just compare fast food employment in New Jersey in, November 1992
+with some other state, like Pennsylvania?
 \end{frame}
 
 \begin{frame}{Differencing A:}
 \protect\hypertarget{differencing-a}{}
 \begin{longtable}[]{@{}ll@{}}
-\toprule()
-\ldots.City\ldots. &
-\ldots\ldots\ldots..Outcome\ldots\ldots\ldots\ldots. \\
-\midrule()
+\toprule\noalign{}
+\ldots.State\ldots{} &
+\ldots\ldots\ldots..Outcome\ldots\ldots\ldots\ldots\ldots{} \\
+\midrule\noalign{}
 \endhead
-San Francisco & \(Y_{SF,2003}=\alpha_{SF}+\tau\) \\
-Pittsburgh & \(Y_{P,2003}=\alpha_{P}\) \\
-\bottomrule()
+New Jersey & \(Y_{NJ,Nov92}=\alpha_{NJ}+\tau\) \\
+Pennsylvania & \(Y_{PA,Nov92}=\alpha_{PA}\) \\
+\bottomrule\noalign{}
 \end{longtable}
 
 \begin{itemize}
 \item
-  \(\alpha_{SF}\) is a San Francisco fixed effect
+  \(\alpha_{NJ}\) is a New Jersey fixed effect
 \item
-  \(\alpha_P\) is a Pittsburgh fixed effect.
+  \(\alpha_{PA}\) is a Pennsylvania fixed effect.
 \end{itemize}
 
-If make a simple comparison between Pittsburgh and SF:
+If we make a simple comparison between New Jersey and Pennsylvania:
 
 \[
-\tilde{\tau}=Y_{SF,2003}-Y_{P,2003}=\alpha_{SF}+\tau-\alpha_{P}.
+\tilde{\tau}=Y_{NJ,Nov92}-Y_{PA,Nov92}=\alpha_{NJ}+\tau-\alpha_{PA}.
 \]
 \end{frame}
 
 \begin{frame}{Differencing A:}
 \protect\hypertarget{differencing-a-1}{}
-The simple difference is biased because of the difference in the
-underlying murder rates between the two cities:
+The simple difference is biased because of the difference in the fast
+food employment rates between the two states:
 
 \[
-\tilde{\tau}-\tau=\alpha_{SF}-\alpha_{P}. 
+\tilde{\tau}-\tau=\alpha_{NJ}-\alpha_{PA}. 
 \]
 \end{frame}
 
 \begin{frame}{Differencing B:}
 \protect\hypertarget{differencing-b}{}
-What if we compare SF to itself? Say in 2003 to 2001?
+What if we compare NJ to itself? Say in February 1992 and November 1992?
 
-\begin{longtable}[]{@{}ccc@{}}
-\toprule()
-\ldots..City\ldots. & ..Time.. &
-\ldots\ldots\ldots.Outcome\ldots\ldots\ldots\ldots. \\
-\midrule()
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.1857}}
+  >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.1143}}
+  >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.7000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\centering
+\ldots..State\ldots{}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+..Time..
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\ldots\ldots\ldots.Outcome\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots..
+\end{minipage} \\
+\midrule\noalign{}
 \endhead
-San Francisco & Before & \(Y_{SF,2001}=\alpha_{SF}\) \\
-& After & \(Y_{SF,2003}=\alpha_{SF}+\lambda_{03}+\tau\) \\
-\bottomrule()
+New Jersey & Pre & \(Y_{NJ,Feb92}=\alpha_{NJ}\) \\
+& Post & \(Y_{NJ,Nov92}=\alpha_{NJ}+\lambda_{Nov92}+\tau\) \\
+\bottomrule\noalign{}
 \end{longtable}
 
 Again, this doesn't lead to an unbiased estimate of \(\tau\) since: \[
-\tilde{\tau}=\alpha_{SF}+\lambda_{03}+\tau-\alpha_{SF}=\lambda_{03}+\tau
+\tilde{\tau}=\alpha_{NJ}+\lambda_{Nov92}+\tau-\alpha_{NJ}=\lambda_{Nov92}+\tau
 \]
 
-We eliminated the city fixed effect but not the changes in the murder
-rate over time which will bias my estimate: \[
-\tilde{\tau}-\tau=\lambda_{03}
+We eliminated the state fixed effect but not the changes in the
+employment rate over time which will bias my estimate: \[
+\tilde{\tau}-\tau=\lambda_{Nov92}
 \] \textbf{How can I identify and control for these time effects?}
 \end{frame}
 
 \begin{frame}{Differencing A+B= Diff-in-Diff}
 \protect\hypertarget{differencing-ab-diff-in-diff}{}
-Combining the two approaches to eliminate both the city effects and the
+Combining the two approaches to eliminate both the state effects and the
 time effects:
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1512}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.0465}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.4535}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1860}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1628}}@{}}
-\toprule()
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.0935}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.0654}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.5327}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2150}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.0935}}@{}}
+\toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
-\ldots City\ldots{}
+State
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-..Time..
+Time
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-\ldots\ldots..Outcome\ldots\ldots..
+Outcome
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 1st Diff
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 2nd Diff
 \end{minipage} \\
-\midrule()
+\midrule\noalign{}
 \endhead
-SF & Before & \(Y_{SF,2001}=\alpha_{SF}\) & & \\
-& After & \(Y_{SF,2003}=\alpha_{SF}+\lambda_{03}+\tau\) &
-\(\lambda_{03}+\tau\) & \\
+NJ & Pre & \(Y_{NJ,Feb92}=\alpha_{NJ}\) & & \\
+& Post & \(Y_{NJ,Nov92}=\alpha_{NJ}+\lambda_{Nov92}+\tau\) &
+\(\lambda_{Nov92}+\tau\) & \\
 & & & & \(\tau\) \\
-Pittsburgh & Before & \(Y_{P,2001}=\alpha_{P}\) & & \\
-& After & \(Y_{P,2003}=\alpha_{P}+\lambda_{03}\) & \(\lambda_{03}\) & \\
-\bottomrule()
+PA & Pre & \(Y_{PA,Feb92}=\alpha_{PA}\) & \(\lambda_{Nov92}\) & \\
+& Post & \(Y_{PA,Nov92}=\alpha_{PA}+\lambda_{Nov92}\) & & \\
+\bottomrule\noalign{}
 \end{longtable}
 \end{frame}
 
@@ -434,14 +463,14 @@ This can be done in a regression framework:
 This can be done in a regression framework:
 
 \[
-Y_{it}=\beta_0+\beta_1 Post_t+\beta_2 GetsTreat_i+\beta_3 Post_t\times GetsTreat_i+u_{it}
+Y_{it}=\beta_0+\beta_1 Post_t+\beta_2 WillGetTreat_i+\beta_3 Post_t\times WillGetTreat_i+u_{it}
 \]
 
 \begin{itemize}
 \item
   \(Post_t\) is an indicator for the post treatment period,
 \item
-  \(GetsTreat_i\) is an indicator for observations in the treatment
+  \(WillGetTreat_i\) is an indicator for observations in the treatment
   group that eventually gets treated.
 \end{itemize}
 
@@ -500,30 +529,37 @@ club on 4th grade reading scores.
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{set.seed}\NormalTok{(}\DecValTok{6000}\NormalTok{)}
-\NormalTok{scores }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{9}\NormalTok{, }\DecValTok{10}\NormalTok{),}
-    \AttributeTok{times =} \DecValTok{30}\NormalTok{))}
-\FunctionTok{names}\NormalTok{(scores) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"class"}\NormalTok{)}
+\NormalTok{scores}\OtherTok{\textless{}{-}}\FunctionTok{as.data.frame}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{7}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{9}\NormalTok{,}\DecValTok{10}\NormalTok{),}\AttributeTok{times=}\DecValTok{30}\NormalTok{))}
+\FunctionTok{names}\NormalTok{(scores)}\OtherTok{\textless{}{-}}\FunctionTok{c}\NormalTok{(}\StringTok{"class"}\NormalTok{)}
 \NormalTok{scores }\OtherTok{\textless{}{-}}\NormalTok{ fastDummies}\SpecialCharTok{::}\FunctionTok{dummy\_cols}\NormalTok{(scores, }\AttributeTok{select\_columns =} \StringTok{"class"}\NormalTok{)}
 
-\NormalTok{scores}\SpecialCharTok{$}\NormalTok{error }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{300}\NormalTok{, }\AttributeTok{mean =} \DecValTok{0}\NormalTok{, }\AttributeTok{sd =} \DecValTok{10}\NormalTok{)}
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{error}\OtherTok{\textless{}{-}}\FunctionTok{rnorm}\NormalTok{(}\DecValTok{300}\NormalTok{, }\AttributeTok{mean=}\DecValTok{0}\NormalTok{, }\AttributeTok{sd=}\DecValTok{10}\NormalTok{)}
 
-\CommentTok{\# suppose teachers in the better performing classes}
-\CommentTok{\# (classes, 7,8,9,10) select to participate in the book}
-\CommentTok{\# club program}
-\NormalTok{scores}\SpecialCharTok{$}\NormalTok{treat }\OtherTok{\textless{}{-}} \DecValTok{0}
-\NormalTok{scores}\SpecialCharTok{$}\NormalTok{treat[scores}\SpecialCharTok{$}\NormalTok{class }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\DecValTok{7}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{9}\NormalTok{, }\DecValTok{10}\NormalTok{)] }\OtherTok{\textless{}{-}} \DecValTok{1}
+\CommentTok{\#suppose teachers in the better performing classes (classes, 7,8,9,10) }
+\CommentTok{\#select to participate in the book club program}
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{treat}\OtherTok{\textless{}{-}}\DecValTok{0}
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{treat[scores}\SpecialCharTok{$}\NormalTok{class}\SpecialCharTok{\%in\%}\FunctionTok{c}\NormalTok{(}\DecValTok{7}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{9}\NormalTok{,}\DecValTok{10}\NormalTok{)]}\OtherTok{\textless{}{-}}\DecValTok{1}
 
-\NormalTok{tau }\OtherTok{\textless{}{-}} \DecValTok{10}
+\NormalTok{tau}\OtherTok{\textless{}{-}}\DecValTok{10}
 
-\CommentTok{\# the data generating process}
-\NormalTok{scores}\SpecialCharTok{$}\NormalTok{read4 }\OtherTok{\textless{}{-}}\NormalTok{ (}\DecValTok{85} \SpecialCharTok{+}\NormalTok{ tau }\SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{treat }\SpecialCharTok{+}\NormalTok{ (}\SpecialCharTok{{-}}\DecValTok{10}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{class\_1 }\SpecialCharTok{+}
-\NormalTok{    (}\SpecialCharTok{{-}}\DecValTok{15}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{class\_2 }\SpecialCharTok{+}\NormalTok{ (}\SpecialCharTok{{-}}\DecValTok{5}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{class\_3 }\SpecialCharTok{+}\NormalTok{ (}\SpecialCharTok{{-}}\DecValTok{8}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{class\_4 }\SpecialCharTok{+}
-\NormalTok{    (}\SpecialCharTok{{-}}\DecValTok{7}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{class\_5 }\SpecialCharTok{+}\NormalTok{ (}\SpecialCharTok{{-}}\DecValTok{13}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{class\_6 }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{11}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{class\_7 }\SpecialCharTok{+}
-\NormalTok{    (}\DecValTok{8}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{class\_8 }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{10}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{class\_9 }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{12}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{class\_10 }\SpecialCharTok{+}
-\NormalTok{    scores}\SpecialCharTok{$}\NormalTok{error)}
+\CommentTok{\#class fixed effects}
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{classFE}\OtherTok{\textless{}{-}}\ConstantTok{NA}
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{classFE[scores}\SpecialCharTok{$}\NormalTok{class\_1}\SpecialCharTok{==}\DecValTok{1}\NormalTok{]}\OtherTok{\textless{}{-}}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{10}\NormalTok{)}
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{classFE[scores}\SpecialCharTok{$}\NormalTok{class\_2}\SpecialCharTok{==}\DecValTok{1}\NormalTok{]}\OtherTok{\textless{}{-}}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{15}\NormalTok{)}
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{classFE[scores}\SpecialCharTok{$}\NormalTok{class\_3}\SpecialCharTok{==}\DecValTok{1}\NormalTok{]}\OtherTok{\textless{}{-}}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{5}\NormalTok{)}
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{classFE[scores}\SpecialCharTok{$}\NormalTok{class\_4}\SpecialCharTok{==}\DecValTok{1}\NormalTok{]}\OtherTok{\textless{}{-}}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{8}\NormalTok{)}
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{classFE[scores}\SpecialCharTok{$}\NormalTok{class\_5}\SpecialCharTok{==}\DecValTok{1}\NormalTok{]}\OtherTok{\textless{}{-}}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{7}\NormalTok{)}
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{classFE[scores}\SpecialCharTok{$}\NormalTok{class\_6}\SpecialCharTok{==}\DecValTok{1}\NormalTok{]}\OtherTok{\textless{}{-}}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{13}\NormalTok{)}
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{classFE[scores}\SpecialCharTok{$}\NormalTok{class\_7}\SpecialCharTok{==}\DecValTok{1}\NormalTok{]}\OtherTok{\textless{}{-}}\DecValTok{11}
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{classFE[scores}\SpecialCharTok{$}\NormalTok{class\_8}\SpecialCharTok{==}\DecValTok{1}\NormalTok{]}\OtherTok{\textless{}{-}}\DecValTok{8}
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{classFE[scores}\SpecialCharTok{$}\NormalTok{class\_9}\SpecialCharTok{==}\DecValTok{1}\NormalTok{]}\OtherTok{\textless{}{-}}\DecValTok{10}
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{classFE[scores}\SpecialCharTok{$}\NormalTok{class\_10}\SpecialCharTok{==}\DecValTok{1}\NormalTok{]}\OtherTok{\textless{}{-}}\DecValTok{12}
 
-\NormalTok{scores}\SpecialCharTok{$}\NormalTok{year }\OtherTok{\textless{}{-}} \StringTok{"2001"}
-\NormalTok{scores01 }\OtherTok{\textless{}{-}}\NormalTok{ scores}
+\CommentTok{\#the data generating process}
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{read4}\OtherTok{\textless{}{-}}\NormalTok{(}\DecValTok{85}\SpecialCharTok{+}\NormalTok{tau}\SpecialCharTok{*}\NormalTok{scores}\SpecialCharTok{$}\NormalTok{treat}\SpecialCharTok{+}\NormalTok{scores}\SpecialCharTok{$}\NormalTok{classFE}\SpecialCharTok{+}\NormalTok{scores}\SpecialCharTok{$}\NormalTok{error)}
+
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{year}\OtherTok{\textless{}{-}}\StringTok{"2001"}
+\NormalTok{scores01}\OtherTok{\textless{}{-}}\NormalTok{scores}
 \FunctionTok{rm}\NormalTok{(scores)}
 \end{Highlighting}
 \end{Shaded}
@@ -535,27 +571,36 @@ club on 4th grade reading scores.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{scores }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{9}\NormalTok{, }\DecValTok{10}\NormalTok{),}
-    \AttributeTok{times =} \DecValTok{30}\NormalTok{))}
-\FunctionTok{names}\NormalTok{(scores) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"class"}\NormalTok{)}
+\NormalTok{scores}\OtherTok{\textless{}{-}}\FunctionTok{as.data.frame}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{7}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{9}\NormalTok{,}\DecValTok{10}\NormalTok{),}\AttributeTok{times=}\DecValTok{30}\NormalTok{))}
+\FunctionTok{names}\NormalTok{(scores)}\OtherTok{\textless{}{-}}\FunctionTok{c}\NormalTok{(}\StringTok{"class"}\NormalTok{)}
 \NormalTok{scores }\OtherTok{\textless{}{-}}\NormalTok{ fastDummies}\SpecialCharTok{::}\FunctionTok{dummy\_cols}\NormalTok{(scores, }\AttributeTok{select\_columns =} \StringTok{"class"}\NormalTok{)}
 
-\NormalTok{scores}\SpecialCharTok{$}\NormalTok{error }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{300}\NormalTok{, }\AttributeTok{mean =} \DecValTok{0}\NormalTok{, }\AttributeTok{sd =} \DecValTok{10}\NormalTok{)}
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{error}\OtherTok{\textless{}{-}}\FunctionTok{rnorm}\NormalTok{(}\DecValTok{300}\NormalTok{, }\AttributeTok{mean=}\DecValTok{0}\NormalTok{, }\AttributeTok{sd=}\DecValTok{10}\NormalTok{)}
 
-\NormalTok{scores}\SpecialCharTok{$}\NormalTok{treat }\OtherTok{\textless{}{-}} \DecValTok{0}
-\NormalTok{scores}\SpecialCharTok{$}\NormalTok{treat[scores}\SpecialCharTok{$}\NormalTok{class }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\DecValTok{7}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{9}\NormalTok{, }\DecValTok{10}\NormalTok{)] }\OtherTok{\textless{}{-}} \DecValTok{1}
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{treat}\OtherTok{\textless{}{-}}\DecValTok{0}
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{treat[scores}\SpecialCharTok{$}\NormalTok{class}\SpecialCharTok{\%in\%}\FunctionTok{c}\NormalTok{(}\DecValTok{7}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{9}\NormalTok{,}\DecValTok{10}\NormalTok{)]}\OtherTok{\textless{}{-}}\DecValTok{1}
 
-\CommentTok{\# the data generating process}
-\NormalTok{scores}\SpecialCharTok{$}\NormalTok{read4 }\OtherTok{\textless{}{-}}\NormalTok{ (}\DecValTok{78} \SpecialCharTok{+}\NormalTok{ (}\SpecialCharTok{{-}}\DecValTok{10}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{class\_1 }\SpecialCharTok{+}\NormalTok{ (}\SpecialCharTok{{-}}\DecValTok{15}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{class\_2 }\SpecialCharTok{+}
-\NormalTok{    (}\SpecialCharTok{{-}}\DecValTok{5}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{class\_3 }\SpecialCharTok{+}\NormalTok{ (}\SpecialCharTok{{-}}\DecValTok{8}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{class\_4 }\SpecialCharTok{+}\NormalTok{ (}\SpecialCharTok{{-}}\DecValTok{7}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{class\_5 }\SpecialCharTok{+}
-\NormalTok{    (}\SpecialCharTok{{-}}\DecValTok{13}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{class\_6 }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{11}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{class\_7 }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{8}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{class\_8 }\SpecialCharTok{+}
-\NormalTok{    (}\DecValTok{10}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{class\_9 }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{12}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{class\_10 }\SpecialCharTok{+}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{error)}
+\CommentTok{\#class fixed effects}
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{classFE}\OtherTok{\textless{}{-}}\ConstantTok{NA}
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{classFE[scores}\SpecialCharTok{$}\NormalTok{class\_1}\SpecialCharTok{==}\DecValTok{1}\NormalTok{]}\OtherTok{\textless{}{-}}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{10}\NormalTok{)}
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{classFE[scores}\SpecialCharTok{$}\NormalTok{class\_2}\SpecialCharTok{==}\DecValTok{1}\NormalTok{]}\OtherTok{\textless{}{-}}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{15}\NormalTok{)}
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{classFE[scores}\SpecialCharTok{$}\NormalTok{class\_3}\SpecialCharTok{==}\DecValTok{1}\NormalTok{]}\OtherTok{\textless{}{-}}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{5}\NormalTok{)}
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{classFE[scores}\SpecialCharTok{$}\NormalTok{class\_4}\SpecialCharTok{==}\DecValTok{1}\NormalTok{]}\OtherTok{\textless{}{-}}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{8}\NormalTok{)}
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{classFE[scores}\SpecialCharTok{$}\NormalTok{class\_5}\SpecialCharTok{==}\DecValTok{1}\NormalTok{]}\OtherTok{\textless{}{-}}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{7}\NormalTok{)}
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{classFE[scores}\SpecialCharTok{$}\NormalTok{class\_6}\SpecialCharTok{==}\DecValTok{1}\NormalTok{]}\OtherTok{\textless{}{-}}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{13}\NormalTok{)}
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{classFE[scores}\SpecialCharTok{$}\NormalTok{class\_7}\SpecialCharTok{==}\DecValTok{1}\NormalTok{]}\OtherTok{\textless{}{-}}\DecValTok{11}
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{classFE[scores}\SpecialCharTok{$}\NormalTok{class\_8}\SpecialCharTok{==}\DecValTok{1}\NormalTok{]}\OtherTok{\textless{}{-}}\DecValTok{8}
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{classFE[scores}\SpecialCharTok{$}\NormalTok{class\_9}\SpecialCharTok{==}\DecValTok{1}\NormalTok{]}\OtherTok{\textless{}{-}}\DecValTok{10}
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{classFE[scores}\SpecialCharTok{$}\NormalTok{class\_10}\SpecialCharTok{==}\DecValTok{1}\NormalTok{]}\OtherTok{\textless{}{-}}\DecValTok{12}
 
-\NormalTok{scores}\SpecialCharTok{$}\NormalTok{year }\OtherTok{\textless{}{-}} \StringTok{"2000"}
-\NormalTok{scores00 }\OtherTok{\textless{}{-}}\NormalTok{ scores}
+\CommentTok{\#the data generating process}
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{read4}\OtherTok{\textless{}{-}}\NormalTok{(}\DecValTok{78}\SpecialCharTok{+}\NormalTok{scores}\SpecialCharTok{$}\NormalTok{classFE}\SpecialCharTok{+}\NormalTok{scores}\SpecialCharTok{$}\NormalTok{error)}
+
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{year}\OtherTok{\textless{}{-}}\StringTok{"2000"}
+\NormalTok{scores00}\OtherTok{\textless{}{-}}\NormalTok{scores}
 \FunctionTok{rm}\NormalTok{(scores)}
 
-\NormalTok{scores }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(scores01, scores00)}
+\NormalTok{scores}\OtherTok{\textless{}{-}}\FunctionTok{rbind}\NormalTok{(scores01, scores00)}
 \end{Highlighting}
 \end{Shaded}
 \end{frame}
@@ -566,15 +611,13 @@ club on 4th grade reading scores.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{regnodid }\OtherTok{\textless{}{-}} \FunctionTok{felm}\NormalTok{(read4 }\SpecialCharTok{\textasciitilde{}}\NormalTok{ treat, scores[scores}\SpecialCharTok{$}\NormalTok{year }\SpecialCharTok{==} \StringTok{"2001"}\NormalTok{,}
-\NormalTok{    ])}
+\NormalTok{regnodid}\OtherTok{\textless{}{-}}\FunctionTok{felm}\NormalTok{(read4}\SpecialCharTok{\textasciitilde{}}\NormalTok{treat,scores[scores}\SpecialCharTok{$}\NormalTok{year}\SpecialCharTok{==}\StringTok{"2001"}\NormalTok{,])}
 
-\NormalTok{scores}\SpecialCharTok{$}\NormalTok{post }\OtherTok{\textless{}{-}} \DecValTok{0}
-\NormalTok{scores}\SpecialCharTok{$}\NormalTok{post[scores}\SpecialCharTok{$}\NormalTok{year }\SpecialCharTok{==} \StringTok{"2001"}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{1}
-\NormalTok{regdid }\OtherTok{\textless{}{-}} \FunctionTok{felm}\NormalTok{(read4 }\SpecialCharTok{\textasciitilde{}}\NormalTok{ post }\SpecialCharTok{+}\NormalTok{ treat }\SpecialCharTok{+}\NormalTok{ post }\SpecialCharTok{*}\NormalTok{ treat, scores)}
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{post}\OtherTok{\textless{}{-}}\DecValTok{0}
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{post[scores}\SpecialCharTok{$}\NormalTok{year}\SpecialCharTok{==}\StringTok{"2001"}\NormalTok{]}\OtherTok{\textless{}{-}}\DecValTok{1}
+\NormalTok{regdid}\OtherTok{\textless{}{-}}\FunctionTok{felm}\NormalTok{(read4}\SpecialCharTok{\textasciitilde{}}\NormalTok{post}\SpecialCharTok{+}\NormalTok{treat}\SpecialCharTok{+}\NormalTok{post}\SpecialCharTok{*}\NormalTok{treat,scores)}
 
-\NormalTok{regdidfe }\OtherTok{\textless{}{-}} \FunctionTok{felm}\NormalTok{(read4 }\SpecialCharTok{\textasciitilde{}}\NormalTok{ post }\SpecialCharTok{+}\NormalTok{ treat }\SpecialCharTok{+}\NormalTok{ post }\SpecialCharTok{*}\NormalTok{ treat }\SpecialCharTok{|}\NormalTok{ class,}
-\NormalTok{    scores)}
+\NormalTok{regdidfe}\OtherTok{\textless{}{-}}\FunctionTok{felm}\NormalTok{(read4}\SpecialCharTok{\textasciitilde{}}\NormalTok{post}\SpecialCharTok{+}\NormalTok{treat}\SpecialCharTok{+}\NormalTok{post}\SpecialCharTok{*}\NormalTok{treat}\SpecialCharTok{|}\NormalTok{class,scores)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -590,9 +633,8 @@ club on 4th grade reading scores.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{stargazer}\NormalTok{(regnodid, regdid, regdidfe, }\AttributeTok{type =} \StringTok{"latex"}\NormalTok{, }\AttributeTok{header =} \ConstantTok{FALSE}\NormalTok{,}
-    \AttributeTok{add.lines =} \FunctionTok{list}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"Class FE"}\NormalTok{, }\StringTok{"No"}\NormalTok{, }\StringTok{"No"}\NormalTok{, }\StringTok{"Yes"}\NormalTok{)), }\AttributeTok{omit.stat =} \FunctionTok{c}\NormalTok{(}\StringTok{"ser"}\NormalTok{,}
-        \StringTok{"rsq"}\NormalTok{, }\StringTok{"adj.rsq"}\NormalTok{))}
+\FunctionTok{stargazer}\NormalTok{(regnodid, regdid,regdidfe, }\AttributeTok{type=}\StringTok{"latex"}\NormalTok{, }\AttributeTok{header=}\ConstantTok{FALSE}\NormalTok{, }
+          \AttributeTok{add.lines =} \FunctionTok{list}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"Class FE"}\NormalTok{, }\StringTok{"No"}\NormalTok{, }\StringTok{"No"}\NormalTok{, }\StringTok{"Yes"}\NormalTok{)), }\AttributeTok{omit.stat =} \FunctionTok{c}\NormalTok{(}\StringTok{"ser"}\NormalTok{,}\StringTok{"rsq"}\NormalTok{, }\StringTok{"adj.rsq"}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -675,7 +717,7 @@ followed a trend that was parallel to that of the control group}
 \begin{frame}{DID visually:}
 \protect\hypertarget{did-visually}{}
 \[
-Y_{it}=\beta_0+\beta_1 Post_t+\beta_2 GetsTreat_i+\beta_3 Post_t\times GetsTreat_i+u_{it}
+Y_{it}=\beta_0+\beta_1 Post_t+\beta_2 WillGetTreat_i+\beta_3 Post_t\times WillGetTreat_i+u_{it}
 \] Which number corresponds to which coefficient? \(\Rightarrow\) Top
 Hat
 
@@ -689,7 +731,7 @@ Hat
 \begin{frame}{Identifying Assumption:}
 \protect\hypertarget{identifying-assumption-1}{}
 \[
-Y_{it}=\beta_0+\beta_1 Post_t+\beta_2 GetsTreat_i+\beta_3 Post_t\times GetsTreat_i+u_{it}
+Y_{it}=\beta_0+\beta_1 Post_t+\beta_2 WillGetTreat_i+\beta_3 Post_t\times WillGetTreat_i+u_{it}
 \]
 
 \begin{figure}
@@ -763,7 +805,7 @@ effect change over time).
 Suppose treatment occurs right after period \(t=0\), estimate
 
 \[
-Y_{it}=\beta_0+\beta_2GetsTreat_i+\sum_{t=-n}^m\beta_{3t}Period_t \times GetsTreat_i+\lambda_t+u_{it}.
+Y_{it}=\beta_0+\beta_2WillGetTreat_i+\sum_{t=-n}^m\beta_{3t}Period_t \times WillGetTreat_i+\lambda_t+u_{it}.
 \]
 
 If parallel trends holds:
@@ -799,17 +841,16 @@ Two main types of graphs
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# simulating the data}
-\FunctionTok{set.seed}\NormalTok{(}\DecValTok{1999}\NormalTok{)}
-\NormalTok{scoresbase }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{9}\NormalTok{,}
-    \DecValTok{10}\NormalTok{), }\AttributeTok{times =} \DecValTok{30}\NormalTok{))}
-\FunctionTok{names}\NormalTok{(scoresbase) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"class"}\NormalTok{)}
+\CommentTok{\#simulating the data}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{5000}\NormalTok{)}
+\NormalTok{scoresbase}\OtherTok{\textless{}{-}}\FunctionTok{as.data.frame}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{7}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{9}\NormalTok{,}\DecValTok{10}\NormalTok{),}\AttributeTok{times=}\DecValTok{30}\NormalTok{))}
+\FunctionTok{names}\NormalTok{(scoresbase)}\OtherTok{\textless{}{-}}\FunctionTok{c}\NormalTok{(}\StringTok{"class"}\NormalTok{)}
 \NormalTok{scoresbase }\OtherTok{\textless{}{-}}\NormalTok{ fastDummies}\SpecialCharTok{::}\FunctionTok{dummy\_cols}\NormalTok{(scoresbase, }\AttributeTok{select\_columns =} \StringTok{"class"}\NormalTok{)}
 
-\CommentTok{\# suppose the better teachers (classes, 7,8,9,10) select to}
-\CommentTok{\# participate in the book club program}
-\NormalTok{scoresbase}\SpecialCharTok{$}\NormalTok{treat }\OtherTok{\textless{}{-}} \DecValTok{0}
-\NormalTok{scoresbase}\SpecialCharTok{$}\NormalTok{treat[scoresbase}\SpecialCharTok{$}\NormalTok{class }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\DecValTok{7}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{9}\NormalTok{, }\DecValTok{10}\NormalTok{)] }\OtherTok{\textless{}{-}} \DecValTok{1}
+\CommentTok{\#suppose the better teachers (classes, 7,8,9,10)}
+\CommentTok{\#select to participate in the book club program}
+\NormalTok{scoresbase}\SpecialCharTok{$}\NormalTok{treat}\OtherTok{\textless{}{-}}\DecValTok{0}
+\NormalTok{scoresbase}\SpecialCharTok{$}\NormalTok{treat[scoresbase}\SpecialCharTok{$}\NormalTok{class}\SpecialCharTok{\%in\%}\FunctionTok{c}\NormalTok{(}\DecValTok{7}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{9}\NormalTok{,}\DecValTok{10}\NormalTok{)]}\OtherTok{\textless{}{-}}\DecValTok{1}
 \end{Highlighting}
 \end{Shaded}
 \end{frame}
@@ -820,34 +861,33 @@ Two main types of graphs
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# Gnerating simulated data for each year using a for loop}
-\NormalTok{yr }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1995}\NormalTok{, }\DecValTok{1996}\NormalTok{, }\DecValTok{1997}\NormalTok{, }\DecValTok{1998}\NormalTok{, }\DecValTok{1999}\NormalTok{, }\DecValTok{2000}\NormalTok{, }\DecValTok{2001}\NormalTok{, }\DecValTok{2002}\NormalTok{, }\DecValTok{2003}\NormalTok{,}
-    \DecValTok{2004}\NormalTok{, }\DecValTok{2005}\NormalTok{)}
-\NormalTok{tauyr }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{10}\NormalTok{)}
-\NormalTok{yrfe }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{72}\NormalTok{, }\DecValTok{77}\NormalTok{, }\DecValTok{75}\NormalTok{, }\DecValTok{79}\NormalTok{, }\DecValTok{81}\NormalTok{, }\DecValTok{79}\NormalTok{, }\DecValTok{83}\NormalTok{, }\DecValTok{77}\NormalTok{, }\DecValTok{82}\NormalTok{, }\DecValTok{84}\NormalTok{, }\DecValTok{81}\NormalTok{)}
+\CommentTok{\#Gnerating simulated data for each year using a for loop}
+\NormalTok{yr}\OtherTok{\textless{}{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{1995}\NormalTok{,}\DecValTok{1996}\NormalTok{,}\DecValTok{1997}\NormalTok{,}\DecValTok{1998}\NormalTok{,}\DecValTok{1999}\NormalTok{,}\DecValTok{2000}\NormalTok{,}\DecValTok{2001}\NormalTok{,}\DecValTok{2002}\NormalTok{,}\DecValTok{2003}\NormalTok{,}\DecValTok{2004}\NormalTok{,}\DecValTok{2005}\NormalTok{)}
+\NormalTok{tauyr}\OtherTok{\textless{}{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{10}\NormalTok{,}\DecValTok{10}\NormalTok{,}\DecValTok{10}\NormalTok{,}\DecValTok{10}\NormalTok{,}\DecValTok{10}\NormalTok{)}
+\NormalTok{yrfe}\OtherTok{\textless{}{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{72}\NormalTok{,}\DecValTok{77}\NormalTok{,}\DecValTok{75}\NormalTok{,}\DecValTok{79}\NormalTok{,}\DecValTok{81}\NormalTok{,}\DecValTok{79}\NormalTok{,}\DecValTok{83}\NormalTok{,}\DecValTok{77}\NormalTok{,}\DecValTok{82}\NormalTok{,}\DecValTok{84}\NormalTok{,}\DecValTok{81}\NormalTok{)}
 
-\CommentTok{\# loop to generate the data}
-\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{11}\NormalTok{) \{}
-\NormalTok{    name }\OtherTok{\textless{}{-}} \FunctionTok{paste}\NormalTok{(}\StringTok{"scores"}\NormalTok{, yr[i], }\AttributeTok{sep =} \StringTok{"\_"}\NormalTok{)}
-\NormalTok{    scores }\OtherTok{\textless{}{-}}\NormalTok{ scoresbase}
-\NormalTok{    scores}\SpecialCharTok{$}\NormalTok{error }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{300}\NormalTok{, }\AttributeTok{mean =} \DecValTok{0}\NormalTok{, }\AttributeTok{sd =} \DecValTok{10}\NormalTok{)}
-\NormalTok{    tau }\OtherTok{\textless{}{-}}\NormalTok{ tauyr[i]}
-\NormalTok{    yearfe }\OtherTok{\textless{}{-}}\NormalTok{ yrfe[i]}
-    \CommentTok{\# the data generating process}
-\NormalTok{    scores}\SpecialCharTok{$}\NormalTok{read4 }\OtherTok{\textless{}{-}}\NormalTok{ (yearfe }\SpecialCharTok{+}\NormalTok{ tau }\SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{treat }\SpecialCharTok{+}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{error }\SpecialCharTok{+}
-\NormalTok{        (}\SpecialCharTok{{-}}\DecValTok{10}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{class\_1 }\SpecialCharTok{+}\NormalTok{ (}\SpecialCharTok{{-}}\DecValTok{15}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{class\_2 }\SpecialCharTok{+}\NormalTok{ (}\SpecialCharTok{{-}}\DecValTok{5}\NormalTok{) }\SpecialCharTok{*}
-\NormalTok{        scores}\SpecialCharTok{$}\NormalTok{class\_3 }\SpecialCharTok{+}\NormalTok{ (}\SpecialCharTok{{-}}\DecValTok{8}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{class\_4 }\SpecialCharTok{+}\NormalTok{ (}\SpecialCharTok{{-}}\DecValTok{7}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{class\_5 }\SpecialCharTok{+}
-\NormalTok{        (}\SpecialCharTok{{-}}\DecValTok{13}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{class\_6 }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{11}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{class\_7 }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{8}\NormalTok{) }\SpecialCharTok{*}
-\NormalTok{        scores}\SpecialCharTok{$}\NormalTok{class\_8 }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{10}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{class\_9 }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{12}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{class\_10)}
 
-\NormalTok{    scores}\SpecialCharTok{$}\NormalTok{year }\OtherTok{\textless{}{-}}\NormalTok{ yr[i]}
-    \FunctionTok{assign}\NormalTok{(name, scores)}
-    \FunctionTok{rm}\NormalTok{(scores)}
+
+\CommentTok{\#loop to generate the data}
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{11}\NormalTok{)\{}
+\NormalTok{  name}\OtherTok{\textless{}{-}}\FunctionTok{paste}\NormalTok{(}\StringTok{"scores"}\NormalTok{, yr[i], }\AttributeTok{sep=}\StringTok{"\_"}\NormalTok{)}
+\NormalTok{  scores}\OtherTok{\textless{}{-}}\NormalTok{scoresbase}
+\NormalTok{  scores}\SpecialCharTok{$}\NormalTok{error}\OtherTok{\textless{}{-}}\FunctionTok{rnorm}\NormalTok{(}\DecValTok{300}\NormalTok{, }\AttributeTok{mean=}\DecValTok{0}\NormalTok{, }\AttributeTok{sd=}\DecValTok{10}\NormalTok{)}
+\NormalTok{  tau}\OtherTok{\textless{}{-}}\NormalTok{tauyr[i]}
+\NormalTok{  yearfe}\OtherTok{\textless{}{-}}\NormalTok{yrfe[i]}
+  \CommentTok{\#the data generating process}
+\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{read4}\OtherTok{\textless{}{-}}\NormalTok{(yearfe}\SpecialCharTok{+}\NormalTok{tau}\SpecialCharTok{*}\NormalTok{scores}\SpecialCharTok{$}\NormalTok{treat}\SpecialCharTok{+}\NormalTok{scores}\SpecialCharTok{$}\NormalTok{error}
+               \SpecialCharTok{+}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{10}\NormalTok{)}\SpecialCharTok{*}\NormalTok{scores}\SpecialCharTok{$}\NormalTok{class\_1}\SpecialCharTok{+}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{15}\NormalTok{)}\SpecialCharTok{*}\NormalTok{scores}\SpecialCharTok{$}\NormalTok{class\_2}\SpecialCharTok{+}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{5}\NormalTok{)}\SpecialCharTok{*}\NormalTok{scores}\SpecialCharTok{$}\NormalTok{class\_3}
+               \SpecialCharTok{+}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{8}\NormalTok{)}\SpecialCharTok{*}\NormalTok{scores}\SpecialCharTok{$}\NormalTok{class\_4}\SpecialCharTok{+}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{7}\NormalTok{)}\SpecialCharTok{*}\NormalTok{scores}\SpecialCharTok{$}\NormalTok{class\_5}\SpecialCharTok{+}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{13}\NormalTok{)}\SpecialCharTok{*}\NormalTok{scores}\SpecialCharTok{$}\NormalTok{class\_6}
+               \SpecialCharTok{+}\NormalTok{(}\DecValTok{11}\NormalTok{)}\SpecialCharTok{*}\NormalTok{scores}\SpecialCharTok{$}\NormalTok{class\_7}\SpecialCharTok{+}\NormalTok{(}\DecValTok{8}\NormalTok{)}\SpecialCharTok{*}\NormalTok{scores}\SpecialCharTok{$}\NormalTok{class\_8}\SpecialCharTok{+}\NormalTok{(}\DecValTok{10}\NormalTok{)}\SpecialCharTok{*}\NormalTok{scores}\SpecialCharTok{$}\NormalTok{class\_9}
+               \SpecialCharTok{+}\NormalTok{(}\DecValTok{12}\NormalTok{)}\SpecialCharTok{*}\NormalTok{scores}\SpecialCharTok{$}\NormalTok{class\_10)}
+\NormalTok{  scores}\SpecialCharTok{$}\NormalTok{year}\OtherTok{\textless{}{-}}\NormalTok{yr[i]}
+  \FunctionTok{assign}\NormalTok{(name, scores)}
+  \FunctionTok{rm}\NormalTok{(scores)}
 \NormalTok{\}}
 
-\NormalTok{allscores }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(scores\_1995, scores\_1996, scores\_1997, scores\_1998,}
-\NormalTok{    scores\_1999, scores\_2000, scores\_2001, scores\_2002, scores\_2003,}
-\NormalTok{    scores\_2004, scores\_2005)}
+\NormalTok{allscores}\OtherTok{\textless{}{-}}\FunctionTok{rbind}\NormalTok{(scores\_1995,scores\_1996,scores\_1997,scores\_1998,scores\_1999,}
+\NormalTok{                 scores\_2000,scores\_2001,scores\_2002,scores\_2003,scores\_2004,scores\_2005)}
 \end{Highlighting}
 \end{Shaded}
 \end{frame}
@@ -858,18 +898,22 @@ Two main types of graphs
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{allscores}\SpecialCharTok{$}\NormalTok{post }\OtherTok{\textless{}{-}} \DecValTok{0}
-\NormalTok{allscores}\SpecialCharTok{$}\NormalTok{post[allscores}\SpecialCharTok{$}\NormalTok{year }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\DecValTok{2001}\NormalTok{, }\DecValTok{2002}\NormalTok{, }\DecValTok{2003}\NormalTok{, }\DecValTok{2004}\NormalTok{,}
-    \DecValTok{2005}\NormalTok{)] }\OtherTok{\textless{}{-}} \DecValTok{1}
+\NormalTok{allscores}\SpecialCharTok{$}\NormalTok{post}\OtherTok{\textless{}{-}}\DecValTok{0}
+\NormalTok{allscores}\SpecialCharTok{$}\NormalTok{post[allscores}\SpecialCharTok{$}\NormalTok{year}\SpecialCharTok{\%in\%}\FunctionTok{c}\NormalTok{(}\DecValTok{2001}\NormalTok{,}\DecValTok{2002}\NormalTok{,}\DecValTok{2003}\NormalTok{,}\DecValTok{2004}\NormalTok{,}\DecValTok{2005}\NormalTok{)]}\OtherTok{\textless{}{-}}\DecValTok{1}
 
 \NormalTok{allscores }\OtherTok{\textless{}{-}}\NormalTok{ fastDummies}\SpecialCharTok{::}\FunctionTok{dummy\_cols}\NormalTok{(allscores, }\AttributeTok{select\_columns =} \StringTok{"year"}\NormalTok{)}
 
-\NormalTok{regdidall2 }\OtherTok{\textless{}{-}} \FunctionTok{felm}\NormalTok{(read4 }\SpecialCharTok{\textasciitilde{}}\NormalTok{ treat }\SpecialCharTok{+}\NormalTok{ year\_1995 }\SpecialCharTok{+}\NormalTok{ year\_1996 }\SpecialCharTok{+}\NormalTok{ year\_1997 }\SpecialCharTok{+}
-\NormalTok{    year\_1998 }\SpecialCharTok{+}\NormalTok{ year\_1999 }\SpecialCharTok{+}\NormalTok{ year\_2001 }\SpecialCharTok{+}\NormalTok{ year\_2002 }\SpecialCharTok{+}\NormalTok{ year\_2003 }\SpecialCharTok{+}
-\NormalTok{    year\_2004 }\SpecialCharTok{+}\NormalTok{ year\_2005 }\SpecialCharTok{+}\NormalTok{ year\_1995 }\SpecialCharTok{*}\NormalTok{ treat }\SpecialCharTok{+}\NormalTok{ year\_1996 }\SpecialCharTok{*}\NormalTok{ treat }\SpecialCharTok{+}
-\NormalTok{    year\_1997 }\SpecialCharTok{*}\NormalTok{ treat }\SpecialCharTok{+}\NormalTok{ year\_1998 }\SpecialCharTok{*}\NormalTok{ treat }\SpecialCharTok{+}\NormalTok{ year\_1999 }\SpecialCharTok{*}\NormalTok{ treat }\SpecialCharTok{+}
-\NormalTok{    year\_2001 }\SpecialCharTok{*}\NormalTok{ treat }\SpecialCharTok{+}\NormalTok{ year\_2002 }\SpecialCharTok{*}\NormalTok{ treat }\SpecialCharTok{+}\NormalTok{ year\_2003 }\SpecialCharTok{*}\NormalTok{ treat }\SpecialCharTok{+}
-\NormalTok{    year\_2004 }\SpecialCharTok{*}\NormalTok{ treat }\SpecialCharTok{+}\NormalTok{ year\_2005 }\SpecialCharTok{*}\NormalTok{ treat, allscores)}
+\NormalTok{regdidall2}\OtherTok{\textless{}{-}}\FunctionTok{felm}\NormalTok{(read4}\SpecialCharTok{\textasciitilde{}}\NormalTok{treat}
+                 \SpecialCharTok{+}\NormalTok{year\_1995}\SpecialCharTok{+}\NormalTok{year\_1996}\SpecialCharTok{+}\NormalTok{year\_1997}\SpecialCharTok{+}\NormalTok{year\_1998}
+                 \SpecialCharTok{+}\NormalTok{year\_1999}\SpecialCharTok{+}\NormalTok{year\_2001}\SpecialCharTok{+}\NormalTok{year\_2002}\SpecialCharTok{+}\NormalTok{year\_2003}
+                 \SpecialCharTok{+}\NormalTok{year\_2004}\SpecialCharTok{+}\NormalTok{year\_2005}
+                 \SpecialCharTok{+}\NormalTok{year\_1995}\SpecialCharTok{*}\NormalTok{treat}\SpecialCharTok{+}\NormalTok{year\_1996}\SpecialCharTok{*}\NormalTok{treat}\SpecialCharTok{+}\NormalTok{year\_1997}\SpecialCharTok{*}\NormalTok{treat}\SpecialCharTok{+}\NormalTok{year\_1998}\SpecialCharTok{*}\NormalTok{treat}
+                 \SpecialCharTok{+}\NormalTok{year\_1999}\SpecialCharTok{*}\NormalTok{treat}\SpecialCharTok{+}\NormalTok{year\_2001}\SpecialCharTok{*}\NormalTok{treat}\SpecialCharTok{+}\NormalTok{year\_2002}\SpecialCharTok{*}\NormalTok{treat}\SpecialCharTok{+}\NormalTok{year\_2003}\SpecialCharTok{*}\NormalTok{treat}
+                 \SpecialCharTok{+}\NormalTok{year\_2004}\SpecialCharTok{*}\NormalTok{treat}\SpecialCharTok{+}\NormalTok{year\_2005}\SpecialCharTok{*}\NormalTok{treat}
+                 \SpecialCharTok{|}\DecValTok{0}
+                 \SpecialCharTok{|}\DecValTok{0}
+                 \SpecialCharTok{|}\NormalTok{class,}
+\NormalTok{                 allscores)}
 \end{Highlighting}
 \end{Shaded}
 \end{frame}
@@ -880,8 +924,7 @@ Two main types of graphs
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{stargazer}\NormalTok{(regdidall2, }\AttributeTok{type =} \StringTok{"latex"}\NormalTok{, }\AttributeTok{no.space =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{header =} \ConstantTok{FALSE}\NormalTok{,}
-    \AttributeTok{single.row =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{omit.stat =} \StringTok{"all"}\NormalTok{)}
+\FunctionTok{stargazer}\NormalTok{( regdidall2, }\AttributeTok{type=}\StringTok{"latex"}\NormalTok{,}\AttributeTok{no.space=}\ConstantTok{TRUE}\NormalTok{, }\AttributeTok{header=}\ConstantTok{FALSE}\NormalTok{, }\AttributeTok{single.row=}\ConstantTok{TRUE}\NormalTok{, }\AttributeTok{omit.stat =} \StringTok{"all"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -895,28 +938,28 @@ Two main types of graphs
 \cline{2-2} 
 \\[-1.8ex] & read4 \\ 
 \hline \\[-1.8ex] 
- treat & 18.774$^{***}$ (1.207) \\ 
-  year\_1995 & $-$5.842$^{***}$ (1.080) \\ 
-  year\_1996 & $-$2.945$^{***}$ (1.080) \\ 
-  year\_1997 & $-$1.696 (1.080) \\ 
-  year\_1998 & 0.027 (1.080) \\ 
-  year\_1999 & 2.636$^{**}$ (1.080) \\ 
-  year\_2001 & 5.125$^{***}$ (1.080) \\ 
-  year\_2002 & $-$2.235$^{**}$ (1.080) \\ 
-  year\_2003 & 1.849$^{*}$ (1.080) \\ 
-  year\_2004 & 4.430$^{***}$ (1.080) \\ 
-  year\_2005 & 2.533$^{**}$ (1.080) \\ 
-  treat:year\_1995 & 0.431 (1.707) \\ 
-  treat:year\_1996 & 1.427 (1.707) \\ 
-  treat:year\_1997 & $-$2.476 (1.707) \\ 
-  treat:year\_1998 & 0.568 (1.707) \\ 
-  treat:year\_1999 & $-$0.573 (1.707) \\ 
-  treat:year\_2001 & 10.204$^{***}$ (1.707) \\ 
-  treat:year\_2002 & 12.290$^{***}$ (1.707) \\ 
-  treat:year\_2003 & 11.188$^{***}$ (1.707) \\ 
-  treat:year\_2004 & 11.186$^{***}$ (1.707) \\ 
-  treat:year\_2005 & 10.217$^{***}$ (1.707) \\ 
-  Constant & 69.542$^{***}$ (0.764) \\ 
+ treat & 19.103$^{***}$ (1.645) \\ 
+  year\_1995 & $-$7.678$^{***}$ (1.750) \\ 
+  year\_1996 & $-$2.936 (1.811) \\ 
+  year\_1997 & $-$4.525$^{***}$ (1.400) \\ 
+  year\_1998 & 0.097 (1.566) \\ 
+  year\_1999 & 0.324 (1.831) \\ 
+  year\_2001 & 4.198$^{***}$ (1.461) \\ 
+  year\_2002 & $-$3.454$^{***}$ (1.269) \\ 
+  year\_2003 & 2.451$^{*}$ (1.308) \\ 
+  year\_2004 & 3.586$^{**}$ (1.639) \\ 
+  year\_2005 & 1.435 (1.553) \\ 
+  treat:year\_1995 & 0.560 (1.871) \\ 
+  treat:year\_1996 & 2.052 (1.859) \\ 
+  treat:year\_1997 & $-$0.201 (1.789) \\ 
+  treat:year\_1998 & 1.034 (1.760) \\ 
+  treat:year\_1999 & 2.162 (1.982) \\ 
+  treat:year\_2001 & 10.420$^{***}$ (1.595) \\ 
+  treat:year\_2002 & 10.152$^{***}$ (1.404) \\ 
+  treat:year\_2003 & 11.851$^{***}$ (1.577) \\ 
+  treat:year\_2004 & 12.257$^{***}$ (1.712) \\ 
+  treat:year\_2005 & 11.290$^{***}$ (1.810) \\ 
+  Constant & 69.903$^{***}$ (1.332) \\ 
  \hline \\[-1.8ex] 
 \hline 
 \hline \\[-1.8ex] 
@@ -931,28 +974,28 @@ Two main types of graphs
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# start with plot of group means}
+\CommentTok{\#start with plot of group means}
 
-\CommentTok{\# calculateing the mean score for each year by treatment}
-\CommentTok{\# status}
-\NormalTok{grp\_mean }\OtherTok{\textless{}{-}}\NormalTok{ allscores }\SpecialCharTok{\%\textgreater{}\%}
-    \FunctionTok{group\_by}\NormalTok{(year, treat) }\SpecialCharTok{\%\textgreater{}\%}
-\NormalTok{    dplyr}\SpecialCharTok{::}\FunctionTok{summarize}\NormalTok{(}\AttributeTok{groupmean =} \FunctionTok{mean}\NormalTok{(read4, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{))}
+\CommentTok{\#calculateing the mean score for each year by treatment status}
+\NormalTok{grp\_mean}\OtherTok{\textless{}{-}}\NormalTok{allscores}\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{group\_by}\NormalTok{(year,treat)}\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{    dplyr}\SpecialCharTok{::}\FunctionTok{summarize}\NormalTok{(}\AttributeTok{groupmean =} \FunctionTok{mean}\NormalTok{(read4, }\AttributeTok{na.rm=}\ConstantTok{TRUE}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## `summarise()` has grouped output by 'year'. You can override using the
-## `.groups` argument.
+## `summarise()` has grouped output by 'year'. You can override using the `.groups`
+## argument.
 \end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{grp\_mean}\SpecialCharTok{$}\NormalTok{treat }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(grp\_mean}\SpecialCharTok{$}\NormalTok{treat)}
+\NormalTok{grp\_mean}\SpecialCharTok{$}\NormalTok{treat}\OtherTok{\textless{}{-}}\FunctionTok{as.factor}\NormalTok{(grp\_mean}\SpecialCharTok{$}\NormalTok{treat)}
 
-\CommentTok{\# difference in means plot}
-\NormalTok{didmeans }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(grp\_mean, }\FunctionTok{aes}\NormalTok{(year, groupmean, }\AttributeTok{group =}\NormalTok{ treat,}
-    \AttributeTok{color =}\NormalTok{ treat)) }\SpecialCharTok{+} \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{geom =} \StringTok{"line"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{geom\_vline}\NormalTok{(}\AttributeTok{xintercept =} \DecValTok{2000}\NormalTok{) }\SpecialCharTok{+}
+\CommentTok{\#difference in means plot}
+\NormalTok{didmeans}\OtherTok{\textless{}{-}}\FunctionTok{ggplot}\NormalTok{(grp\_mean, }\FunctionTok{aes}\NormalTok{(year, groupmean, }\AttributeTok{group=}\NormalTok{treat, }\AttributeTok{color =}\NormalTok{ treat)) }\SpecialCharTok{+}
+    \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{geom =} \StringTok{\textquotesingle{}line\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{geom\_vline}\NormalTok{(}\AttributeTok{xintercept =} \DecValTok{2000}\NormalTok{) }\SpecialCharTok{+}
     \FunctionTok{theme\_minimal}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
@@ -960,7 +1003,7 @@ Two main types of graphs
 
 \begin{frame}{Simulation: With leads and lags}
 \protect\hypertarget{simulation-with-leads-and-lags-5}{}
-\includegraphics{"Slides_DID_files/figure-beamer/didplot-1.pdf"}
+\includegraphics{Slides_DID_files/figure-beamer/didplot_fig-1.pdf}
 \end{frame}
 
 \begin{frame}[fragile]{Simulation: With leads and lags}
@@ -969,34 +1012,51 @@ Two main types of graphs
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# plot of differences coefficients}
+\CommentTok{\#plot of differences coefficients}
 
-\NormalTok{res }\OtherTok{\textless{}{-}} \FunctionTok{coef}\NormalTok{(}\FunctionTok{summary}\NormalTok{(regdidall2))}
-\NormalTok{res }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(res)}
+\NormalTok{res}\OtherTok{\textless{}{-}}\FunctionTok{coef}\NormalTok{(}\FunctionTok{summary}\NormalTok{(regdidall2))}
+\end{Highlighting}
+\end{Shaded}
 
-\NormalTok{res }\OtherTok{\textless{}{-}}\NormalTok{ res[}\DecValTok{13}\SpecialCharTok{:}\DecValTok{22}\NormalTok{, ]}
+\begin{verbatim}
+## Warning in chol.default(mat, pivot = TRUE, tol = tol): the matrix is either
+## rank-deficient or indefinite
+\end{verbatim}
 
-\NormalTok{a }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{res}\OtherTok{\textless{}{-}}\FunctionTok{as.data.frame}\NormalTok{(res)}
 
-\NormalTok{res }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(res, a)}
+\NormalTok{res}\OtherTok{\textless{}{-}}\NormalTok{res[}\DecValTok{13}\SpecialCharTok{:}\DecValTok{22}\NormalTok{,]}
 
-\NormalTok{year }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1995}\NormalTok{, }\DecValTok{1996}\NormalTok{, }\DecValTok{1997}\NormalTok{, }\DecValTok{1998}\NormalTok{, }\DecValTok{1999}\NormalTok{, }\DecValTok{2001}\NormalTok{, }\DecValTok{2002}\NormalTok{, }\DecValTok{2003}\NormalTok{, }\DecValTok{2004}\NormalTok{,}
-    \DecValTok{2005}\NormalTok{, }\DecValTok{2000}\NormalTok{)}
-\NormalTok{res }\OtherTok{\textless{}{-}} \FunctionTok{cbind}\NormalTok{(res, year)}
-\NormalTok{res}\SpecialCharTok{$}\NormalTok{ci }\OtherTok{\textless{}{-}} \FloatTok{1.96} \SpecialCharTok{*}\NormalTok{ res}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{Std. Error}\StringTok{\textasciigrave{}}
+\NormalTok{a}\OtherTok{\textless{}{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{)}
 
-\FunctionTok{names}\NormalTok{(res) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Estimate"}\NormalTok{, }\StringTok{"se"}\NormalTok{, }\StringTok{"t"}\NormalTok{, }\StringTok{"p"}\NormalTok{, }\StringTok{"year"}\NormalTok{, }\StringTok{"ci"}\NormalTok{)}
+\NormalTok{res}\OtherTok{\textless{}{-}}\FunctionTok{rbind}\NormalTok{(res,a)}
+
+\NormalTok{year}\OtherTok{\textless{}{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{1995}\NormalTok{,}\DecValTok{1996}\NormalTok{,}\DecValTok{1997}\NormalTok{,}\DecValTok{1998}\NormalTok{,}\DecValTok{1999}\NormalTok{,}\DecValTok{2001}\NormalTok{,}\DecValTok{2002}\NormalTok{,}\DecValTok{2003}\NormalTok{,}\DecValTok{2004}\NormalTok{,}\DecValTok{2005}\NormalTok{,}\DecValTok{2000}\NormalTok{)}
+\NormalTok{res}\OtherTok{\textless{}{-}}\FunctionTok{cbind}\NormalTok{(res,year)}
+\NormalTok{res}\SpecialCharTok{$}\NormalTok{ci}\OtherTok{\textless{}{-}}\FloatTok{1.96}\SpecialCharTok{*}\NormalTok{res}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{Cluster s.e.}\StringTok{\textasciigrave{}}
+
+\FunctionTok{names}\NormalTok{(res)}\OtherTok{\textless{}{-}}\FunctionTok{c}\NormalTok{(}\StringTok{"Estimate"}\NormalTok{,}\StringTok{"se"}\NormalTok{, }\StringTok{"t"}\NormalTok{,  }\StringTok{"p"}\NormalTok{, }\StringTok{"year"}\NormalTok{, }\StringTok{"ci"}\NormalTok{)}
 \CommentTok{\# Use 95\% confidence interval instead of SEM}
-\NormalTok{didplot2 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(res, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ year, }\AttributeTok{y =}\NormalTok{ Estimate)) }\SpecialCharTok{+} \FunctionTok{geom\_errorbar}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{ymin =}\NormalTok{ Estimate }\SpecialCharTok{{-}}
-\NormalTok{    ci, }\AttributeTok{ymax =}\NormalTok{ Estimate }\SpecialCharTok{+}\NormalTok{ ci), }\AttributeTok{width =} \FloatTok{0.1}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{geom\_vline}\NormalTok{(}\AttributeTok{xintercept =} \DecValTok{2000}\NormalTok{) }\SpecialCharTok{+}
-    \FunctionTok{geom\_hline}\NormalTok{(}\AttributeTok{yintercept =} \DecValTok{0}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{geom\_point}\NormalTok{()}
+\NormalTok{didplot2}\OtherTok{\textless{}{-}}\FunctionTok{ggplot}\NormalTok{(res, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{year, }\AttributeTok{y=}\NormalTok{Estimate)) }\SpecialCharTok{+} 
+    \FunctionTok{geom\_errorbar}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{ymin=}\NormalTok{Estimate}\SpecialCharTok{{-}}\NormalTok{ci, }\AttributeTok{ymax=}\NormalTok{Estimate}\SpecialCharTok{+}\NormalTok{ci),}\AttributeTok{width=}\NormalTok{.}\DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{geom\_vline}\NormalTok{(}\AttributeTok{xintercept =} \DecValTok{2000}\NormalTok{)}\SpecialCharTok{+}
+      \FunctionTok{geom\_hline}\NormalTok{(}\AttributeTok{yintercept =} \DecValTok{0}\NormalTok{)}\SpecialCharTok{+}
+     \FunctionTok{geom\_point}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 \end{frame}
 
-\begin{frame}{Simulation: With leads and Lags}
+\begin{frame}[fragile]{Simulation: With leads and Lags}
 \protect\hypertarget{simulation-with-leads-and-lags-7}{}
-\includegraphics{"Slides_DID_files/figure-beamer/didplotb-1.pdf"}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{didplot2}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Slides_DID_files/figure-beamer/didplot_fig2-1.pdf}
 \end{frame}
 
 \begin{frame}{A note on Inference: Clustering}
@@ -1028,12 +1088,17 @@ Clustering standard errors can be done in R using the felm function:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{regdidall3 }\OtherTok{\textless{}{-}} \FunctionTok{felm}\NormalTok{(read4 }\SpecialCharTok{\textasciitilde{}}\NormalTok{ treat }\SpecialCharTok{+}\NormalTok{ year\_1995 }\SpecialCharTok{+}\NormalTok{ year\_1996 }\SpecialCharTok{+}\NormalTok{ year\_1997 }\SpecialCharTok{+}
-\NormalTok{    year\_1998 }\SpecialCharTok{+}\NormalTok{ year\_1999 }\SpecialCharTok{+}\NormalTok{ year\_2001 }\SpecialCharTok{+}\NormalTok{ year\_2002 }\SpecialCharTok{+}\NormalTok{ year\_2003 }\SpecialCharTok{+}
-\NormalTok{    year\_2004 }\SpecialCharTok{+}\NormalTok{ year\_2005 }\SpecialCharTok{+}\NormalTok{ year\_1995 }\SpecialCharTok{*}\NormalTok{ treat }\SpecialCharTok{+}\NormalTok{ year\_1996 }\SpecialCharTok{*}\NormalTok{ treat }\SpecialCharTok{+}
-\NormalTok{    year\_1997 }\SpecialCharTok{*}\NormalTok{ treat }\SpecialCharTok{+}\NormalTok{ year\_1998 }\SpecialCharTok{*}\NormalTok{ treat }\SpecialCharTok{+}\NormalTok{ year\_1999 }\SpecialCharTok{*}\NormalTok{ treat }\SpecialCharTok{+}
-\NormalTok{    year\_2001 }\SpecialCharTok{*}\NormalTok{ treat }\SpecialCharTok{+}\NormalTok{ year\_2002 }\SpecialCharTok{*}\NormalTok{ treat }\SpecialCharTok{+}\NormalTok{ year\_2003 }\SpecialCharTok{*}\NormalTok{ treat }\SpecialCharTok{+}
-\NormalTok{    year\_2004 }\SpecialCharTok{*}\NormalTok{ treat }\SpecialCharTok{+}\NormalTok{ year\_2005 }\SpecialCharTok{*}\NormalTok{ treat }\SpecialCharTok{|} \DecValTok{0} \SpecialCharTok{|} \DecValTok{0} \SpecialCharTok{|}\NormalTok{ class, allscores)}
+\NormalTok{regdidall3}\OtherTok{\textless{}{-}}\FunctionTok{felm}\NormalTok{(read4}\SpecialCharTok{\textasciitilde{}}\NormalTok{treat}
+                 \SpecialCharTok{+}\NormalTok{year\_1995}\SpecialCharTok{+}\NormalTok{year\_1996}\SpecialCharTok{+}\NormalTok{year\_1997}\SpecialCharTok{+}\NormalTok{year\_1998}
+                 \SpecialCharTok{+}\NormalTok{year\_1999}\SpecialCharTok{+}\NormalTok{year\_2001}\SpecialCharTok{+}\NormalTok{year\_2002}\SpecialCharTok{+}\NormalTok{year\_2003}
+                 \SpecialCharTok{+}\NormalTok{year\_2004}\SpecialCharTok{+}\NormalTok{year\_2005}
+                 \SpecialCharTok{+}\NormalTok{year\_1995}\SpecialCharTok{*}\NormalTok{treat}\SpecialCharTok{+}\NormalTok{year\_1996}\SpecialCharTok{*}\NormalTok{treat}\SpecialCharTok{+}\NormalTok{year\_1997}\SpecialCharTok{*}\NormalTok{treat}\SpecialCharTok{+}\NormalTok{year\_1998}\SpecialCharTok{*}\NormalTok{treat}
+                 \SpecialCharTok{+}\NormalTok{year\_1999}\SpecialCharTok{*}\NormalTok{treat}\SpecialCharTok{+}\NormalTok{year\_2001}\SpecialCharTok{*}\NormalTok{treat}\SpecialCharTok{+}\NormalTok{year\_2002}\SpecialCharTok{*}\NormalTok{treat}\SpecialCharTok{+}\NormalTok{year\_2003}\SpecialCharTok{*}\NormalTok{treat}
+                 \SpecialCharTok{+}\NormalTok{year\_2004}\SpecialCharTok{*}\NormalTok{treat}\SpecialCharTok{+}\NormalTok{year\_2005}\SpecialCharTok{*}\NormalTok{treat}
+                 \SpecialCharTok{|}\DecValTok{0}
+                 \SpecialCharTok{|}\DecValTok{0}
+                 \SpecialCharTok{|}\NormalTok{class,}
+\NormalTok{                 allscores)}
 \end{Highlighting}
 \end{Shaded}
 \end{frame}
@@ -1044,8 +1109,7 @@ Clustering standard errors can be done in R using the felm function:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{stargazer}\NormalTok{(regdidall2, regdidall3, }\AttributeTok{type =} \StringTok{"latex"}\NormalTok{, }\AttributeTok{no.space =} \ConstantTok{TRUE}\NormalTok{,}
-    \AttributeTok{single.row =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{omit.stat =} \StringTok{"all"}\NormalTok{, }\AttributeTok{header =} \ConstantTok{FALSE}\NormalTok{)}
+\FunctionTok{stargazer}\NormalTok{( regdidall2,regdidall3, }\AttributeTok{type=}\StringTok{"latex"}\NormalTok{,}\AttributeTok{no.space=}\ConstantTok{TRUE}\NormalTok{, }\AttributeTok{single.row=}\ConstantTok{TRUE}\NormalTok{, }\AttributeTok{omit.stat =} \StringTok{"all"}\NormalTok{, }\AttributeTok{header=}\ConstantTok{FALSE}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1060,28 +1124,28 @@ Clustering standard errors can be done in R using the felm function:
 \\[-1.8ex] & \multicolumn{2}{c}{read4} \\ 
 \\[-1.8ex] & (1) & (2)\\ 
 \hline \\[-1.8ex] 
- treat & 18.774$^{***}$ (1.207) & 18.774$^{***}$ (2.268) \\ 
-  year\_1995 & $-$5.842$^{***}$ (1.080) & $-$5.842$^{***}$ (0.879) \\ 
-  year\_1996 & $-$2.945$^{***}$ (1.080) & $-$2.945$^{***}$ (1.070) \\ 
-  year\_1997 & $-$1.696 (1.080) & $-$1.696 (1.032) \\ 
-  year\_1998 & 0.027 (1.080) & 0.027 (0.257) \\ 
-  year\_1999 & 2.636$^{**}$ (1.080) & 2.636$^{**}$ (1.237) \\ 
-  year\_2001 & 5.125$^{***}$ (1.080) & 5.125$^{***}$ (0.941) \\ 
-  year\_2002 & $-$2.235$^{**}$ (1.080) & $-$2.235 (1.582) \\ 
-  year\_2003 & 1.849$^{*}$ (1.080) & 1.849$^{***}$ (0.654) \\ 
-  year\_2004 & 4.430$^{***}$ (1.080) & 4.430$^{***}$ (1.206) \\ 
-  year\_2005 & 2.533$^{**}$ (1.080) & 2.533$^{***}$ (0.746) \\ 
-  treat:year\_1995 & 0.431 (1.707) & 0.431 (1.768) \\ 
-  treat:year\_1996 & 1.427 (1.707) & 1.427 (2.108) \\ 
-  treat:year\_1997 & $-$2.476 (1.707) & $-$2.476$^{*}$ (1.287) \\ 
-  treat:year\_1998 & 0.568 (1.707) & 0.568 (1.570) \\ 
-  treat:year\_1999 & $-$0.573 (1.707) & $-$0.573 (1.477) \\ 
-  treat:year\_2001 & 10.204$^{***}$ (1.707) & 10.204$^{***}$ (1.602) \\ 
-  treat:year\_2002 & 12.290$^{***}$ (1.707) & 12.290$^{***}$ (2.310) \\ 
-  treat:year\_2003 & 11.188$^{***}$ (1.707) & 11.188$^{***}$ (1.824) \\ 
-  treat:year\_2004 & 11.186$^{***}$ (1.707) & 11.186$^{***}$ (2.216) \\ 
-  treat:year\_2005 & 10.217$^{***}$ (1.707) & 10.217$^{***}$ (1.510) \\ 
-  Constant & 69.542$^{***}$ (0.764) & 69.542$^{***}$ (1.965) \\ 
+ treat & 19.103$^{***}$ (1.645) & 19.103$^{***}$ (1.645) \\ 
+  year\_1995 & $-$7.678$^{***}$ (1.750) & $-$7.678$^{***}$ (1.750) \\ 
+  year\_1996 & $-$2.936 (1.811) & $-$2.936 (1.811) \\ 
+  year\_1997 & $-$4.525$^{***}$ (1.400) & $-$4.525$^{***}$ (1.400) \\ 
+  year\_1998 & 0.097 (1.566) & 0.097 (1.566) \\ 
+  year\_1999 & 0.324 (1.831) & 0.324 (1.831) \\ 
+  year\_2001 & 4.198$^{***}$ (1.461) & 4.198$^{***}$ (1.461) \\ 
+  year\_2002 & $-$3.454$^{***}$ (1.269) & $-$3.454$^{***}$ (1.269) \\ 
+  year\_2003 & 2.451$^{*}$ (1.308) & 2.451$^{*}$ (1.308) \\ 
+  year\_2004 & 3.586$^{**}$ (1.639) & 3.586$^{**}$ (1.639) \\ 
+  year\_2005 & 1.435 (1.553) & 1.435 (1.553) \\ 
+  treat:year\_1995 & 0.560 (1.871) & 0.560 (1.871) \\ 
+  treat:year\_1996 & 2.052 (1.859) & 2.052 (1.859) \\ 
+  treat:year\_1997 & $-$0.201 (1.789) & $-$0.201 (1.789) \\ 
+  treat:year\_1998 & 1.034 (1.760) & 1.034 (1.760) \\ 
+  treat:year\_1999 & 2.162 (1.982) & 2.162 (1.982) \\ 
+  treat:year\_2001 & 10.420$^{***}$ (1.595) & 10.420$^{***}$ (1.595) \\ 
+  treat:year\_2002 & 10.152$^{***}$ (1.404) & 10.152$^{***}$ (1.404) \\ 
+  treat:year\_2003 & 11.851$^{***}$ (1.577) & 11.851$^{***}$ (1.577) \\ 
+  treat:year\_2004 & 12.257$^{***}$ (1.712) & 12.257$^{***}$ (1.712) \\ 
+  treat:year\_2005 & 11.290$^{***}$ (1.810) & 11.290$^{***}$ (1.810) \\ 
+  Constant & 69.903$^{***}$ (1.332) & 69.903$^{***}$ (1.332) \\ 
  \hline \\[-1.8ex] 
 \hline 
 \hline \\[-1.8ex] 
@@ -1096,15 +1160,15 @@ In addition to checking for parallel pre-trends, you can also check and
 see if there is a pattern of parallel trends for an alternative outcome
 measure that should not be affected by treatment.
 
-For the ERS example,
+For the minimum wage example,
 
 \begin{itemize}
 \item
-  estimate the same model with manslaughter or male murders as the
-  outcome variable.
+  could estimate the same model with employment in technical fields as
+  the outcome variable?
 \item
-  these variables would be affected by the underlying violent crime in
-  the city, but should be unaffected by ERS.
+  these variables would be affected by underlying economic conditions,
+  but should be less affected by minimum wage laws.
 \end{itemize}
 \end{frame}
 
@@ -1193,9 +1257,9 @@ Y_{i,a,g,t}=&\alpha_0+\alpha_1 GetT_{g}+\alpha_2 AS_{a}+\alpha_3 Post_{t}\\
 \protect\hypertarget{triple-differences-1}{}
 \[
 \begin{aligned}
-Y_{i,a,g,t}=&\alpha_0+\alpha_1 GetT_{g}+\alpha_2 AS_{a}+\alpha_3 Post_{t}\\
-&+\alpha_4 (GetT \times Post)_{gt}+\alpha_5 (GetT \times AS)_{ga}+\alpha_6 (Post \times AS)_{ta}\\
-&+\alpha_7 (GetT \times Post \times AS)_{agt}+u_{igta}
+Y_{i,a,g,t}=&\alpha_0+\alpha_1 WGetT_{g}+\alpha_2 AS_{a}+\alpha_3 Post_{t}\\
+&+\alpha_4 (WGetT \times Post)_{gt}+\alpha_5 (WGetT \times AS)_{ga}+\alpha_6 (Post \times AS)_{ta}\\
+&+\alpha_7 (WGetT \times Post \times AS)_{agt}+u_{igta}
 \end{aligned}
 \] What is the alternative hypothesis, stated in terms of these
 coefficients?
@@ -1237,40 +1301,35 @@ the after school program effects.
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{set.seed}\NormalTok{(}\DecValTok{123456}\NormalTok{)}
-\NormalTok{scores }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{9}\NormalTok{, }\DecValTok{10}\NormalTok{),}
-    \AttributeTok{times =} \DecValTok{30}\NormalTok{))}
-\FunctionTok{names}\NormalTok{(scores) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"class"}\NormalTok{)}
+\NormalTok{scores}\OtherTok{\textless{}{-}}\FunctionTok{as.data.frame}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{7}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{9}\NormalTok{,}\DecValTok{10}\NormalTok{),}\AttributeTok{times=}\DecValTok{30}\NormalTok{))}
+\FunctionTok{names}\NormalTok{(scores)}\OtherTok{\textless{}{-}}\FunctionTok{c}\NormalTok{(}\StringTok{"class"}\NormalTok{)}
 \NormalTok{scores }\OtherTok{\textless{}{-}}\NormalTok{ fastDummies}\SpecialCharTok{::}\FunctionTok{dummy\_cols}\NormalTok{(scores, }\AttributeTok{select\_columns =} \StringTok{"class"}\NormalTok{)}
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{error}\OtherTok{\textless{}{-}}\FunctionTok{rnorm}\NormalTok{(}\DecValTok{300}\NormalTok{, }\AttributeTok{mean=}\DecValTok{0}\NormalTok{, }\AttributeTok{sd=}\DecValTok{10}\NormalTok{)}
 
-\NormalTok{scores}\SpecialCharTok{$}\NormalTok{error }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{300}\NormalTok{, }\AttributeTok{mean =} \DecValTok{0}\NormalTok{, }\AttributeTok{sd =} \DecValTok{10}\NormalTok{)}
+\CommentTok{\#a random indicator for participation in the afterschool program}
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{aftsch}\OtherTok{\textless{}{-}}\FunctionTok{rbinom}\NormalTok{(}\DecValTok{300}\NormalTok{,}\DecValTok{1}\NormalTok{,}\FloatTok{0.5}\NormalTok{)}
 
-\CommentTok{\# a random indicator for participation in the afterschool}
-\CommentTok{\# program}
-\NormalTok{scores}\SpecialCharTok{$}\NormalTok{aftsch }\OtherTok{\textless{}{-}} \FunctionTok{rbinom}\NormalTok{(}\DecValTok{300}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.5}\NormalTok{)}
+\CommentTok{\#suppose the best teachers (classes, 7,8,9,10) }
+\CommentTok{\#select into participating in the book club program}
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{treat}\OtherTok{\textless{}{-}}\DecValTok{0}
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{treat[scores}\SpecialCharTok{$}\NormalTok{class}\SpecialCharTok{\%in\%}\FunctionTok{c}\NormalTok{(}\DecValTok{7}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{9}\NormalTok{,}\DecValTok{10}\NormalTok{)]}\OtherTok{\textless{}{-}}\DecValTok{1}
 
-\CommentTok{\# suppose the best teachers (classes, 7,8,9,10) select into}
-\CommentTok{\# participating in the book club program}
-\NormalTok{scores}\SpecialCharTok{$}\NormalTok{treat }\OtherTok{\textless{}{-}} \DecValTok{0}
-\NormalTok{scores}\SpecialCharTok{$}\NormalTok{treat[scores}\SpecialCharTok{$}\NormalTok{class }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\DecValTok{7}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{9}\NormalTok{, }\DecValTok{10}\NormalTok{)] }\OtherTok{\textless{}{-}} \DecValTok{1}
+\CommentTok{\#creating an indicator for students who are become treated}
+\CommentTok{\#and are not in the after school program}
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{treatnotaftsch}\OtherTok{\textless{}{-}}\DecValTok{0}
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{treatnotaftsch[scores}\SpecialCharTok{$}\NormalTok{treat}\SpecialCharTok{==}\DecValTok{1} \SpecialCharTok{\&}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{aftsch}\SpecialCharTok{==}\DecValTok{0}\NormalTok{]}\OtherTok{\textless{}{-}}\DecValTok{1}
 
-\CommentTok{\# creating an indicator for students who are become treated}
-\CommentTok{\# and are not in the after school program}
-\NormalTok{scores}\SpecialCharTok{$}\NormalTok{treatnotaftsch }\OtherTok{\textless{}{-}} \DecValTok{0}
-\NormalTok{scores}\SpecialCharTok{$}\NormalTok{treatnotaftsch[scores}\SpecialCharTok{$}\NormalTok{treat }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\&}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{aftsch }\SpecialCharTok{==} \DecValTok{0}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{1}
+\CommentTok{\#the treatment effect}
+\NormalTok{tau}\OtherTok{\textless{}{-}}\DecValTok{10}
 
-\CommentTok{\# the treatment effect}
-\NormalTok{tau }\OtherTok{\textless{}{-}} \DecValTok{10}
+\CommentTok{\#the data generating process}
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{read4}\OtherTok{\textless{}{-}}\NormalTok{(}\DecValTok{85}\SpecialCharTok{+}\DecValTok{13}\SpecialCharTok{*}\NormalTok{scores}\SpecialCharTok{$}\NormalTok{aftsch}\SpecialCharTok{+}\NormalTok{tau}\SpecialCharTok{*}\NormalTok{scores}\SpecialCharTok{$}\NormalTok{treatnotaftsch}\SpecialCharTok{+}\NormalTok{scores}\SpecialCharTok{$}\NormalTok{error}
+               \SpecialCharTok{+}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{10}\NormalTok{)}\SpecialCharTok{*}\NormalTok{scores}\SpecialCharTok{$}\NormalTok{class\_1}\SpecialCharTok{+}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{15}\NormalTok{)}\SpecialCharTok{*}\NormalTok{scores}\SpecialCharTok{$}\NormalTok{class\_2}\SpecialCharTok{+}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{5}\NormalTok{)}\SpecialCharTok{*}\NormalTok{scores}\SpecialCharTok{$}\NormalTok{class\_3}
+               \SpecialCharTok{+}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{8}\NormalTok{)}\SpecialCharTok{*}\NormalTok{scores}\SpecialCharTok{$}\NormalTok{class\_4}\SpecialCharTok{+}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{3}\NormalTok{)}\SpecialCharTok{*}\NormalTok{scores}\SpecialCharTok{$}\NormalTok{class\_5}\SpecialCharTok{+}\NormalTok{(}\DecValTok{3}\NormalTok{)}\SpecialCharTok{*}\NormalTok{scores}\SpecialCharTok{$}\NormalTok{class\_6}
+               \SpecialCharTok{+}\NormalTok{(}\DecValTok{5}\NormalTok{)}\SpecialCharTok{*}\NormalTok{scores}\SpecialCharTok{$}\NormalTok{class\_7}\SpecialCharTok{+}\NormalTok{(}\DecValTok{8}\NormalTok{)}\SpecialCharTok{*}\NormalTok{scores}\SpecialCharTok{$}\NormalTok{class\_8}\SpecialCharTok{+}\NormalTok{(}\DecValTok{10}\NormalTok{)}\SpecialCharTok{*}\NormalTok{scores}\SpecialCharTok{$}\NormalTok{class\_9}\SpecialCharTok{+}\NormalTok{(}\DecValTok{12}\NormalTok{)}\SpecialCharTok{*}\NormalTok{scores}\SpecialCharTok{$}\NormalTok{class\_10)}
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{year}\OtherTok{\textless{}{-}}\StringTok{"2001"}
 
-\CommentTok{\# the data generating process}
-\NormalTok{scores}\SpecialCharTok{$}\NormalTok{read4 }\OtherTok{\textless{}{-}}\NormalTok{ (}\DecValTok{85} \SpecialCharTok{+} \DecValTok{13} \SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{aftsch }\SpecialCharTok{+}\NormalTok{ tau }\SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{treatnotaftsch }\SpecialCharTok{+}
-\NormalTok{    scores}\SpecialCharTok{$}\NormalTok{error }\SpecialCharTok{+}\NormalTok{ (}\SpecialCharTok{{-}}\DecValTok{10}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{class\_1 }\SpecialCharTok{+}\NormalTok{ (}\SpecialCharTok{{-}}\DecValTok{15}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{class\_2 }\SpecialCharTok{+}
-\NormalTok{    (}\SpecialCharTok{{-}}\DecValTok{5}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{class\_3 }\SpecialCharTok{+}\NormalTok{ (}\SpecialCharTok{{-}}\DecValTok{8}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{class\_4 }\SpecialCharTok{+}\NormalTok{ (}\SpecialCharTok{{-}}\DecValTok{3}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{class\_5 }\SpecialCharTok{+}
-\NormalTok{    (}\DecValTok{3}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{class\_6 }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{5}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{class\_7 }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{8}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{class\_8 }\SpecialCharTok{+}
-\NormalTok{    (}\DecValTok{10}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{class\_9 }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{12}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{class\_10)}
-
-\NormalTok{scores}\SpecialCharTok{$}\NormalTok{year }\OtherTok{\textless{}{-}} \StringTok{"2001"}
-
-\NormalTok{scores01 }\OtherTok{\textless{}{-}}\NormalTok{ scores}
+\NormalTok{scores01}\OtherTok{\textless{}{-}}\NormalTok{scores}
 \FunctionTok{rm}\NormalTok{(scores)}
 \end{Highlighting}
 \end{Shaded}
@@ -1282,40 +1341,39 @@ the after school program effects.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{scores }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{9}\NormalTok{, }\DecValTok{10}\NormalTok{),}
-    \AttributeTok{times =} \DecValTok{30}\NormalTok{))}
-\FunctionTok{names}\NormalTok{(scores) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"class"}\NormalTok{)}
+\NormalTok{scores}\OtherTok{\textless{}{-}}\FunctionTok{as.data.frame}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{7}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{9}\NormalTok{,}\DecValTok{10}\NormalTok{),}\AttributeTok{times=}\DecValTok{30}\NormalTok{))}
+\FunctionTok{names}\NormalTok{(scores)}\OtherTok{\textless{}{-}}\FunctionTok{c}\NormalTok{(}\StringTok{"class"}\NormalTok{)}
 \NormalTok{scores }\OtherTok{\textless{}{-}}\NormalTok{ fastDummies}\SpecialCharTok{::}\FunctionTok{dummy\_cols}\NormalTok{(scores, }\AttributeTok{select\_columns =} \StringTok{"class"}\NormalTok{)}
 
-\NormalTok{scores}\SpecialCharTok{$}\NormalTok{error }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{300}\NormalTok{, }\AttributeTok{mean =} \DecValTok{0}\NormalTok{, }\AttributeTok{sd =} \DecValTok{10}\NormalTok{)}
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{error}\OtherTok{\textless{}{-}}\FunctionTok{rnorm}\NormalTok{(}\DecValTok{300}\NormalTok{, }\AttributeTok{mean=}\DecValTok{0}\NormalTok{, }\AttributeTok{sd=}\DecValTok{10}\NormalTok{)}
 
-\CommentTok{\# a random indicator for participation in the afterschool}
-\CommentTok{\# program}
-\NormalTok{scores}\SpecialCharTok{$}\NormalTok{aftsch }\OtherTok{\textless{}{-}} \FunctionTok{rbinom}\NormalTok{(}\DecValTok{300}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.5}\NormalTok{)}
+\CommentTok{\#a random indicator for participation in the afterschool program}
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{aftsch}\OtherTok{\textless{}{-}}\FunctionTok{rbinom}\NormalTok{(}\DecValTok{300}\NormalTok{,}\DecValTok{1}\NormalTok{,}\FloatTok{0.5}\NormalTok{)}
 
-\CommentTok{\# suppose the best teachers (classes, 7,8,9,10) select into}
-\CommentTok{\# participating in the book club program}
-\NormalTok{scores}\SpecialCharTok{$}\NormalTok{treat }\OtherTok{\textless{}{-}} \DecValTok{0}
-\NormalTok{scores}\SpecialCharTok{$}\NormalTok{treat[scores}\SpecialCharTok{$}\NormalTok{class }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\DecValTok{7}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{9}\NormalTok{, }\DecValTok{10}\NormalTok{)] }\OtherTok{\textless{}{-}} \DecValTok{1}
+\CommentTok{\#suppose the best teachers (classes, 7,8,9,10) }
+\CommentTok{\#select into participating in the book club program}
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{treat}\OtherTok{\textless{}{-}}\DecValTok{0}
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{treat[scores}\SpecialCharTok{$}\NormalTok{class}\SpecialCharTok{\%in\%}\FunctionTok{c}\NormalTok{(}\DecValTok{7}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{9}\NormalTok{,}\DecValTok{10}\NormalTok{)]}\OtherTok{\textless{}{-}}\DecValTok{1}
 
-\CommentTok{\# creating an indicator for students who are become treated}
-\CommentTok{\# and are not in the after school program}
-\NormalTok{scores}\SpecialCharTok{$}\NormalTok{treatnotaftsch }\OtherTok{\textless{}{-}} \DecValTok{0}
-\NormalTok{scores}\SpecialCharTok{$}\NormalTok{treatnotaftsch[scores}\SpecialCharTok{$}\NormalTok{treat }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\&}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{aftsch }\SpecialCharTok{==} \DecValTok{0}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{1}
+\CommentTok{\#creating an indicator for students who are become treated}
+\CommentTok{\#and are not in the after school program}
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{treatnotaftsch}\OtherTok{\textless{}{-}}\DecValTok{0}
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{treatnotaftsch[scores}\SpecialCharTok{$}\NormalTok{treat}\SpecialCharTok{==}\DecValTok{1} \SpecialCharTok{\&}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{aftsch}\SpecialCharTok{==}\DecValTok{0}\NormalTok{]}\OtherTok{\textless{}{-}}\DecValTok{1}
 
-\CommentTok{\# the data generating process}
-\NormalTok{scores}\SpecialCharTok{$}\NormalTok{read4 }\OtherTok{\textless{}{-}}\NormalTok{ (}\DecValTok{78} \SpecialCharTok{+} \DecValTok{18} \SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{aftsch }\SpecialCharTok{+}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{error }\SpecialCharTok{+}\NormalTok{ (}\SpecialCharTok{{-}}\DecValTok{10}\NormalTok{) }\SpecialCharTok{*}
-\NormalTok{    scores}\SpecialCharTok{$}\NormalTok{class\_1 }\SpecialCharTok{+}\NormalTok{ (}\SpecialCharTok{{-}}\DecValTok{15}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{class\_2 }\SpecialCharTok{+}\NormalTok{ (}\SpecialCharTok{{-}}\DecValTok{5}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{class\_3 }\SpecialCharTok{+}
-\NormalTok{    (}\SpecialCharTok{{-}}\DecValTok{8}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{class\_4 }\SpecialCharTok{+}\NormalTok{ (}\SpecialCharTok{{-}}\DecValTok{3}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{class\_5 }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{3}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{class\_6 }\SpecialCharTok{+}
-\NormalTok{    (}\DecValTok{5}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{class\_7 }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{8}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{class\_8 }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{10}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{class\_9 }\SpecialCharTok{+}
-\NormalTok{    (}\DecValTok{12}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ scores}\SpecialCharTok{$}\NormalTok{class\_10)}
+\CommentTok{\#the data generating process}
+\CommentTok{\#the data generating process}
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{read4}\OtherTok{\textless{}{-}}\NormalTok{(}\DecValTok{78}\SpecialCharTok{+}\DecValTok{18}\SpecialCharTok{*}\NormalTok{scores}\SpecialCharTok{$}\NormalTok{aftsch}\SpecialCharTok{+}\NormalTok{scores}\SpecialCharTok{$}\NormalTok{error}
+               \SpecialCharTok{+}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{10}\NormalTok{)}\SpecialCharTok{*}\NormalTok{scores}\SpecialCharTok{$}\NormalTok{class\_1}\SpecialCharTok{+}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{15}\NormalTok{)}\SpecialCharTok{*}\NormalTok{scores}\SpecialCharTok{$}\NormalTok{class\_2}\SpecialCharTok{+}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{5}\NormalTok{)}\SpecialCharTok{*}\NormalTok{scores}\SpecialCharTok{$}\NormalTok{class\_3}
+               \SpecialCharTok{+}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{8}\NormalTok{)}\SpecialCharTok{*}\NormalTok{scores}\SpecialCharTok{$}\NormalTok{class\_4}\SpecialCharTok{+}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{3}\NormalTok{)}\SpecialCharTok{*}\NormalTok{scores}\SpecialCharTok{$}\NormalTok{class\_5}\SpecialCharTok{+}\NormalTok{(}\DecValTok{3}\NormalTok{)}\SpecialCharTok{*}\NormalTok{scores}\SpecialCharTok{$}\NormalTok{class\_6}
+               \SpecialCharTok{+}\NormalTok{(}\DecValTok{5}\NormalTok{)}\SpecialCharTok{*}\NormalTok{scores}\SpecialCharTok{$}\NormalTok{class\_7}\SpecialCharTok{+}\NormalTok{(}\DecValTok{8}\NormalTok{)}\SpecialCharTok{*}\NormalTok{scores}\SpecialCharTok{$}\NormalTok{class\_8}\SpecialCharTok{+}\NormalTok{(}\DecValTok{10}\NormalTok{)}\SpecialCharTok{*}\NormalTok{scores}\SpecialCharTok{$}\NormalTok{class\_9}
+               \SpecialCharTok{+}\NormalTok{(}\DecValTok{12}\NormalTok{)}\SpecialCharTok{*}\NormalTok{scores}\SpecialCharTok{$}\NormalTok{class\_10)}
 
-\NormalTok{scores}\SpecialCharTok{$}\NormalTok{year }\OtherTok{\textless{}{-}} \StringTok{"2000"}
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{year}\OtherTok{\textless{}{-}}\StringTok{"2000"}
 
-\NormalTok{scores00 }\OtherTok{\textless{}{-}}\NormalTok{ scores}
+\NormalTok{scores00}\OtherTok{\textless{}{-}}\NormalTok{scores}
 \FunctionTok{rm}\NormalTok{(scores)}
 
-\NormalTok{scores }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(scores01, scores00)}
+\NormalTok{scores}\OtherTok{\textless{}{-}}\FunctionTok{rbind}\NormalTok{(scores01, scores00)}
 \end{Highlighting}
 \end{Shaded}
 \end{frame}
@@ -1326,19 +1384,22 @@ the after school program effects.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{scores}\SpecialCharTok{$}\NormalTok{post }\OtherTok{\textless{}{-}} \DecValTok{0}
-\NormalTok{scores}\SpecialCharTok{$}\NormalTok{post[scores}\SpecialCharTok{$}\NormalTok{year }\SpecialCharTok{==} \StringTok{"2001"}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{1}
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{post}\OtherTok{\textless{}{-}}\DecValTok{0}
+\NormalTok{scores}\SpecialCharTok{$}\NormalTok{post[scores}\SpecialCharTok{$}\NormalTok{year}\SpecialCharTok{==}\StringTok{"2001"}\NormalTok{]}\OtherTok{\textless{}{-}}\DecValTok{1}
 
-\NormalTok{regdid3d }\OtherTok{\textless{}{-}} \FunctionTok{felm}\NormalTok{(read4 }\SpecialCharTok{\textasciitilde{}}\NormalTok{ post }\SpecialCharTok{+}\NormalTok{ treat }\SpecialCharTok{+}\NormalTok{ post }\SpecialCharTok{*}\NormalTok{ treat }\SpecialCharTok{|} \DecValTok{0} \SpecialCharTok{|} \DecValTok{0} \SpecialCharTok{|}
-\NormalTok{    class, scores)}
+\NormalTok{regdid3d}\OtherTok{\textless{}{-}}\FunctionTok{felm}\NormalTok{(read4}\SpecialCharTok{\textasciitilde{}}\NormalTok{post}\SpecialCharTok{+}\NormalTok{treat}\SpecialCharTok{+}\NormalTok{post}\SpecialCharTok{*}\NormalTok{treat}\SpecialCharTok{|}\DecValTok{0}\SpecialCharTok{|}\DecValTok{0}\SpecialCharTok{|}\NormalTok{class,scores)}
 
-\NormalTok{regdid3dinter }\OtherTok{\textless{}{-}} \FunctionTok{felm}\NormalTok{(read4 }\SpecialCharTok{\textasciitilde{}}\NormalTok{ post }\SpecialCharTok{+}\NormalTok{ treat }\SpecialCharTok{+}\NormalTok{ aftsch }\SpecialCharTok{+}\NormalTok{ post }\SpecialCharTok{*}
-\NormalTok{    treat }\SpecialCharTok{+}\NormalTok{ treat }\SpecialCharTok{*}\NormalTok{ aftsch }\SpecialCharTok{+}\NormalTok{ post }\SpecialCharTok{*}\NormalTok{ aftsch }\SpecialCharTok{+}\NormalTok{ post }\SpecialCharTok{*}\NormalTok{ aftsch }\SpecialCharTok{*}
-\NormalTok{    treat }\SpecialCharTok{|} \DecValTok{0} \SpecialCharTok{|} \DecValTok{0} \SpecialCharTok{|}\NormalTok{ class, scores)}
+\NormalTok{regdid3dinter}\OtherTok{\textless{}{-}}\FunctionTok{felm}\NormalTok{(read4}\SpecialCharTok{\textasciitilde{}}\NormalTok{post}\SpecialCharTok{+}\NormalTok{treat}\SpecialCharTok{+}\NormalTok{aftsch}
+                    \SpecialCharTok{+}\NormalTok{post}\SpecialCharTok{*}\NormalTok{treat}\SpecialCharTok{+}\NormalTok{treat}\SpecialCharTok{*}\NormalTok{aftsch}\SpecialCharTok{+}\NormalTok{post}\SpecialCharTok{*}\NormalTok{aftsch}
+                    \SpecialCharTok{+}\NormalTok{post}\SpecialCharTok{*}\NormalTok{aftsch}\SpecialCharTok{*}\NormalTok{treat}
+                    \SpecialCharTok{|}\DecValTok{0}\SpecialCharTok{|}\DecValTok{0}\SpecialCharTok{|}\NormalTok{class,}
+\NormalTok{                    scores)}
 
-\NormalTok{regdid3dinterfe }\OtherTok{\textless{}{-}} \FunctionTok{felm}\NormalTok{(read4 }\SpecialCharTok{\textasciitilde{}}\NormalTok{ post }\SpecialCharTok{+}\NormalTok{ treat }\SpecialCharTok{+}\NormalTok{ aftsch }\SpecialCharTok{+}\NormalTok{ post }\SpecialCharTok{*}
-\NormalTok{    treat }\SpecialCharTok{+}\NormalTok{ treat }\SpecialCharTok{*}\NormalTok{ aftsch }\SpecialCharTok{+}\NormalTok{ post }\SpecialCharTok{*}\NormalTok{ aftsch }\SpecialCharTok{+}\NormalTok{ post }\SpecialCharTok{*}\NormalTok{ aftsch }\SpecialCharTok{*}
-\NormalTok{    treat }\SpecialCharTok{|}\NormalTok{ class }\SpecialCharTok{|} \DecValTok{0} \SpecialCharTok{|}\NormalTok{ class, scores)}
+\NormalTok{regdid3dinterfe}\OtherTok{\textless{}{-}}\FunctionTok{felm}\NormalTok{(read4}\SpecialCharTok{\textasciitilde{}}\NormalTok{post}\SpecialCharTok{+}\NormalTok{treat}\SpecialCharTok{+}\NormalTok{aftsch}
+                    \SpecialCharTok{+}\NormalTok{post}\SpecialCharTok{*}\NormalTok{treat}\SpecialCharTok{+}\NormalTok{treat}\SpecialCharTok{*}\NormalTok{aftsch}\SpecialCharTok{+}\NormalTok{post}\SpecialCharTok{*}\NormalTok{aftsch}
+                    \SpecialCharTok{+}\NormalTok{post}\SpecialCharTok{*}\NormalTok{aftsch}\SpecialCharTok{*}\NormalTok{treat}
+                    \SpecialCharTok{|}\NormalTok{class}\SpecialCharTok{|}\DecValTok{0}\SpecialCharTok{|}\NormalTok{class,}
+\NormalTok{                    scores)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1354,9 +1415,10 @@ the after school program effects.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{stargazer}\NormalTok{(regdid3d, regdid3dinter, regdid3dinterfe, }\AttributeTok{type =} \StringTok{"latex"}\NormalTok{,}
-    \AttributeTok{no.space =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{omit.stat =} \StringTok{"all"}\NormalTok{, }\AttributeTok{add.lines =} \FunctionTok{list}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"Class FE"}\NormalTok{,}
-        \StringTok{"No"}\NormalTok{, }\StringTok{"No"}\NormalTok{, }\StringTok{"Yes"}\NormalTok{)), }\AttributeTok{header =} \ConstantTok{FALSE}\NormalTok{)}
+\FunctionTok{stargazer}\NormalTok{( regdid3d,regdid3dinter,regdid3dinterfe,}
+           \AttributeTok{type=}\StringTok{"latex"}\NormalTok{,}\AttributeTok{no.space=}\ConstantTok{TRUE}\NormalTok{,  }\AttributeTok{omit.stat =} \StringTok{"all"}\NormalTok{,}
+           \AttributeTok{add.lines =} \FunctionTok{list}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"Class FE"}\NormalTok{, }\StringTok{"No"}\NormalTok{, }\StringTok{"No"}\NormalTok{, }\StringTok{"Yes"}\NormalTok{)),}
+           \AttributeTok{header=}\ConstantTok{FALSE}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
