@@ -1088,6 +1088,15 @@ Clustering standard errors can be done in R using the felm function:
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\NormalTok{regdidallnoclust}\OtherTok{\textless{}{-}}\FunctionTok{felm}\NormalTok{(read4}\SpecialCharTok{\textasciitilde{}}\NormalTok{treat}
+                 \SpecialCharTok{+}\NormalTok{year\_1995}\SpecialCharTok{+}\NormalTok{year\_1996}\SpecialCharTok{+}\NormalTok{year\_1997}\SpecialCharTok{+}\NormalTok{year\_1998}
+                 \SpecialCharTok{+}\NormalTok{year\_1999}\SpecialCharTok{+}\NormalTok{year\_2001}\SpecialCharTok{+}\NormalTok{year\_2002}\SpecialCharTok{+}\NormalTok{year\_2003}
+                 \SpecialCharTok{+}\NormalTok{year\_2004}\SpecialCharTok{+}\NormalTok{year\_2005}
+                 \SpecialCharTok{+}\NormalTok{year\_1995}\SpecialCharTok{*}\NormalTok{treat}\SpecialCharTok{+}\NormalTok{year\_1996}\SpecialCharTok{*}\NormalTok{treat}\SpecialCharTok{+}\NormalTok{year\_1997}\SpecialCharTok{*}\NormalTok{treat}\SpecialCharTok{+}\NormalTok{year\_1998}\SpecialCharTok{*}\NormalTok{treat}
+                 \SpecialCharTok{+}\NormalTok{year\_1999}\SpecialCharTok{*}\NormalTok{treat}\SpecialCharTok{+}\NormalTok{year\_2001}\SpecialCharTok{*}\NormalTok{treat}\SpecialCharTok{+}\NormalTok{year\_2002}\SpecialCharTok{*}\NormalTok{treat}\SpecialCharTok{+}\NormalTok{year\_2003}\SpecialCharTok{*}\NormalTok{treat}
+                 \SpecialCharTok{+}\NormalTok{year\_2004}\SpecialCharTok{*}\NormalTok{treat}\SpecialCharTok{+}\NormalTok{year\_2005}\SpecialCharTok{*}\NormalTok{treat,}
+\NormalTok{                 allscores)}
+
 \NormalTok{regdidall3}\OtherTok{\textless{}{-}}\FunctionTok{felm}\NormalTok{(read4}\SpecialCharTok{\textasciitilde{}}\NormalTok{treat}
                  \SpecialCharTok{+}\NormalTok{year\_1995}\SpecialCharTok{+}\NormalTok{year\_1996}\SpecialCharTok{+}\NormalTok{year\_1997}\SpecialCharTok{+}\NormalTok{year\_1998}
                  \SpecialCharTok{+}\NormalTok{year\_1999}\SpecialCharTok{+}\NormalTok{year\_2001}\SpecialCharTok{+}\NormalTok{year\_2002}\SpecialCharTok{+}\NormalTok{year\_2003}
@@ -1109,7 +1118,7 @@ Clustering standard errors can be done in R using the felm function:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{stargazer}\NormalTok{( regdidall2,regdidall3, }\AttributeTok{type=}\StringTok{"latex"}\NormalTok{,}\AttributeTok{no.space=}\ConstantTok{TRUE}\NormalTok{, }\AttributeTok{single.row=}\ConstantTok{TRUE}\NormalTok{, }\AttributeTok{omit.stat =} \StringTok{"all"}\NormalTok{, }\AttributeTok{header=}\ConstantTok{FALSE}\NormalTok{)}
+\FunctionTok{stargazer}\NormalTok{( regdidallnoclust,regdidall3, }\AttributeTok{type=}\StringTok{"latex"}\NormalTok{,}\AttributeTok{no.space=}\ConstantTok{TRUE}\NormalTok{, }\AttributeTok{single.row=}\ConstantTok{TRUE}\NormalTok{, }\AttributeTok{omit.stat =} \StringTok{"all"}\NormalTok{, }\AttributeTok{header=}\ConstantTok{FALSE}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1124,28 +1133,28 @@ Clustering standard errors can be done in R using the felm function:
 \\[-1.8ex] & \multicolumn{2}{c}{read4} \\ 
 \\[-1.8ex] & (1) & (2)\\ 
 \hline \\[-1.8ex] 
- treat & 19.103$^{***}$ (1.645) & 19.103$^{***}$ (1.645) \\ 
-  year\_1995 & $-$7.678$^{***}$ (1.750) & $-$7.678$^{***}$ (1.750) \\ 
-  year\_1996 & $-$2.936 (1.811) & $-$2.936 (1.811) \\ 
-  year\_1997 & $-$4.525$^{***}$ (1.400) & $-$4.525$^{***}$ (1.400) \\ 
-  year\_1998 & 0.097 (1.566) & 0.097 (1.566) \\ 
-  year\_1999 & 0.324 (1.831) & 0.324 (1.831) \\ 
-  year\_2001 & 4.198$^{***}$ (1.461) & 4.198$^{***}$ (1.461) \\ 
-  year\_2002 & $-$3.454$^{***}$ (1.269) & $-$3.454$^{***}$ (1.269) \\ 
-  year\_2003 & 2.451$^{*}$ (1.308) & 2.451$^{*}$ (1.308) \\ 
-  year\_2004 & 3.586$^{**}$ (1.639) & 3.586$^{**}$ (1.639) \\ 
-  year\_2005 & 1.435 (1.553) & 1.435 (1.553) \\ 
-  treat:year\_1995 & 0.560 (1.871) & 0.560 (1.871) \\ 
-  treat:year\_1996 & 2.052 (1.859) & 2.052 (1.859) \\ 
-  treat:year\_1997 & $-$0.201 (1.789) & $-$0.201 (1.789) \\ 
-  treat:year\_1998 & 1.034 (1.760) & 1.034 (1.760) \\ 
-  treat:year\_1999 & 2.162 (1.982) & 2.162 (1.982) \\ 
-  treat:year\_2001 & 10.420$^{***}$ (1.595) & 10.420$^{***}$ (1.595) \\ 
-  treat:year\_2002 & 10.152$^{***}$ (1.404) & 10.152$^{***}$ (1.404) \\ 
-  treat:year\_2003 & 11.851$^{***}$ (1.577) & 11.851$^{***}$ (1.577) \\ 
-  treat:year\_2004 & 12.257$^{***}$ (1.712) & 12.257$^{***}$ (1.712) \\ 
-  treat:year\_2005 & 11.290$^{***}$ (1.810) & 11.290$^{***}$ (1.810) \\ 
-  Constant & 69.903$^{***}$ (1.332) & 69.903$^{***}$ (1.332) \\ 
+ treat & 19.103$^{***}$ (1.247) & 19.103$^{***}$ (1.645) \\ 
+  year\_1995 & $-$7.678$^{***}$ (1.116) & $-$7.678$^{***}$ (1.750) \\ 
+  year\_1996 & $-$2.936$^{***}$ (1.116) & $-$2.936 (1.811) \\ 
+  year\_1997 & $-$4.525$^{***}$ (1.116) & $-$4.525$^{***}$ (1.400) \\ 
+  year\_1998 & 0.097 (1.116) & 0.097 (1.566) \\ 
+  year\_1999 & 0.324 (1.116) & 0.324 (1.831) \\ 
+  year\_2001 & 4.198$^{***}$ (1.116) & 4.198$^{***}$ (1.461) \\ 
+  year\_2002 & $-$3.454$^{***}$ (1.116) & $-$3.454$^{***}$ (1.269) \\ 
+  year\_2003 & 2.451$^{**}$ (1.116) & 2.451$^{*}$ (1.308) \\ 
+  year\_2004 & 3.586$^{***}$ (1.116) & 3.586$^{**}$ (1.639) \\ 
+  year\_2005 & 1.435 (1.116) & 1.435 (1.553) \\ 
+  treat:year\_1995 & 0.560 (1.764) & 0.560 (1.871) \\ 
+  treat:year\_1996 & 2.052 (1.764) & 2.052 (1.859) \\ 
+  treat:year\_1997 & $-$0.201 (1.764) & $-$0.201 (1.789) \\ 
+  treat:year\_1998 & 1.034 (1.764) & 1.034 (1.760) \\ 
+  treat:year\_1999 & 2.162 (1.764) & 2.162 (1.982) \\ 
+  treat:year\_2001 & 10.420$^{***}$ (1.764) & 10.420$^{***}$ (1.595) \\ 
+  treat:year\_2002 & 10.152$^{***}$ (1.764) & 10.152$^{***}$ (1.404) \\ 
+  treat:year\_2003 & 11.851$^{***}$ (1.764) & 11.851$^{***}$ (1.577) \\ 
+  treat:year\_2004 & 12.257$^{***}$ (1.764) & 12.257$^{***}$ (1.712) \\ 
+  treat:year\_2005 & 11.290$^{***}$ (1.764) & 11.290$^{***}$ (1.810) \\ 
+  Constant & 69.903$^{***}$ (0.789) & 69.903$^{***}$ (1.332) \\ 
  \hline \\[-1.8ex] 
 \hline 
 \hline \\[-1.8ex] 
@@ -1596,6 +1605,12 @@ Several recent new papers reassessing these estimation strategies:
 Exercise caution when using this type of approach as our understanding
 of these estimators, and how to correct for their problems is rapidly
 evolving.
+
+\begin{itemize}
+\tightlist
+\item
+  Common correction being applied: Callaway and Sant'Anna (2021)
+\end{itemize}
 \end{frame}
 
 \end{document}

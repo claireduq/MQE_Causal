@@ -640,6 +640,15 @@ Solution: cluster standard errors at the group level.
 Clustering standard errors can be done in R using the felm function: 
  \tiny
 ```{r didinf, results="asis"} 
+regdidallnoclust<-felm(read4~treat
+                 +year_1995+year_1996+year_1997+year_1998
+                 +year_1999+year_2001+year_2002+year_2003
+                 +year_2004+year_2005
+                 +year_1995*treat+year_1996*treat+year_1997*treat+year_1998*treat
+                 +year_1999*treat+year_2001*treat+year_2002*treat+year_2003*treat
+                 +year_2004*treat+year_2005*treat,
+                 allscores)
+
 regdidall3<-felm(read4~treat
                  +year_1995+year_1996+year_1997+year_1998
                  +year_1999+year_2001+year_2002+year_2003
@@ -659,7 +668,7 @@ regdidall3<-felm(read4~treat
 \tiny
 ```{r didinf2, results="asis"} 
 
-stargazer( regdidall2,regdidall3, type="latex",no.space=TRUE, single.row=TRUE, omit.stat = "all", header=FALSE)
+stargazer( regdidallnoclust,regdidall3, type="latex",no.space=TRUE, single.row=TRUE, omit.stat = "all", header=FALSE)
 
 ```
 
@@ -969,6 +978,9 @@ Several recent new papers reassessing these estimation strategies:
     - Estimates are potentially biased when effects change over time.
     
 Exercise caution when using this type of approach as our understanding of these estimators, and how to correct for their problems is rapidly evolving. 
+
+- Common correction being applied: Callaway and Sant’Anna (2021)
+
 
 
 
